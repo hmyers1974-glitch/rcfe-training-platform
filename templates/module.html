@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ m.get("title", "RCFE Training Module") }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-top: 8px;
+        }
+
+        button, .button {
+            display: inline-block;
+            background: #333;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+            padding: 12px 18px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+        <a href="/">← Back to Dashboard</a>
+
+        <h1>
+            Module {{ m["id"] }}:
+            {{ m.get("title", "RCFE Training Module") }}
+        </h1>
+
+        {% if m.get("description") %}
+            <p>{{ m["description"] }}</p>
+        {% endif %}
+    </div>
+
+    {% if m.get("content") %}
+    <div class="card">
+        <h2>Training Content</h2>
+        <div>{{ m["content"] }}</div>
+    </div>
+    {% endif %}
+
+    <div class="card">
+        <h2>Knowledge Hunt</h2>
+        <p>Enter your response below.</p>
+
+        <textarea id="hunt">{{ prog.get("hunt_response", "") }}</textarea>
+
+        <button onclick="saveProgress()">Save Progress</button>
+    </div>
+
+    <div class="card">
+        <h2>Scenario Response</h2>
+
+        <textarea id="scenario">{{ prog.get("scenario_responses", "") }}</textarea>
+
+        <button onclick="saveProgress()">Save Progress</button>
+    </div>
+
+    <div class="card">
+        <h2>Comparison Activity</h2>
+
+        <textarea id="comparison">{{ prog.get("comparison_response", "") }}</textarea>
+
+        <button onclick="saveProgress()">Save Progress</button>
+    </div>
+
+    <div class="card">
+        <h2>Exit Ticket</h2>
+
+        <textarea id="exit">{{ prog.get("exit_ticket", "") }}</textarea>
+
+        <button onclick="saveProgress()">Save Progress</button>
+    </div>
+
+    {% if m.get("quiz") %}
+    <div class="card">
+        <h2>Knowledge Check</h2>
+
+        <p>{{ m["quiz"].get("question", "Select the correct answer.") }}</p>
+
+        {% for answer in m["quiz"].get("choices", []) %}
+            <p>
+                <button onclick="submitQuiz({{ loop.index0 }})">
+                    {{ answer }}
+                </button>
+            </p>
+        {% endfor %}
+
+        <div id="quizMessage" class="message"></div>
+    </div>
+    {% endif %}
+
+    {% if user["role"] == "student" %}
+    <div class="card">
+        <h2>Complete Module</h2>
+
+        <p>
+            Complete all activities and pass the knowledge check before
+            marking this module complete.
+        </p>
+
+        <button onclick="completeModule()">Mark Module Complete</button>
+
+        <div id="completeMessage" class="message"></div>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+let activeSeconds = {{ prog.get("active_seconds", 0) or 0 }};
+
+setInterval(function () {
+    activeSeconds += 10;
+}, 10000);
+
+async function saveProgress() {
+    const response = await fetch("/api/progress/{{ m['id'] }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            hunt_response: document.getElementById("hunt").value,
+            scenario_responses: document.getElementById("scenario").value,
+            comparison_response: document.getElementById("comparison").value,
+            exit_ticket: document.getElementById("exit").value,
+            active_seconds: activeSeconds
+        })
+    });
+
+    if (response.ok) {
+        alert("Progress saved.");
+    } else {
+        alert("Unable to save progress.");
+    }
+}
+
+async function submitQuiz(answer) {
+    const response = await fetch("/api/quiz/{{ m['id'] }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            answer: answer
+        })
+    });
+
+    const data = await response.json();
+
+    const message = document.getElementById("quizMessage");
+
+    if (data.ok) {
+        message.textContent = "Correct. " + (data.why || "");
+    } else {
+        message.textContent = "Not quite. " + (data.why || "");
+    }
+}
+
+async function completeModule() {
+    await saveProgress();
+
+    const response = await fetch("/api/complete/{{ m['id'] }}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({})
+    });
+
+    const data = await response.json();
+
+    const message = document.getElementById("completeMessage");
+
+    if (response.ok && data.ok) {
+        message.textContent = "Module completed successfully.";
+        setTimeout(function () {
+            window.location.href = "/student";
+        }, 1000);
+    } else {
+        message.textContent =
+            data.error || "This module cannot be completed yet.";
+    }
+}
+</script>
+
+</body>
+</html>

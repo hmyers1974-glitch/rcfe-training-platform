@@ -1,0 +1,522 @@
+[
+  {
+    "id": 1,
+    "title": "Administrator Mindset: Regulation to Real Life",
+    "core": "Core 1",
+    "minutes": 60,
+    "teach": "Strong RCFE administration means recognizing risk, verifying the governing rule, acting within scope, documenting objectively, and fixing the system. Use R.E.A.L.: Recognize, Evaluate, Act, Learn & Lead.",
+    "hunt": "Locate the current RCFE topic that addresses Administrator responsibility. Enter the section/topic and one sentence describing what it requires.",
+    "scenario": "At 8:05 AM a caregiver reports a resident fall. At 8:07 AM the med tech reports a blank MAR box from yesterday. At 8:09 AM an AM caregiver calls off. At 8:12 AM an LPA arrives.",
+    "questions": [
+      "What should be handled first and why?",
+      "What can be delegated to qualified staff?",
+      "What records must remain unchanged and truthful?"
+    ],
+    "feedback": "Protect and assess the resident first. Delegate appropriate operational tasks to qualified staff, maintain medication safety, and cooperate with Licensing. Never hide, alter, or backdate records. Delegation does not remove Administrator oversight.",
+    "quiz": {
+      "q": "Which issue should receive the first immediate response?",
+      "choices": [
+        "The LPA waiting",
+        "The resident who just fell",
+        "Next week's schedule",
+        "A billing question"
+      ],
+      "answer": 1,
+      "why": "Immediate resident health and safety takes priority."
+    }
+  },
+  {
+    "id": 2,
+    "title": "Licensing, Incidents & Plans of Correction",
+    "core": "Core 1",
+    "minutes": 60,
+    "teach": "Licensing readiness is daily operational readiness. For incidents use: PROTECT \u2192 ASSESS \u2192 FACTS \u2192 NOTIFY/REPORT \u2192 DOCUMENT \u2192 PREVENT.",
+    "hunt": "Find the current RCFE incident/reporting topic. Note what facts are needed before deciding what reporting is required.",
+    "scenario": "A resident with dementia is found in the parking lot outside a side gate. Staff believe an outside provider may have left the gate unsecured, but no one saw the resident exit.",
+    "questions": [
+      "What do you do before investigating the gate?",
+      "Which statements are facts versus assumptions?",
+      "What systems should be checked?"
+    ],
+    "feedback": "Bring the resident to safety and assess first. Build a factual timeline. Do not document an unverified cause as fact. Evaluate required notifications/reporting and correct immediate hazards. A strong Plan of Correction includes owner, deadline, audit, monitoring, and prevention.",
+    "quiz": {
+      "q": "What comes first after an unexpected resident exit?",
+      "choices": [
+        "Discipline staff",
+        "Protect and assess the resident",
+        "Write the POC",
+        "Call payroll"
+      ],
+      "answer": 1,
+      "why": "Resident safety precedes root-cause analysis."
+    }
+  },
+  {
+    "id": 3,
+    "title": "Medication Safety: Order \u2022 Label \u2022 MAR",
+    "core": "Core 7",
+    "minutes": 60,
+    "teach": "When medication information does not align: STOP \u2192 VERIFY \u2192 COMMUNICATE \u2192 DOCUMENT. Never turn 'I think' into a charted fact.",
+    "hunt": "Locate the medication-management topic and enter two safeguards related to medication assistance.",
+    "scenario": "The physician order and pharmacy label match, but yesterday's MAR box is blank. The employee says, 'I'm pretty sure I gave it.' Today's dose is due now.",
+    "questions": [
+      "What do you know for certain?",
+      "What do you NOT know?",
+      "What should be verified before acting?"
+    ],
+    "feedback": "Do not fill in the MAR from memory without a factual basis. Verify the order and available facts, protect the resident from duplicate/missed-dose risk, communicate with the appropriate professional as needed, and document accurately.",
+    "quiz": {
+      "q": "Which sequence is safest when medication information conflicts?",
+      "choices": [
+        "Give, guess, chart, call",
+        "Stop, verify, communicate, document",
+        "Chart, then verify",
+        "Ask the family"
+      ],
+      "answer": 1,
+      "why": "Verification and communication should precede unsupported action or charting."
+    }
+  },
+  {
+    "id": 4,
+    "title": "Admission, Assessment & Retention",
+    "core": "Core 8",
+    "minutes": 60,
+    "teach": "A vacant room does not determine whether a person is appropriate for an RCFE. Admission and retention decisions must be supported by current information about resident needs and facility capability.",
+    "hunt": "Locate the admission/appraisal and Needs & Services Plan topics and enter one requirement from each.",
+    "scenario": "A family offers to pay a premium rate if Dad can move in tonight. They say he is mostly independent, but hospital paperwork mentions extensive transfer assistance and current physician information is incomplete.",
+    "questions": [
+      "What facts must be clarified before accepting him?",
+      "What staffing or equipment questions matter?",
+      "Can financial pressure drive the decision?"
+    ],
+    "feedback": "Do not substitute family description or the offered rate for a supported admission decision. Reconcile conflicting information, obtain current assessment/medical information, and determine whether the facility can safely meet needs within RCFE requirements.",
+    "quiz": {
+      "q": "What is the best response to incomplete admission information?",
+      "choices": [
+        "Admit now and assess later",
+        "Use the family's verbal promise",
+        "Obtain sufficient current information before final commitment",
+        "Charge more"
+      ],
+      "answer": 2,
+      "why": "The decision should be supported by current information and facility capability."
+    }
+  },
+  {
+    "id": 5,
+    "title": "Dementia: Behavior Is Communication",
+    "core": "Core 9",
+    "minutes": 60,
+    "teach": "Instead of asking 'How do we stop this behavior?' ask 'What is this person communicating?' Evaluate baseline, environment, physical need, old routines, relationship/approach, and what works.",
+    "hunt": "Locate the dementia-care topic and enter two concepts supporting individualized care or safe supervision.",
+    "scenario": "Every afternoon at 4:30 PM, Mary goes to the front door and says she needs to pick up her children from school. When corrected, she becomes more upset.",
+    "questions": [
+      "What might 4:30 PM represent?",
+      "What physical or environmental triggers should be checked?",
+      "How could staff respond without arguing?"
+    ],
+    "feedback": "Treat the repeated statement as meaningful communication. Explore lifelong routine, time-of-day cues, hunger, fatigue, toileting, anxiety, and environment. Use calm validation/redirection and safe supervision, then update the care plan with what works.",
+    "quiz": {
+      "q": "The first question after a repeated dementia behavior should often be:",
+      "choices": [
+        "How do we punish it?",
+        "What might the resident be communicating?",
+        "Which sedative can we request?",
+        "How do we force compliance?"
+      ],
+      "answer": 1,
+      "why": "Person-centered dementia care looks for needs, triggers, and meaning."
+    }
+  },
+  {
+    "id": 6,
+    "title": "Resident Rights in Daily Operations",
+    "core": "Core 12",
+    "minutes": 60,
+    "teach": "Resident rights are operational requirements that shape daily practice.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A daughter demands that staff ban her mother's longtime friend from visiting. The resident wants the visits.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Start with the resident's rights and expressed preference. Verify any lawful authority or legitimate safety/legal restriction before limiting access.",
+    "quiz": {
+      "q": "A resident asks how to contact Licensing. Staff should:",
+      "choices": [
+        "Provide access/information without retaliation",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Start with the resident's rights and expressed preference. Verify any lawful authority or legitimate safety/legal restriction before limiting access."
+    }
+  },
+  {
+    "id": 7,
+    "title": "Staffing, Supervision & Personnel Compliance",
+    "core": "Core 3",
+    "minutes": 60,
+    "teach": "Staffing means resident needs + qualifications + clearances + training + supervision.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "Two caregivers call off. An employee's friend offers to work tonight and complete paperwork tomorrow.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Do not bypass required qualification, clearance, or training because of short staffing. Use qualified relief resources and maintain safe coverage.",
+    "quiz": {
+      "q": "Short staffing means required qualifications may be skipped for one shift.",
+      "choices": [
+        "False",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Do not bypass required qualification, clearance, or training because of short staffing. Use qualified relief resources and maintain safe coverage."
+    }
+  },
+  {
+    "id": 8,
+    "title": "Falls, Nutrition & Change in Condition",
+    "core": "Core 5",
+    "minutes": 60,
+    "teach": "A meaningful change from baseline should trigger observation, documentation, communication, and reassessment.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A resident who normally walks to meals remains in bed, eats little, and appears much weaker than yesterday.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Treat the change seriously, obtain objective observations within role, escalate appropriately, document, and reassess services.",
+    "quiz": {
+      "q": "Three similar falls should be treated as:",
+      "choices": [
+        "A pattern requiring reassessment",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Treat the change seriously, obtain objective observations within role, escalate appropriately, document, and reassess services."
+    }
+  },
+  {
+    "id": 9,
+    "title": "Budgeting, Resident Funds & Ethical Operations",
+    "core": "Core 2",
+    "minutes": 60,
+    "teach": "Financial stewardship must not compromise required resident care or property safeguards.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "Payroll is over budget and someone proposes eliminating evening coverage despite high resident assistance needs.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Review acuity, census, actual hours, overtime, vacancies, workflow, and non-care costs before making cuts that risk resident safety.",
+    "quiz": {
+      "q": "Resident funds should be:",
+      "choices": [
+        "Safeguarded separately with clear accounting",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Review acuity, census, actual hours, overtime, vacancies, workflow, and non-care costs before making cuts that risk resident safety."
+    }
+  },
+  {
+    "id": 10,
+    "title": "APS, Ombudsman & Community Resources",
+    "core": "Core 6",
+    "minutes": 60,
+    "teach": "Know when to use outside resources while staying within the Administrator role.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A resident says her nephew is taking money from her account and she is afraid of him.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Protect the resident, document objectively, follow applicable reporting requirements, and involve appropriate agencies based on the facts.",
+    "quiz": {
+      "q": "The Ombudsman's role is best described as:",
+      "choices": [
+        "Resident advocate/resource",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Protect the resident, document objectively, follow applicable reporting requirements, and involve appropriate agencies based on the facts."
+    }
+  },
+  {
+    "id": 11,
+    "title": "PRN/OTC Medication, Storage & Refills",
+    "core": "Core 7",
+    "minutes": 60,
+    "teach": "Medication safeguards depend on clear written instructions, secure storage, and reliable refill systems.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A PRN is available but staff are unclear about the symptom that should trigger its use.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Do not improvise PRN criteria. Verify the written order/instructions and obtain clarification from the appropriate licensed professional or pharmacy.",
+    "quiz": {
+      "q": "An unlocked medication cart should be:",
+      "choices": [
+        "Secured immediately and evaluated",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Do not improvise PRN criteria. Verify the written order/instructions and obtain clarification from the appropriate licensed professional or pharmacy."
+    }
+  },
+  {
+    "id": 12,
+    "title": "Medication Error Investigation & Prevention",
+    "core": "Core 7",
+    "minutes": 60,
+    "teach": "Medication error management protects the resident now and fixes the system for next time.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A scheduled medication is due but the bottle is empty. Staff saw yesterday that only one dose remained.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Address the immediate medication need and communication, document/report as applicable, then correct the refill system with assigned responsibility and audit.",
+    "quiz": {
+      "q": "Best prevention after repeated refill failures:",
+      "choices": [
+        "Defined reorder threshold + assigned responsibility + audit",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Address the immediate medication need and communication, document/report as applicable, then correct the refill system with assigned responsibility and audit."
+    }
+  },
+  {
+    "id": 13,
+    "title": "Needs & Services Plans and Reappraisal",
+    "core": "Core 8",
+    "minutes": 60,
+    "teach": "Plans should describe this resident's actual needs, not generic phrases.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "Every resident plan says 'assist as needed' and 'monitor for changes.'",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Replace generic language with individualized needs, approaches, risks, frequency, and effective interventions. Update when condition or needs change.",
+    "quiz": {
+      "q": "A major hospital return should trigger:",
+      "choices": [
+        "Reassessment and plan review",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Replace generic language with individualized needs, approaches, risks, frequency, and effective interventions. Update when condition or needs change."
+    }
+  },
+  {
+    "id": 14,
+    "title": "Restricted & Prohibited Health Conditions",
+    "core": "Core 13",
+    "minutes": 60,
+    "teach": "Admission and retention involving health conditions require current rule verification and resident-specific analysis.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A family says another RCFE's med tech performs the health service their loved one needs.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Verify current RCFE requirements, resident condition, staff scope, and whether licensed professional services change the analysis before promising admission.",
+    "quiz": {
+      "q": "When unsure whether a condition can be managed:",
+      "choices": [
+        "Verify the current rule and resident-specific facts",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Verify current RCFE requirements, resident condition, staff scope, and whether licensed professional services change the analysis before promising admission."
+    }
+  },
+  {
+    "id": 15,
+    "title": "Hospice, Bedridden Status & Professional Services",
+    "core": "Core 13",
+    "minutes": 60,
+    "teach": "Hospice adds specialized services but does not replace RCFE responsibilities.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A hospice resident becomes unable to independently leave or reposition in bed; family says hospice promised the resident can stay no matter what.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Reevaluate status, care needs, staffing, professional services, fire-clearance implications, and any approval/waiver issues under current rules.",
+    "quiz": {
+      "q": "Hospice means the RCFE no longer updates the service plan.",
+      "choices": [
+        "False",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Reevaluate status, care needs, staffing, professional services, fire-clearance implications, and any approval/waiver issues under current rules."
+    }
+  },
+  {
+    "id": 16,
+    "title": "Dementia Communication & Personal Care",
+    "core": "Core 9",
+    "minutes": 60,
+    "teach": "Change the approach before labeling the resident resistant.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A resident becomes frightened and strikes out every time a particular caregiver attempts a morning shower.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Assess timing, caregiver, privacy, temperature, pain, cueing, pace, and bathing method. Track what works and update the care plan.",
+    "quiz": {
+      "q": "Best first response to repeated bathing refusal:",
+      "choices": [
+        "Assess triggers and adapt the approach",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Assess timing, caregiver, privacy, temperature, pain, cueing, pace, and bathing method. Track what works and update the care plan."
+    }
+  },
+  {
+    "id": 17,
+    "title": "Dementia Exit Seeking & Program Leadership",
+    "core": "Core 9",
+    "minutes": 60,
+    "teach": "Exit seeking requires individualized care plus reliable supervision and environmental systems.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A resident with dementia cannot be located during evening rounds and was last seen near the courtyard.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Activate the missing-resident/emergency response, search systematically, protect other residents, make required notifications, then investigate and update prevention.",
+    "quiz": {
+      "q": "After a missing resident is safely found:",
+      "choices": [
+        "Investigate cause and update prevention measures",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Activate the missing-resident/emergency response, search systematically, protect other residents, make required notifications, then investigate and update prevention."
+    }
+  },
+  {
+    "id": 18,
+    "title": "Physical Plant, Fire & Emergency Preparedness",
+    "core": "Core 11",
+    "minutes": 60,
+    "teach": "The physical environment is part of resident care.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "During a heat event, power fails. One resident uses equipment that normally requires electricity.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Activate the emergency plan, assess resident-specific equipment and temperature risks, use backup resources, communicate, and evacuate/escalate if the environment cannot safely support residents.",
+    "quiz": {
+      "q": "A loose grab bar should be:",
+      "choices": [
+        "Mitigated immediately and promptly repaired",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Activate the emergency plan, assess resident-specific equipment and temperature risks, use backup resources, communicate, and evacuate/escalate if the environment cannot safely support residents."
+    }
+  },
+  {
+    "id": 19,
+    "title": "Cultural Competency, Dignity & Equitable Care",
+    "core": "Core 10 + 12",
+    "minutes": 60,
+    "teach": "Respectful equitable care includes identity, privacy, chosen relationships, and staff conduct.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "A caregiver repeatedly calls a resident's same-sex partner 'just a friend' despite the resident's stated preference.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Use respectful chosen language, protect confidentiality, verify lawful authority where relevant, and coach/correct staff conduct.",
+    "quiz": {
+      "q": "Cultural competency means:",
+      "choices": [
+        "Respectful equitable care recognizing individual identity and preferences",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Use respectful chosen language, protect confidentiality, verify lawful authority where relevant, and coach/correct staff conduct."
+    }
+  },
+  {
+    "id": 20,
+    "title": "Administrator Capstone: Licensing Day",
+    "core": "Integrated Cores",
+    "minutes": 60,
+    "teach": "Certification-level judgment integrates safety, rights, regulatory verification, documentation, and leadership.",
+    "hunt": "Locate the current RCFE regulatory topic most directly related to this module and enter the citation/topic plus one requirement you would use in practice.",
+    "scenario": "Licensing arrives; a resident falls; the med tech finds a medication discrepancy; a family demands immediate admission with incomplete assessment; NOC staffing is questioned.",
+    "questions": [
+      "What is the FIRST Administrator action?",
+      "What fact controls the decision?",
+      "What must be documented, communicated, or reassessed?"
+    ],
+    "feedback": "Prioritize resident safety and medication risk, deploy qualified staff, cooperate truthfully with Licensing, refuse to shortcut unsupported admission, verify staffing, and document/investigate each issue.",
+    "quiz": {
+      "q": "Best certification-level judgment:",
+      "choices": [
+        "Protect residents, verify the rule, act within scope, document, and prevent recurrence",
+        "Ignore the issue",
+        "Wait until Licensing asks",
+        "Choose the option easiest for staff"
+      ],
+      "answer": 0,
+      "why": "Prioritize resident safety and medication risk, deploy qualified staff, cooperate truthfully with Licensing, refuse to shortcut unsupported admission, verify staffing, and document/investigate each issue."
+    }
+  }
+]

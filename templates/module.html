@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ m.get("title", "RCFE Training Module") }}</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,10 +28,11 @@
 
         textarea {
             width: 100%;
-            min-height: 100px;
+            min-height: 110px;
             box-sizing: border-box;
             padding: 10px;
             margin-top: 8px;
+            font-size: 16px;
         }
 
         button, .button {
@@ -44,8 +46,19 @@
             margin-top: 10px;
         }
 
+        .question {
+            margin-bottom: 8px;
+        }
+
+        .feedback {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
         .message {
-            margin-top: 10px;
+            margin-top: 12px;
             font-weight: bold;
         }
     </style>
@@ -60,24 +73,25 @@
 
         <h1>
             Module {{ m["id"] }}:
-            {{ m.get("title", "RCFE Training Module") }}
+            {{ m["title"] }}
         </h1>
 
-        {% if m.get("description") %}
-            <p>{{ m["description"] }}</p>
+        <p><strong>{{ m.get("core", "") }}</strong></p>
+
+        {% if m.get("minutes") %}
+            <p>Estimated time: {{ m["minutes"] }} minutes</p>
         {% endif %}
     </div>
 
-    {% if m.get("content") %}
     <div class="card">
-        <h2>Training Content</h2>
-        <div>{{ m["content"] }}</div>
+        <h2>Lesson</h2>
+        <p>{{ m["teach"] }}</p>
     </div>
-    {% endif %}
 
     <div class="card">
-        <h2>Knowledge Hunt</h2>
-        <p>Enter your response below.</p>
+        <h2>Regulation Hunt</h2>
+
+        <p>{{ m["hunt"] }}</p>
 
         <textarea id="hunt">{{ prog.get("hunt_response", "") }}</textarea>
 
@@ -85,15 +99,39 @@
     </div>
 
     <div class="card">
-        <h2>Scenario Response</h2>
+        <h2>Scenario</h2>
+
+        <p>{{ m["scenario"] }}</p>
+
+        {% if m.get("questions") %}
+            <h3>Think Through These Questions</h3>
+
+            {% for question in m["questions"] %}
+                <p class="question">
+                    <strong>{{ loop.index }}.</strong> {{ question }}
+                </p>
+            {% endfor %}
+        {% endif %}
+
+        <h3>Your Response</h3>
 
         <textarea id="scenario">{{ prog.get("scenario_responses", "") }}</textarea>
 
         <button onclick="saveProgress()">Save Progress</button>
+
+        <div class="feedback">
+            <strong>Teaching Feedback</strong>
+            <p>{{ m["feedback"] }}</p>
+        </div>
     </div>
 
     <div class="card">
-        <h2>Comparison Activity</h2>
+        <h2>Apply the Lesson</h2>
+
+        <p>
+            Compare the scenario with the lesson above. What actions would be
+            compliant, and what actions would create risk?
+        </p>
 
         <textarea id="comparison">{{ prog.get("comparison_response", "") }}</textarea>
 
@@ -103,6 +141,11 @@
     <div class="card">
         <h2>Exit Ticket</h2>
 
+        <p>
+            In your own words, what is one action you would take differently
+            in your RCFE after completing this module?
+        </p>
+
         <textarea id="exit">{{ prog.get("exit_ticket", "") }}</textarea>
 
         <button onclick="saveProgress()">Save Progress</button>
@@ -110,11 +153,12 @@
 
     {% if m.get("quiz") %}
     <div class="card">
+
         <h2>Knowledge Check</h2>
 
-        <p>{{ m["quiz"].get("question", "Select the correct answer.") }}</p>
+        <p><strong>{{ m["quiz"]["q"] }}</strong></p>
 
-        {% for answer in m["quiz"].get("choices", []) %}
+        {% for answer in m["quiz"]["choices"] %}
             <p>
                 <button onclick="submitQuiz({{ loop.index0 }})">
                     {{ answer }}
@@ -123,27 +167,31 @@
         {% endfor %}
 
         <div id="quizMessage" class="message"></div>
+
     </div>
     {% endif %}
 
     {% if user["role"] == "student" %}
     <div class="card">
+
         <h2>Complete Module</h2>
 
         <p>
-            Complete all activities and pass the knowledge check before
-            marking this module complete.
+            Save all responses and pass the knowledge check before completing
+            this module.
         </p>
 
         <button onclick="completeModule()">Mark Module Complete</button>
 
         <div id="completeMessage" class="message"></div>
+
     </div>
     {% endif %}
 
 </div>
 
 <script>
+
 let activeSeconds = {{ prog.get("active_seconds", 0) or 0 }};
 
 setInterval(function () {
@@ -151,6 +199,7 @@ setInterval(function () {
 }, 10000);
 
 async function saveProgress() {
+
     const response = await fetch("/api/progress/{{ m['id'] }}", {
         method: "POST",
         headers: {
@@ -173,6 +222,7 @@ async function saveProgress() {
 }
 
 async function submitQuiz(answer) {
+
     const response = await fetch("/api/quiz/{{ m['id'] }}", {
         method: "POST",
         headers: {
@@ -195,6 +245,7 @@ async function submitQuiz(answer) {
 }
 
 async function completeModule() {
+
     await saveProgress();
 
     const response = await fetch("/api/complete/{{ m['id'] }}", {
@@ -211,14 +262,17 @@ async function completeModule() {
 
     if (response.ok && data.ok) {
         message.textContent = "Module completed successfully.";
+
         setTimeout(function () {
             window.location.href = "/student";
         }, 1000);
+
     } else {
         message.textContent =
             data.error || "This module cannot be completed yet.";
     }
 }
+
 </script>
 
 </body>

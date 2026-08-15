@@ -28,27 +28,118 @@
             approaches you.
         </p>
 
-        <div style="
-            border:1px solid #ddd;
-            border-radius:10px;
-            padding:18px;
+        <div class="movie-scene" style="
+            background:#111;
+            color:white;
+            border-radius:16px;
+            padding:24px;
             margin-top:20px;
-            background:#fafafa;
+            max-width:700px;
         ">
-            <h3>Caregiver</h3>
-            <img
-    src="{{ url_for('static', filename='maria-caregiver.png') }}"
-    alt="Maria, caregiver"
-    style="width:180px; max-width:100%; border-radius:12px; display:block; margin:12px 0 18px 0;">
 
-            <p style="font-size:18px;">
-                “Heather, I walked into Mrs. Smith’s room and observed her on
-                the floor beside the bed.”
+            <p style="font-size:14px; opacity:.7;">
+                SCENE 1 · 8:05 AM
             </p>
 
-            <button type="button" onclick="playPrompt()">
-                🔊 Play Voice Prompt
-            </button>
+            <div style="
+                display:flex;
+                align-items:center;
+                gap:18px;
+                margin-bottom:20px;
+            ">
+
+                <img
+                    src="{{ url_for('static', filename='maria-caregiver.png') }}"
+                    alt="Maria, caregiver"
+                    style="
+                        width:120px;
+                        height:120px;
+                        object-fit:cover;
+                        border-radius:50%;
+                        border:3px solid white;
+                    "
+                >
+
+                <div>
+                    <h2 style="margin:0 0 5px 0;">
+                        Maria approaches you
+                    </h2>
+
+                    <p style="margin:0; opacity:.75;">
+                        Caregiver
+                    </p>
+                </div>
+
+            </div>
+
+            <p style="
+                font-size:20px;
+                line-height:1.6;
+                background:#222;
+                padding:20px;
+                border-radius:12px;
+            ">
+                <strong>Maria:</strong><br>
+                “Heather, I walked into Mrs. Smith’s room and observed her beside the bed on the floor.”
+            </p>
+
+            <div id="scene1Choices">
+
+                <p><strong>How do you respond?</strong></p>
+
+                <button
+                    onclick="scene1Answer('A')"
+                    style="
+                        display:block;
+                        width:100%;
+                        padding:14px;
+                        margin:8px 0;
+                        cursor:pointer;
+                    "
+                >
+                    A. Help her up and tell me if she complains of pain.
+                </button>
+
+                <button
+                    onclick="scene1Answer('B')"
+                    style="
+                        display:block;
+                        width:100%;
+                        padding:14px;
+                        margin:8px 0;
+                        cursor:pointer;
+                    "
+                >
+                    B. Don't move her yet. I'm coming with you. Let's assess the situation first.
+                </button>
+
+                <button
+                    onclick="scene1Answer('C')"
+                    style="
+                        display:block;
+                        width:100%;
+                        padding:14px;
+                        margin:8px 0;
+                        cursor:pointer;
+                    "
+                >
+                    C. Call her family and let them know she fell.
+                </button>
+
+            </div>
+
+            <div
+                id="scene1Response"
+                style="
+                    display:none;
+                    margin-top:20px;
+                    padding:18px;
+                    background:#222;
+                    border-radius:12px;
+                    font-size:18px;
+                "
+            ></div>
+
         </div>
     </div>
 
@@ -79,12 +170,15 @@
 
         <p id="feedbackText"></p>
 
-        <div id="teachingPoint" style="
-            margin-top:20px;
-            padding:15px;
-            border-radius:8px;
-            background:#f7f7f7;
-        "></div>
+        <div
+            id="teachingPoint"
+            style="
+                margin-top:20px;
+                padding:15px;
+                border-radius:8px;
+                background:#f7f7f7;
+            "
+        ></div>
 
         <button
             id="continueButton"
@@ -162,19 +256,32 @@
 
 <script>
 
-function playPrompt() {
-    const text =
-        "Heather, I walked into Mrs. Smith's room and observed her on the floor beside the bed.";
+function scene1Answer(choice) {
 
-    const speech = new SpeechSynthesisUtterance(text);
+    const response = document.getElementById("scene1Response");
 
-    speech.rate = 0.95;
-    speech.pitch = 1;
-    speech.volume = 1;
+    response.style.display = "block";
 
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(speech);
+    if (choice === "B") {
+
+        response.innerHTML =
+            "<strong>Good response.</strong><br><br>" +
+            "You immediately go with Maria to Mrs. Smith's room. " +
+            "You do not assume she simply fell, and you do not move her " +
+            "until her condition is assessed.<br><br>" +
+            "<strong>Scene continues...</strong>";
+
+    } else {
+
+        response.innerHTML =
+            "<strong>Consider the immediate safety risk.</strong><br><br>" +
+            "Before moving Mrs. Smith or focusing on notifications, " +
+            "you need to evaluate her condition and determine what " +
+            "immediate action is required.<br><br>" +
+            "<strong>Try another response.</strong>";
+    }
 }
+
 
 function chooseAnswer(answer) {
 
@@ -200,7 +307,6 @@ function chooseAnswer(answer) {
             "not outrank an immediate resident health or safety concern.";
 
         continueButton.style.display = "none";
-
     }
 
     if (answer === "B") {
@@ -217,7 +323,6 @@ function chooseAnswer(answer) {
             "observed. Do not turn an assumption into a documented fact.";
 
         continueButton.style.display = "none";
-
     }
 
     if (answer === "C") {
@@ -234,7 +339,6 @@ function chooseAnswer(answer) {
             "takes priority over competing administrative demands.";
 
         continueButton.style.display = "inline-block";
-
     }
 
     if (answer === "D") {
@@ -252,13 +356,13 @@ function chooseAnswer(answer) {
             "follow-up.";
 
         continueButton.style.display = "none";
-
     }
 
     card.scrollIntoView({
         behavior: "smooth"
     });
 }
+
 
 function continueEpisode() {
 

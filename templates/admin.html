@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCFE Training Platform - Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #333;
+            color: white;
+            border: 0;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        a {
+            color: #333;
+        }
+
+        .logout {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <a class="logout" href="/logout">Sign Out</a>
+        <h1>RCFE Training Platform</h1>
+        <p>Administrator Dashboard</p>
+        <p>Welcome, {{ user["full_name"] }}</p>
+    </div>
+
+    {% if user["role"] == "admin" %}
+    <div class="card">
+        <h2>Create Student</h2>
+
+        <form method="POST" action="/admin/create-student">
+            <input
+                type="text"
+                name="full_name"
+                placeholder="Student full name"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Student email"
+                required
+            >
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Temporary password"
+                required
+            >
+
+            <button type="submit">Create Student</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <div class="card">
+        <h2>Students</h2>
+
+        <p>Total course modules: {{ module_count }}</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Email</th>
+                    <th>Progress</th>
+                    <th>Active Time</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>
+                        <a href="/admin/student/{{ student['id'] }}">
+                            {{ student["full_name"] }}
+                        </a>
+                    </td>
+
+                    <td>{{ student["email"] }}</td>
+
+                    <td>
+                        {{ student["completed_modules"] or 0 }}
+                        /
+                        {{ module_count }}
+                    </td>
+
+                    <td>
+                        {{ student["active_seconds"] or 0 }} seconds
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">No students found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <a href="/admin/export.csv">Download Completion Records</a>
+    </div>
+
+</div>
+
+</body>
+</html>

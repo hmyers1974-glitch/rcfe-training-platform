@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -82,10 +86,7 @@
             border-radius: 10px;
         }
 
-
-        /* ==============================
-           MOVIE SCENE
-           ============================== */
+        /* MOVIE SCENE */
 
         .movie {
             background: #111;
@@ -118,10 +119,7 @@
             color: #ddd;
         }
 
-
-        /* ==============================
-           MARIA
-           ============================== */
+        /* MARIA */
 
         .character {
             margin-top: 22px;
@@ -130,7 +128,6 @@
         .maria-photo-wrap {
             position: relative;
             width: 100%;
-            max-height: 500px;
             overflow: hidden;
             border-radius: 18px;
             background: #222;
@@ -138,9 +135,9 @@
 
         .maria-photo {
             width: 100%;
-            max-height: 500px;
-            object-fit: cover;
+            height: auto;
             display: block;
+            border-radius: 18px;
 
             animation:
                 mariaFade 1s ease-out,
@@ -169,16 +166,6 @@
             }
         }
 
-        .maria-fallback {
-            display: none;
-            min-height: 260px;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px;
-            color: #ccc;
-        }
-
         .character-info {
             padding: 18px 2px 4px;
         }
@@ -198,10 +185,7 @@
             color: #aaa;
         }
 
-
-        /* ==============================
-           DIALOGUE
-           ============================== */
+        /* DIALOGUE */
 
         .dialogue {
             background: #222;
@@ -274,10 +258,7 @@
             }
         }
 
-
-        /* ==============================
-           MOBILE
-           ============================== */
+        /* MOBILE */
 
         @media (max-width: 600px) {
 
@@ -310,19 +291,15 @@
     </style>
 </head>
 
-
 <body>
 
 <div class="container">
-
 
     <!-- MODULE HEADER -->
 
     <div class="card">
 
-        <a href="/">
-            ← Back to Dashboard
-        </a>
+        <a href="/">← Back to Dashboard</a>
 
         <h1>
             Module {{ m["id"] }}:
@@ -347,10 +324,7 @@
     {% if m["id"] == 1 %}
 
 
-    <!-- ===================================
-         MODULE 1
-         EPISODE 1
-         =================================== -->
+    <!-- EPISODE 1 -->
 
     <div class="card">
 
@@ -396,20 +370,9 @@
                         <img
                             id="mariaImage"
                             class="maria-photo"
-                            src="{{ url_for('static', filename='maria-caregiver.png') }}"
+                            src="/static/maria-caregiver.png"
                             alt="Maria, caregiver"
-                            onerror="showMariaFallback()"
                         >
-
-                        <div
-                            id="mariaFallback"
-                            class="maria-fallback"
-                        >
-                            <div>
-                                <h2>Maria</h2>
-                                <p>Caregiver · Morning Shift</p>
-                            </div>
-                        </div>
 
                     </div>
 
@@ -547,9 +510,7 @@
     </div>
 
 
-    <!-- ===================================
-         ADMINISTRATOR DECISION
-         =================================== -->
+    <!-- ADMINISTRATOR DECISION -->
 
     <div
         class="card"
@@ -704,9 +665,7 @@
     {% else %}
 
 
-    <!-- ===================================
-         ALL OTHER MODULES
-         =================================== -->
+    <!-- ALL OTHER MODULES -->
 
     <div class="card">
 
@@ -787,35 +746,9 @@
 </div>
 
 
-
 <script>
 
-
-/* ===============================
-   MARIA IMAGE
-   =============================== */
-
-function showMariaFallback() {
-
-    const image =
-        document.getElementById("mariaImage");
-
-    const fallback =
-        document.getElementById("mariaFallback");
-
-    if (image) {
-        image.style.display = "none";
-    }
-
-    if (fallback) {
-        fallback.style.display = "flex";
-    }
-}
-
-
-/* ===============================
-   MARIA DECISION
-   =============================== */
+/* MARIA DECISION */
 
 function mariaAnswer(answer) {
 
@@ -862,9 +795,7 @@ function mariaAnswer(answer) {
 }
 
 
-/* ===============================
-   CONTINUE MARIA SCENE
-   =============================== */
+/* CONTINUE MARIA SCENE */
 
 function continueMariaScene() {
 
@@ -890,9 +821,7 @@ function continueMariaScene() {
 }
 
 
-/* ===============================
-   ADMINISTRATOR DECISION
-   =============================== */
+/* ADMINISTRATOR DECISION */
 
 function administratorAnswer(answer) {
 
@@ -986,9 +915,7 @@ function administratorAnswer(answer) {
 }
 
 
-/* ===============================
-   EPISODE 2
-   =============================== */
+/* EPISODE 2 */
 
 function showEpisode2() {
 
@@ -1005,9 +932,7 @@ function showEpisode2() {
 }
 
 
-/* ===============================
-   SAVE OTHER MODULES
-   =============================== */
+/* SAVE OTHER MODULES */
 
 function saveProgress() {
 
@@ -1058,9 +983,987 @@ function saveProgress() {
     });
 }
 
-
 </script>
 
+</body>
+</html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Module {{ m["id"] }} - {{ m["title"] }}</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f4f6;
+            color: #222;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+            margin: 25px auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 14px rgba(0,0,0,.08);
+        }
+
+        a {
+            color: #235c74;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin-top: 18px;
+        }
+
+        h2 {
+            margin-top: 8px;
+        }
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 130px;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border: 1px solid #bbb;
+            font-size: 16px;
+        }
+
+        .choice {
+            width: 100%;
+            display: block;
+            margin: 10px 0;
+            text-align: left;
+            background: #e9eef2;
+            color: #222;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f6f6f6;
+            border-radius: 10px;
+        }
+
+        /* MOVIE SCENE */
+
+        .movie {
+            background: #111;
+            color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,.28);
+        }
+
+        .movie-top {
+            background: #1b1b1b;
+            padding: 14px 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .movie-time {
+            margin: 0;
+            font-size: 13px;
+            letter-spacing: 1.4px;
+            opacity: .7;
+        }
+
+        .movie-body {
+            padding: 24px;
+        }
+
+        .opening-text {
+            font-size: 17px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        /* MARIA */
+
+        .character {
+            margin-top: 22px;
+        }
+
+        .maria-photo-wrap {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 18px;
+            background: #222;
+        }
+
+        .maria-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 18px;
+
+            animation:
+                mariaFade 1s ease-out,
+                mariaMove 7s ease-in-out 1s infinite alternate;
+        }
+
+        @keyframes mariaFade {
+            from {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes mariaMove {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.025);
+            }
+        }
+
+        .character-info {
+            padding: 18px 2px 4px;
+        }
+
+        .character-name {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .character-role {
+            margin: 5px 0;
+            color: #aaa;
+        }
+
+        .character-status {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        /* DIALOGUE */
+
+        .dialogue {
+            background: #222;
+            border-left: 5px solid white;
+            padding: 22px;
+            border-radius: 12px;
+            margin-top: 18px;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .speaker {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .scene-question {
+            font-size: 19px;
+            margin-top: 26px;
+        }
+
+        .scene-choice {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 15px;
+            text-align: left;
+            background: white;
+            color: #111;
+            border-radius: 10px;
+        }
+
+        .scene-response {
+            display: none;
+            background: #252525;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 12px;
+            line-height: 1.6;
+        }
+
+        .continue-scene {
+            display: none;
+            background: white;
+            color: #111;
+            font-weight: bold;
+            margin-top: 18px;
+        }
+
+        .next-scene {
+            display: none;
+            background: #191919;
+            margin-top: 24px;
+            padding: 22px;
+            border-radius: 12px;
+            border-left: 5px solid white;
+            line-height: 1.7;
+            animation: fadeUp .7s ease-out;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 94%;
+                margin: 16px auto;
+            }
+
+            .card {
+                padding: 17px;
+            }
+
+            .movie-body {
+                padding: 18px;
+            }
+
+            .dialogue {
+                font-size: 18px;
+            }
+
+            .character-name {
+                font-size: 27px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- MODULE HEADER -->
+
+    <div class="card">
+
+        <a href="/">← Back to Dashboard</a>
+
+        <h1>
+            Module {{ m["id"] }}:
+            {{ m["title"] }}
+        </h1>
+
+        <p>
+            <strong>{{ m.get("core", "") }}</strong>
+        </p>
+
+        {% if m.get("minutes") %}
+
+        <p>
+            Estimated time: {{ m["minutes"] }} minutes
+        </p>
+
+        {% endif %}
+
+    </div>
+
+
+    {% if m["id"] == 1 %}
+
+
+    <!-- EPISODE 1 -->
+
+    <div class="card">
+
+        <p>
+            <strong>Episode 1</strong>
+        </p>
+
+        <h2>Resident Down</h2>
+
+        <p>
+            It is 8:05 AM. Your morning has just started.
+        </p>
+
+        <p>
+            Before you can settle into your office, one of your caregivers
+            approaches you quickly.
+        </p>
+
+
+        <div class="movie">
+
+            <div class="movie-top">
+
+                <p class="movie-time">
+                    8:05 AM · RESIDENT CARE HALLWAY
+                </p>
+
+            </div>
+
+
+            <div class="movie-body">
+
+                <p class="opening-text">
+                    Maria is moving quickly toward you. Her expression is serious.
+                    You can tell immediately that something has happened.
+                </p>
+
+
+                <div class="character">
+
+                    <div class="maria-photo-wrap">
+
+                        <img
+                            id="mariaImage"
+                            class="maria-photo"
+                            src="/static/maria-caregiver.png"
+                            alt="Maria, caregiver"
+                        >
+
+                    </div>
+
+
+                    <div class="character-info">
+
+                        <h2 class="character-name">
+                            Maria
+                        </h2>
+
+                        <p class="character-role">
+                            Caregiver
+                        </p>
+
+                        <p class="character-status">
+                            Morning Shift
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dialogue">
+
+                    <div class="speaker">
+                        MARIA
+                    </div>
+
+                    “Heather, I walked into Mrs. Smith’s room and
+                    observed her beside the bed on the floor.”
+
+                </div>
+
+
+                <p class="scene-question">
+
+                    <strong>
+                        Maria is waiting for your direction. What do you say?
+                    </strong>
+
+                </p>
+
+
+                <div id="mariaChoices">
+
+                    <button
+                        class="scene-choice"
+                        onclick="mariaAnswer('A')"
+                    >
+                        A. “Help her up and tell me if she complains of pain.”
+                    </button>
+
+
+                    <button
+                        class="scene-choice"
+                        onclick="mariaAnswer('B')"
+                    >
+                        B. “Don't move her yet. I'm coming with you.
+                        Let's assess the situation first.”
+                    </button>
+
+
+                    <button
+                        class="scene-choice"
+                        onclick="mariaAnswer('C')"
+                    >
+                        C. “Call her family and tell them she fell.”
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="mariaResponse"
+                    class="scene-response"
+                ></div>
+
+
+                <button
+                    id="mariaContinue"
+                    class="continue-scene"
+                    onclick="continueMariaScene()"
+                >
+                    Continue Scene →
+                </button>
+
+
+                <div
+                    id="mariaNextScene"
+                    class="next-scene"
+                >
+
+                    <div class="speaker">
+                        YOU
+                    </div>
+
+                    “Maria, don't move her. Come with me.”
+
+                    <br><br>
+
+                    You walk quickly toward Mrs. Smith's room.
+
+                    <br><br>
+
+                    As you approach the doorway, you focus on what Maria
+                    actually told you.
+
+                    <br><br>
+
+                    Maria said she <strong>observed Mrs. Smith beside the bed
+                    on the floor.</strong>
+
+                    <br><br>
+
+                    She did not say that she saw Mrs. Smith fall.
+
+                    <br><br>
+
+                    That distinction matters.
+
+                    <br><br>
+
+                    <strong>
+                        A strong Administrator responds to the immediate risk
+                        without turning an assumption into a fact.
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADMINISTRATOR DECISION -->
+
+    <div
+        class="card"
+        id="administratorDecision"
+    >
+
+        <h2>
+            Now You Are the Administrator
+        </h2>
+
+        <p>
+            As you head toward Mrs. Smith's room, several things are competing
+            for your attention.
+        </p>
+
+        <p>
+            <strong>
+                What is your first responsibility?
+            </strong>
+        </p>
+
+
+        <button
+            class="choice"
+            onclick="administratorAnswer('A')"
+        >
+            A. Stop and greet Licensing first.
+        </button>
+
+
+        <button
+            class="choice"
+            onclick="administratorAnswer('B')"
+        >
+            B. Tell Maria to document that Mrs. Smith fell.
+        </button>
+
+
+        <button
+            class="choice"
+            onclick="administratorAnswer('C')"
+        >
+            C. Make sure Mrs. Smith is protected and appropriately assessed.
+        </button>
+
+
+        <button
+            class="choice"
+            onclick="administratorAnswer('D')"
+        >
+            D. Call Mrs. Smith's family before doing anything else.
+        </button>
+
+    </div>
+
+
+    <!-- FEEDBACK -->
+
+    <div
+        class="card"
+        id="feedbackCard"
+        style="display:none;"
+    >
+
+        <h2 id="feedbackTitle"></h2>
+
+        <p id="feedbackText"></p>
+
+        <div
+            id="teachingPoint"
+            class="feedback"
+        ></div>
+
+        <button
+            id="episodeContinue"
+            style="
+                display:none;
+                margin-top:18px;
+                background:#222;
+                color:white;
+            "
+            onclick="showEpisode2()"
+        >
+            Continue Episode →
+        </button>
+
+    </div>
+
+
+    <!-- EPISODE 2 -->
+
+    <div
+        class="card"
+        id="episode2"
+        style="display:none;"
+    >
+
+        <p>
+            <strong>Episode 2</strong>
+        </p>
+
+        <h2>
+            The Blank MAR
+        </h2>
+
+        <p>
+            Before you reach Mrs. Smith's room, another employee approaches.
+        </p>
+
+        <div
+            style="
+                background:#111;
+                color:white;
+                padding:22px;
+                border-radius:14px;
+                font-size:19px;
+                line-height:1.6;
+            "
+        >
+
+            <strong>
+                MEDICATION TECHNICIAN
+            </strong>
+
+            <br><br>
+
+            “Heather, I found a blank MAR entry from last night.
+            I don't know whether the medication was given.”
+
+        </div>
+
+        <p style="margin-top:22px;">
+
+            <strong>
+                You now have two active issues.
+            </strong>
+
+        </p>
+
+        <p>
+            Which issue comes first, what facts do you have, and what still
+            needs to be verified?
+        </p>
+
+        <p>
+            This is where the R.E.A.L. Administrator method begins.
+        </p>
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- ALL OTHER MODULES -->
+
+    <div class="card">
+
+        <h2>Lesson</h2>
+
+        <p>
+            {{ m["teach"] }}
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Regulation Hunt
+        </h2>
+
+        <p>
+            {{ m["hunt"] }}
+        </p>
+
+        <textarea id="hunt">{{ prog.get("hunt_response", "") }}</textarea>
+
+        <button onclick="saveProgress()">
+            Save Progress
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            Scenario
+        </h2>
+
+        <p>
+            {{ m["scenario"] }}
+        </p>
+
+
+        {% for question in m.get("questions", []) %}
+
+        <p>
+            <strong>{{ loop.index }}.</strong>
+            {{ question }}
+        </p>
+
+        {% endfor %}
+
+
+        <textarea id="scenario">{{ prog.get("scenario_responses", "") }}</textarea>
+
+        <button onclick="saveProgress()">
+            Save Progress
+        </button>
+
+
+        <div class="feedback">
+
+            <strong>
+                Teaching Feedback
+            </strong>
+
+            <p>
+                {{ m["feedback"] }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+<script>
+
+/* MARIA DECISION */
+
+function mariaAnswer(answer) {
+
+    const response =
+        document.getElementById("mariaResponse");
+
+    const continueButton =
+        document.getElementById("mariaContinue");
+
+    response.style.display = "block";
+
+
+    if (answer === "A") {
+
+        response.innerHTML =
+            "<strong>Not yet.</strong><br><br>" +
+            "Mrs. Smith should not automatically be moved before her immediate condition is evaluated.<br><br>" +
+            "Your first responsibility is resident safety.";
+
+        continueButton.style.display = "none";
+    }
+
+
+    if (answer === "B") {
+
+        response.innerHTML =
+            "<strong>Good decision.</strong><br><br>" +
+            "You respond to the immediate safety concern without assuming what happened.<br><br>" +
+            "Maria observed Mrs. Smith beside the bed on the floor. She did not witness a fall.";
+
+        continueButton.style.display = "inline-block";
+    }
+
+
+    if (answer === "C") {
+
+        response.innerHTML =
+            "<strong>Not first.</strong><br><br>" +
+            "Family notification may be required, but Mrs. Smith's immediate safety and condition take priority.<br><br>" +
+            "Also notice the wording: Maria did not say she witnessed a fall.";
+
+        continueButton.style.display = "none";
+    }
+}
+
+
+/* CONTINUE MARIA SCENE */
+
+function continueMariaScene() {
+
+    const choices =
+        document.getElementById("mariaChoices");
+
+    const continueButton =
+        document.getElementById("mariaContinue");
+
+    const nextScene =
+        document.getElementById("mariaNextScene");
+
+    choices.style.display = "none";
+
+    continueButton.style.display = "none";
+
+    nextScene.style.display = "block";
+
+    nextScene.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+
+/* ADMINISTRATOR DECISION */
+
+function administratorAnswer(answer) {
+
+    const feedbackCard =
+        document.getElementById("feedbackCard");
+
+    const title =
+        document.getElementById("feedbackTitle");
+
+    const text =
+        document.getElementById("feedbackText");
+
+    const teaching =
+        document.getElementById("teachingPoint");
+
+    const continueButton =
+        document.getElementById("episodeContinue");
+
+
+    feedbackCard.style.display = "block";
+
+
+    if (answer === "A") {
+
+        title.textContent =
+            "Immediate Risk Comes First";
+
+        text.textContent =
+            "Licensing is important, but Mrs. Smith may have an injury or change in condition that requires immediate attention.";
+
+        teaching.innerHTML =
+            "<strong>Leadership Point:</strong> Administrative pressure should never outrank an immediate resident health or safety concern.";
+
+        continueButton.style.display =
+            "none";
+    }
+
+
+    if (answer === "B") {
+
+        title.textContent =
+            "Watch the Documentation Trap";
+
+        text.textContent =
+            "Maria did not report seeing Mrs. Smith fall. She reported observing Mrs. Smith beside the bed on the floor.";
+
+        teaching.innerHTML =
+            "<strong>Documentation Point:</strong> Document what was actually observed. Never turn an assumption into a fact.";
+
+        continueButton.style.display =
+            "none";
+    }
+
+
+    if (answer === "C") {
+
+        title.textContent =
+            "Correct — Resident Safety First";
+
+        text.textContent =
+            "Your first priority is making sure Mrs. Smith is protected and receives the appropriate immediate assessment and response.";
+
+        teaching.innerHTML =
+            "<strong>R.E.A.L. — Recognize:</strong> Ask yourself: What risk exists right now? Immediate resident health and safety take priority.";
+
+        continueButton.style.display =
+            "inline-block";
+    }
+
+
+    if (answer === "D") {
+
+        title.textContent =
+            "Family Communication Comes After Immediate Safety";
+
+        text.textContent =
+            "Family communication may be necessary, but the resident's immediate condition must be addressed first.";
+
+        teaching.innerHTML =
+            "<strong>Prioritization Point:</strong> Address the immediate resident need first, then complete required notifications and follow-up.";
+
+        continueButton.style.display =
+            "none";
+    }
+
+
+    feedbackCard.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+
+/* EPISODE 2 */
+
+function showEpisode2() {
+
+    const episode =
+        document.getElementById("episode2");
+
+    episode.style.display =
+        "block";
+
+    episode.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+/* SAVE OTHER MODULES */
+
+function saveProgress() {
+
+    const hunt =
+        document.getElementById("hunt");
+
+    const scenario =
+        document.getElementById("scenario");
+
+    const data = {
+        hunt_response:
+            hunt ? hunt.value : "",
+
+        scenario_responses:
+            scenario ? scenario.value : ""
+    };
+
+
+    fetch(
+        "/save/{{ m['id'] }}",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body:
+                JSON.stringify(data)
+        }
+    )
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        alert("Progress saved.");
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        alert("There was a problem saving your progress.");
+
+    });
+}
+
+</script>
 
 </body>
 </html>

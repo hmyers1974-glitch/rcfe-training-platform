@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Detail - RCFE Training Platform</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        a {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+        <a href="/admin">← Back to Admin Dashboard</a>
+
+        <h1>Student Record</h1>
+
+        {% if student %}
+            <h2>{{ student["full_name"] }}</h2>
+            <p>{{ student["email"] }}</p>
+        {% else %}
+            <p>Student not found.</p>
+        {% endif %}
+    </div>
+
+    {% if student %}
+
+    <div class="card">
+
+        <h2>Module Progress</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Status</th>
+                    <th>Active Time</th>
+                    <th>Quiz</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for module in modules %}
+
+                    {% set record = namespace(value=None) %}
+
+                    {% for row in rows %}
+                        {% if row["module_id"] == module["id"] %}
+                            {% set record.value = row %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <tr>
+
+                        <td>
+                            {{ module["id"] }} -
+                            {{ module.get("title", "Training Module") }}
+                        </td>
+
+                        <td>
+                            {% if record.value and record.value["completed_at"] %}
+                                Completed
+                            {% elif record.value %}
+                                In Progress
+                            {% else %}
+                                Not Started
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if record.value %}
+                                {{ record.value["active_seconds"] }} seconds
+                            {% else %}
+                                0 seconds
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if record.value and record.value["quiz_passed"] %}
+                                Passed
+                            {% elif record.value and record.value["quiz_attempts"] %}
+                                Attempted
+                            {% else %}
+                                Not Attempted
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Recent Activity</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Module</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for event in events %}
+
+                <tr>
+                    <td>{{ event["created_at"] }}</td>
+                    <td>{{ event["module_id"] or "-" }}</td>
+                    <td>{{ event["event_type"] }}</td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="3">No activity recorded yet.</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

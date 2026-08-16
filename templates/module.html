@@ -15,22 +15,22 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f3f4f6;
+            background: #eef2f5;
             color: #222;
         }
 
         .container {
-            width: 92%;
+            width: 94%;
             max-width: 900px;
-            margin: 25px auto;
+            margin: 20px auto;
         }
 
         .card {
             background: white;
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 22px;
             margin-bottom: 22px;
-            box-shadow: 0 4px 14px rgba(0,0,0,.08);
+            box-shadow: 0 5px 18px rgba(0,0,0,.08);
         }
 
         a {
@@ -40,85 +40,145 @@
         }
 
         h1 {
-            margin-top: 16px;
+            margin-bottom: 8px;
         }
 
         h2 {
-            margin-bottom: 8px;
+            margin-top: 5px;
         }
 
         .episode-label {
-            color: #235c74;
-            font-weight: bold;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 14px;
+            color: #667;
+            font-weight: bold;
         }
 
         .scene {
+            background: #1d252c;
+            border-radius: 18px;
             overflow: hidden;
-            border-radius: 16px;
-            background: #111;
             margin-top: 20px;
-            position: relative;
-        }
-
-        .maria-photo {
-            width: 100%;
-            display: block;
-            max-height: 520px;
-            object-fit: cover;
-        }
-
-        .scene-caption {
-            background: rgba(0,0,0,.82);
             color: white;
-            padding: 18px;
-            font-size: 18px;
-            line-height: 1.5;
         }
 
-        .speaker {
-            color: #9dd9f3;
+        .scene-top {
+            padding: 18px;
+            background: #111820;
+        }
+
+        .scene-time {
+            font-size: 14px;
+            opacity: .75;
+        }
+
+        .scene-body {
+            padding: 22px;
+        }
+
+        .character {
+            text-align: center;
+            animation: enterScene 1.2s ease-out;
+        }
+
+        .character img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,.35);
+        }
+
+        .character-name {
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-top: 12px;
+        }
+
+        .character-role {
+            font-size: 14px;
+            opacity: .8;
         }
 
         .dialogue {
-            font-size: 20px;
+            margin-top: 24px;
+        }
+
+        .speech {
+            background: white;
+            color: #222;
+            padding: 18px;
+            border-radius: 18px;
+            margin-bottom: 16px;
             line-height: 1.5;
-            margin: 0;
+            animation: fadeIn 1s ease;
         }
 
-        .instruction {
-            background: #eef7fa;
-            border-left: 5px solid #235c74;
+        .speech strong {
+            color: #235c74;
+        }
+
+        .narrator {
             padding: 16px;
-            border-radius: 10px;
-            margin-top: 18px;
+            margin: 18px 0;
+            border-left: 4px solid #d7b56d;
+            background: rgba(255,255,255,.08);
+            border-radius: 8px;
+            font-style: italic;
+            line-height: 1.5;
         }
 
-        textarea {
+        .decision-box {
+            background: #f7f9fa;
+            border: 2px solid #d9e1e5;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 22px;
+        }
+
+        .choice {
+            display: block;
             width: 100%;
-            min-height: 120px;
-            padding: 14px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-
-        button {
-            margin-top: 12px;
+            margin: 12px 0;
+            padding: 16px;
             border: none;
-            border-radius: 10px;
-            padding: 12px 18px;
+            border-radius: 12px;
             background: #235c74;
             color: white;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            text-align: left;
         }
+
+        .choice:hover {
+            opacity: .9;
+        }
+
+        @keyframes enterScene {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
     </style>
 </head>
 
@@ -135,9 +195,11 @@
             {{ m["title"] }}
         </h1>
 
+        {% if m.get("core") %}
         <p>
-            <strong>{{ m.get("core", "") }}</strong>
+            <strong>{{ m["core"] }}</strong>
         </p>
+        {% endif %}
 
         {% if m.get("minutes") %}
         <p>
@@ -156,94 +218,115 @@
             Episode 1
         </div>
 
-        <h2>Resident Down</h2>
+        <h2>
+            Resident Down
+        </h2>
 
         <p>
-            It is 8:05 AM. You have just started your morning when
-            caregiver Maria approaches you.
+            Your shift has just begun. What happens next depends on the
+            decisions you make.
         </p>
+
 
         <div class="scene">
 
-            <img
-                class="maria-photo"
-                src="{{ url_for('static', filename='maria-caregiver.png') }}"
-                alt="Maria, caregiver"
-            >
+            <div class="scene-top">
 
-            <div class="scene-caption">
-
-                <div class="speaker">
-                    MARIA — CAREGIVER
+                <div class="scene-time">
+                    8:05 AM — Assisted Living
                 </div>
 
-                <p class="dialogue">
-                    “Heather, I walked into Mrs. Smith's room and
-                    observed her beside the bed on the floor.”
-                </p>
+            </div>
+
+
+            <div class="scene-body">
+
+                <div class="narrator">
+                    You have just started your morning when you hear quick
+                    footsteps coming down the hallway.
+                </div>
+
+
+                <div class="character">
+
+                    <img
+                        src="{{ url_for('static', filename='static/maria-caregiver.png') }}"
+                        alt="Maria, caregiver"
+                    >
+
+                    <div class="character-name">
+                        Maria
+                    </div>
+
+                    <div class="character-role">
+                        Caregiver
+                    </div>
+
+                </div>
+
+
+                <div class="dialogue">
+
+                    <div class="speech">
+                        <strong>Maria:</strong><br><br>
+
+                        “I need you in Room 108. I found Mrs. Thompson on the
+                        floor next to her bed.”
+                    </div>
+
+
+                    <div class="narrator">
+                        Maria looks worried. You can see that she is waiting
+                        for you to tell her what to do.
+                    </div>
+
+
+                    <div class="speech">
+                        <strong>You:</strong><br><br>
+
+                        “Is she awake?”
+                    </div>
+
+
+                    <div class="speech">
+                        <strong>Maria:</strong><br><br>
+
+                        “Yes. She's talking to me, but she says her hip hurts.
+                        I didn't move her.”
+                    </div>
+
+
+                    <div class="narrator">
+                        You arrive at the doorway. Mrs. Thompson is on the
+                        floor beside the bed.
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-        <div class="instruction">
-            <strong>You are the Administrator.</strong>
-            <p>
-                Maria is waiting for your direction.
+
+        <div class="decision-box">
+
+            <h2>
                 What do you do first?
-            </p>
+            </h2>
+
+            <button class="choice">
+                A. Assess Mrs. Thompson for injuries before attempting to move her.
+            </button>
+
+            <button class="choice">
+                B. Help Mrs. Thompson back into bed immediately.
+            </button>
+
+            <button class="choice">
+                C. Ask Maria to finish getting the other residents ready first.
+            </button>
+
         </div>
-
-        <textarea
-            placeholder="Enter your response here..."
-        ></textarea>
-
-        <button type="button">
-            Save Response
-        </button>
-
-    </div>
-
-
-    <div class="card">
-
-        <h2>Administrator Mindset</h2>
-
-        <p>
-            Strong RCFE administration means recognizing risk,
-            verifying the governing rule, acting within scope,
-            documenting objectively, and fixing the system.
-        </p>
-
-        <p>
-            <strong>Use R.E.A.L.:</strong>
-            Recognize, Evaluate, Act, Learn &amp; Lead.
-        </p>
-
-    </div>
-
-
-    <div class="card">
-
-        <h2>Regulation Hunt</h2>
-
-        <p>
-            Locate the current RCFE topic that addresses
-            Administrator responsibility.
-        </p>
-
-        <p>
-            Enter the section or topic and one sentence describing
-            what it requires.
-        </p>
-
-        <textarea
-            placeholder="Enter the regulation and what it requires..."
-        ></textarea>
-
-        <button type="button">
-            Save Progress
-        </button>
 
     </div>
 
@@ -251,10 +334,12 @@
 
     <div class="card">
 
-        <h2>Lesson</h2>
+        <h2>
+            {{ m["title"] }}
+        </h2>
 
         <p>
-            {{ m.get("lesson", "Module content coming soon.") }}
+            This module is ready for training content.
         </p>
 
     </div>
@@ -264,5 +349,5 @@
 </div>
 
 </body>
-</html>
+
 </html>

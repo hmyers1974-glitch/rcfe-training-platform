@@ -178,7 +178,6 @@
                 opacity: 1;
             }
         }
-
     </style>
 </head>
 
@@ -191,8 +190,7 @@
         <a href="/">← Back to Dashboard</a>
 
         <h1>
-            Module {{ m["id"] }}:
-            {{ m["title"] }}
+            Module {{ m["id"] }}: {{ m["title"] }}
         </h1>
 
         {% if m.get("core") %}
@@ -218,26 +216,20 @@
             Episode 1
         </div>
 
-        <h2>
-            Resident Down
-        </h2>
+        <h2>Resident Down</h2>
 
         <p>
             Your shift has just begun. What happens next depends on the
             decisions you make.
         </p>
 
-
         <div class="scene">
 
             <div class="scene-top">
-
                 <div class="scene-time">
                     8:05 AM — Assisted Living
                 </div>
-
             </div>
-
 
             <div class="scene-body">
 
@@ -246,11 +238,10 @@
                     footsteps coming down the hallway.
                 </div>
 
-
                 <div class="character">
 
                     <img
-                        src="{{ url_for('static', filename='static/maria-caregiver.png') }}"
+                        src="{{ url_for('static', filename='maria-caregiver.png') }}"
                         alt="Maria, caregiver"
                     >
 
@@ -264,7 +255,6 @@
 
                 </div>
 
-
                 <div class="dialogue">
 
                     <div class="speech">
@@ -274,19 +264,15 @@
                         floor next to her bed.”
                     </div>
 
-
                     <div class="narrator">
                         Maria looks worried. You can see that she is waiting
                         for you to tell her what to do.
                     </div>
 
-
                     <div class="speech">
                         <strong>You:</strong><br><br>
-
                         “Is she awake?”
                     </div>
-
 
                     <div class="speech">
                         <strong>Maria:</strong><br><br>
@@ -294,7 +280,6 @@
                         “Yes. She's talking to me, but she says her hip hurts.
                         I didn't move her.”
                     </div>
-
 
                     <div class="narrator">
                         You arrive at the doorway. Mrs. Thompson is on the
@@ -307,12 +292,9 @@
 
         </div>
 
-
         <div class="decision-box">
 
-            <h2>
-                What do you do first?
-            </h2>
+            <h2>What do you do first?</h2>
 
             <button class="choice">
                 A. Assess Mrs. Thompson for injuries before attempting to move her.
@@ -334,9 +316,7 @@
 
     <div class="card">
 
-        <h2>
-            {{ m["title"] }}
-        </h2>
+        <h2>{{ m["title"] }}</h2>
 
         <p>
             This module is ready for training content.
@@ -349,5 +329,4 @@
 </div>
 
 </body>
-
 </html>

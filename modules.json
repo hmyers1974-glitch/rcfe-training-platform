@@ -6,7 +6,47 @@
     "minutes": 60,
     "quiz": {
       "answer": 0,
-      "why": "Assess the resident for injuries before attempting to move them. Moving a resident before assessing for possible injury can cause additional harm."
+      "why": "Assess the resident for injuries before attempting to move them."
+    }
+  },
+  {
+    "id": 2,
+    "title": "Title 22: Read It. Interpret It. Apply It.",
+    "core": "Regulatory interpretation, administrator judgment, resident rights, documentation, and defensible compliance decisions.",
+    "minutes": 60,
+    "quiz": {
+      "answer": 3,
+      "why": "Strong administrators identify the issue, gather the facts, verify the authority, apply it to the facts, and document the decision."
+    }
+  },
+  {
+    "id": 3,
+    "title": "When Licensing Walks In",
+    "core": "Licensing visits, records, staff interviews, deficiencies, plans of correction, and compliance systems.",
+    "minutes": 60,
+    "quiz": {
+      "answer": 2,
+      "why": "The administrator should preserve accurate records, cooperate professionally, correct immediate risks, and address the underlying system."
+    }
+  },
+  {
+    "id": 4,
+    "title": "The Admission Decision",
+    "core": "Medical information, preplacement appraisal, admission suitability, resident needs, and initial service planning.",
+    "minutes": 60,
+    "quiz": {
+      "answer": 1,
+      "why": "A safe admission decision requires complete information, appraisal of actual needs, and confirmation that the facility can provide the required care and supervision."
+    }
+  },
+  {
+    "id": 5,
+    "title": "Can This Resident Stay?",
+    "core": "Change of condition, reappraisal, revised service planning, retention decisions, and facility capacity.",
+    "minutes": 60,
+    "quiz": {
+      "answer": 2,
+      "why": "Changes in resident needs require reassessment and service-plan review rather than relying on outdated admission information."
     }
   }
 ]

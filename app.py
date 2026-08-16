@@ -1,34 +1,121 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify, send_file, abort
+from flask import (
+    Flask,
+    render_template,
+    request,
+    redirect,
+    url_for,
+    session,
+    jsonify,
+    send_file,
+    abort,
+)
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime, timedelta
-import sqlite3, json, os, io, csv
+import sqlite3
+import json
+import os
+import io
+import csv
+
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "rcfe.db")
 MODULES_PATH = os.path.join(BASE_DIR, "modules.json")
 
+
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "CHANGE-ME-BEFORE-PRODUCTION")
+
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "CHANGE-ME-BEFORE-PRODUCTION"
+)
+
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=8)
 
 
+# ---------------------------------------------------------
+# IMAGE ROUTES
+# ---------------------------------------------------------
+
 @app.route("/maria-caregiver.png")
 def maria_caregiver_image():
-    return send_file(os.path.join(BASE_DIR, "maria-caregiver.png"))
+    return send_file(
+        os.path.join(BASE_DIR, "maria-caregiver.png")
+    )
 
 
 @app.route("/incident-storyboard.png")
 def incident_storyboard_image():
-    return send_file(os.path.join(BASE_DIR, "incident-storyboard.png"))
+    return send_file(
+        os.path.join(BASE_DIR, "incident-storyboard.png")
+    )
 
+
+@app.route("/scene-1-maria-admin.png")
+def scene_1_image():
+    return send_file(
+        os.path.join(BASE_DIR, "scene-1-maria-admin.png")
+    )
+
+
+@app.route("/scene-2-report-fall.png")
+def scene_2_image():
+    return send_file(
+        os.path.join(BASE_DIR, "scene-2-report-fall.png")
+    )
+
+
+@app.route("/scene-3-walk-room108.png")
+def scene_3_image():
+    return send_file(
+        os.path.join(BASE_DIR, "scene-3-walk-room108.png")
+    )
+
+
+@app.route("/scene-4-enter-room.png")
+def scene_4_image():
+    return send_file(
+        os.path.join(BASE_DIR, "scene-4-enter-room.png")
+    )
+
+
+@app.route("/scene-5-resident-floor.png")
+def scene_5_image():
+    return send_file(
+        os.path.join(BASE_DIR, "scene-5-resident-floor.png")
+    )
+
+
+@app.route("/scene-6-resident-speaks.png")
+def scene_6_image():
+    return send_file(
+        os.path.join(BASE_DIR, "scene-6-resident-speaks.png")
+    )
+
+
+@app.route("/scene-7-decision.png")
+def scene_7_image():
+    return send_file(
+        os.path.join(BASE_DIR, "scene-7-decision.png")
+    )
+
+
+# ---------------------------------------------------------
+# LOAD MODULE DATA
+# ---------------------------------------------------------
 
 with open(MODULES_PATH, "r", encoding="utf-8") as f:
     MODULES = json.load(f)
 
+
+# ---------------------------------------------------------
+# DATABASE
+# ---------------------------------------------------------
 
 def db():
     conn = sqlite3.connect(DB_PATH)
@@ -46,7 +133,9 @@ def init_db():
         email TEXT UNIQUE NOT NULL,
         full_name TEXT NOT NULL,
         password_hash TEXT NOT NULL,
-        role TEXT NOT NULL CHECK(role IN ('student','admin','reviewer')),
+        role TEXT NOT NULL CHECK(
+            role IN ('student','admin','reviewer')
+        ),
         active INTEGER NOT NULL DEFAULT 1,
         created_at TEXT NOT NULL
     );
@@ -102,34 +191,65 @@ def init_db():
     conn.commit()
 
     seeds = [
-        ("admin@rcfeacademy.local", "Heather Myers", "admin", "Admin123!"),
-        ("reviewer@rcfeacademy.local", "ACB Reviewer", "reviewer", "Review123!"),
-        ("student@rcfeacademy.local", "Demo Student", "student", "Student123!")
+        (
+            "admin@rcfeacademy.local",
+            "Heather Myers",
+            "admin",
+            "Admin123!"
+        ),
+        (
+            "reviewer@rcfeacademy.local",
+            "ACB Reviewer",
+            "reviewer",
+            "Review123!"
+        ),
+        (
+            "student@rcfeacademy.local",
+            "Demo Student",
+            "student",
+            "Student123!"
+        ),
     ]
 
     for email, name, role, pw in seeds:
         try:
             cur.execute(
-                "INSERT INTO users(email,full_name,password_hash,role,created_at) VALUES (?,?,?,?,?)",
+                """
+                INSERT INTO users(
+                    email,
+                    full_name,
+                    password_hash,
+                    role,
+                    created_at
+                )
+                VALUES (?,?,?,?,?)
+                """,
                 (
                     email,
                     name,
                     generate_password_hash(pw),
                     role,
-                    datetime.utcnow().isoformat()
-                )
+                    datetime.utcnow().isoformat(),
+                ),
             )
 
             uid = cur.lastrowid
 
             if role == "student":
                 cur.execute(
-                    "INSERT INTO enrollments(user_id,course_version,enrolled_at) VALUES (?,?,?)",
+                    """
+                    INSERT INTO enrollments(
+                        user_id,
+                        course_version,
+                        enrolled_at
+                    )
+                    VALUES (?,?,?)
+                    """,
                     (
                         uid,
                         "2026.08",
-                        datetime.utcnow().isoformat()
-                    )
+                        datetime.utcnow().isoformat(),
+                    ),
                 )
 
         except sqlite3.IntegrityError:
@@ -142,6 +262,10 @@ def init_db():
 init_db()
 
 
+# ---------------------------------------------------------
+# USER / LOGIN HELPERS
+# ---------------------------------------------------------
+
 def current_user():
     uid = session.get("uid")
 
@@ -149,10 +273,17 @@ def current_user():
         return None
 
     conn = db()
+
     row = conn.execute(
-        "SELECT * FROM users WHERE id=? AND active=1",
-        (uid,)
+        """
+        SELECT *
+        FROM users
+        WHERE id=?
+        AND active=1
+        """,
+        (uid,),
     ).fetchone()
+
     conn.close()
 
     return row
@@ -171,6 +302,7 @@ def login_required(fn):
 
 def role_required(*roles):
     def deco(fn):
+
         @wraps(fn)
         def wrapper(*args, **kwargs):
             u = current_user()
@@ -187,6 +319,10 @@ def role_required(*roles):
 
     return deco
 
+
+# ---------------------------------------------------------
+# MAIN ROUTES
+# ---------------------------------------------------------
 
 @app.route("/")
 def index():
@@ -206,50 +342,84 @@ def login():
     error = None
 
     if request.method == "POST":
-        email = request.form.get("email", "").strip().lower()
-        pw = request.form.get("password", "")
+
+        email = request.form.get(
+            "email",
+            ""
+        ).strip().lower()
+
+        pw = request.form.get(
+            "password",
+            ""
+        )
 
         conn = db()
+
         u = conn.execute(
-            "SELECT * FROM users WHERE email=? AND active=1",
-            (email,)
+            """
+            SELECT *
+            FROM users
+            WHERE email=?
+            AND active=1
+            """,
+            (email,),
         ).fetchone()
+
         conn.close()
 
-        if u and check_password_hash(u["password_hash"], pw):
+        if u and check_password_hash(
+            u["password_hash"],
+            pw
+        ):
             session.clear()
+
             session["uid"] = u["id"]
+
             session.permanent = True
 
-            return redirect(url_for("index"))
+            return redirect(
+                url_for("index")
+            )
 
         error = "Invalid email or password."
 
-    return render_template("login.html", error=error)
+    return render_template(
+        "login.html",
+        error=error
+    )
 
 
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("login"))
 
+    return redirect(
+        url_for("login")
+    )
+
+
+# ---------------------------------------------------------
+# STUDENT DASHBOARD
+# ---------------------------------------------------------
 
 def student_progress(uid):
     conn = db()
 
     rows = conn.execute(
-        "SELECT * FROM module_progress WHERE user_id=?",
-        (uid,)
+        """
+        SELECT *
+        FROM module_progress
+        WHERE user_id=?
+        """,
+        (uid,),
     ).fetchall()
 
     conn.close()
 
-    by = {
+    return {
         r["module_id"]: dict(r)
         for r in rows
     }
-
-    return by
 
 
 @app.route("/student")
@@ -258,14 +428,21 @@ def student_dashboard():
     u = current_user()
 
     if u["role"] != "student":
-        return redirect(url_for("admin_dashboard"))
+        return redirect(
+            url_for("admin_dashboard")
+        )
 
-    prog = student_progress(u["id"])
+    prog = student_progress(
+        u["id"]
+    )
 
     complete = sum(
         1
         for m in MODULES
-        if prog.get(m["id"], {}).get("completed_at")
+        if prog.get(
+            m["id"],
+            {}
+        ).get("completed_at")
     )
 
     return render_template(
@@ -273,25 +450,40 @@ def student_dashboard():
         user=u,
         modules=MODULES,
         progress=prog,
-        complete=complete
+        complete=complete,
     )
 
 
+# ---------------------------------------------------------
+# MODULE PAGE
+# ---------------------------------------------------------
+
 @app.route("/module/<int:module_id>")
-@role_required("student", "reviewer", "admin")
+@role_required(
+    "student",
+    "reviewer",
+    "admin"
+)
 def module_page(module_id):
+
     m = next(
-        (x for x in MODULES if x["id"] == module_id),
-        None
+        (
+            x
+            for x in MODULES
+            if x["id"] == module_id
+        ),
+        None,
     )
 
     if not m:
         abort(404)
 
     u = current_user()
+
     prog = {}
 
     if u["role"] == "student":
+
         conn = db()
 
         row = conn.execute(
@@ -305,11 +497,12 @@ def module_page(module_id):
             (
                 u["id"],
                 module_id,
-                "2026.08"
-            )
+                "2026.08",
+            ),
         ).fetchone()
 
         if not row:
+
             conn.execute(
                 """
                 INSERT INTO module_progress(
@@ -326,8 +519,8 @@ def module_page(module_id):
                     module_id,
                     "2026.08",
                     datetime.utcnow().isoformat(),
-                    datetime.utcnow().isoformat()
-                )
+                    datetime.utcnow().isoformat(),
+                ),
             )
 
             conn.commit()
@@ -343,55 +536,80 @@ def module_page(module_id):
                 (
                     u["id"],
                     module_id,
-                    "2026.08"
-                )
+                    "2026.08",
+                ),
             ).fetchone()
 
         prog = dict(row)
+
         conn.close()
 
     return render_template(
         "module.html",
         user=u,
         m=m,
-        prog=prog
+        prog=prog,
     )
 
 
-@app.route("/api/progress/<int:module_id>", methods=["POST"])
+# ---------------------------------------------------------
+# SAVE MODULE PROGRESS
+# ---------------------------------------------------------
+
+@app.route(
+    "/api/progress/<int:module_id>",
+    methods=["POST"]
+)
 @role_required("student")
 def save_progress(module_id):
+
     u = current_user()
-    payload = request.get_json(force=True)
+
+    payload = request.get_json(
+        force=True
+    )
 
     allowed = {
         "hunt_response",
         "scenario_responses",
         "comparison_response",
         "exit_ticket",
-        "active_seconds"
+        "active_seconds",
     }
 
     sets = []
     vals = []
 
     for k in allowed:
+
         if k in payload:
+
             val = payload[k]
 
-            if isinstance(val, (dict, list)):
+            if isinstance(
+                val,
+                (dict, list)
+            ):
                 val = json.dumps(val)
 
-            sets.append(f"{k}=?")
+            sets.append(
+                f"{k}=?"
+            )
+
             vals.append(val)
 
-    sets.append("last_seen_at=?")
-    vals.append(datetime.utcnow().isoformat())
+    sets.append(
+        "last_seen_at=?"
+    )
+
+    vals.append(
+        datetime.utcnow().isoformat()
+    )
 
     vals += [
         u["id"],
         module_id,
-        "2026.08"
+        "2026.08",
     ]
 
     conn = db()
@@ -404,7 +622,7 @@ def save_progress(module_id):
         AND module_id=?
         AND module_version=?
         """,
-        vals
+        vals,
     )
 
     conn.execute(
@@ -423,46 +641,73 @@ def save_progress(module_id):
             module_id,
             "progress_save",
             json.dumps(payload),
-            datetime.utcnow().isoformat()
-        )
+            datetime.utcnow().isoformat(),
+        ),
     )
 
     conn.commit()
     conn.close()
 
-    return jsonify(ok=True)
+    return jsonify(
+        ok=True
+    )
 
 
-@app.route("/api/quiz/<int:module_id>", methods=["POST"])
+# ---------------------------------------------------------
+# QUIZ
+# ---------------------------------------------------------
+
+@app.route(
+    "/api/quiz/<int:module_id>",
+    methods=["POST"]
+)
 @role_required("student")
 def quiz(module_id):
+
     u = current_user()
 
     m = next(
-        (x for x in MODULES if x["id"] == module_id),
-        None
+        (
+            x
+            for x in MODULES
+            if x["id"] == module_id
+        ),
+        None,
     )
 
     if not m:
         abort(404)
 
+    payload = request.get_json(
+        force=True
+    )
+
     idx = int(
-        request.get_json(force=True).get(
+        payload.get(
             "answer",
             -1
         )
     )
 
-    ok = idx == m["quiz"]["answer"]
+    ok = (
+        idx ==
+        m["quiz"]["answer"]
+    )
 
     conn = db()
 
     conn.execute(
         """
         UPDATE module_progress
-        SET quiz_attempts=quiz_attempts+1,
+
+        SET
+            quiz_attempts =
+                quiz_attempts + 1,
+
             quiz_passed=?,
+
             last_seen_at=?
+
         WHERE user_id=?
         AND module_id=?
         AND module_version=?
@@ -472,8 +717,8 @@ def quiz(module_id):
             datetime.utcnow().isoformat(),
             u["id"],
             module_id,
-            "2026.08"
-        )
+            "2026.08",
+        ),
     )
 
     conn.execute(
@@ -493,10 +738,10 @@ def quiz(module_id):
             "quiz_attempt",
             json.dumps({
                 "answer": idx,
-                "correct": ok
+                "correct": ok,
             }),
-            datetime.utcnow().isoformat()
-        )
+            datetime.utcnow().isoformat(),
+        ),
     )
 
     conn.commit()
@@ -504,15 +749,22 @@ def quiz(module_id):
 
     return jsonify(
         ok=ok,
-        why=m["quiz"]["why"]
+        why=m["quiz"]["why"],
     )
 
 
-@app.route("/api/complete/<int:module_id>", methods=["POST"])
+# ---------------------------------------------------------
+# COMPLETE MODULE
+# ---------------------------------------------------------
+
+@app.route(
+    "/api/complete/<int:module_id>",
+    methods=["POST"]
+)
 @role_required("student")
 def complete_module(module_id):
+
     u = current_user()
-    payload = request.get_json(force=True)
 
     conn = db()
 
@@ -527,11 +779,12 @@ def complete_module(module_id):
         (
             u["id"],
             module_id,
-            "2026.08"
-        )
+            "2026.08",
+        ),
     ).fetchone()
 
     if not row:
+        conn.close()
         abort(400)
 
     minimum_seconds = int(
@@ -545,33 +798,46 @@ def complete_module(module_id):
         row["hunt_response"],
         row["scenario_responses"],
         row["comparison_response"],
-        row["exit_ticket"]
+        row["exit_ticket"],
     ]
 
     if not all(required):
+        conn.close()
+
         return jsonify(
             ok=False,
             error="Required interactions are incomplete."
         ), 400
 
     if not row["quiz_passed"]:
+        conn.close()
+
         return jsonify(
             ok=False,
             error="Knowledge check must be passed."
         ), 400
 
     if row["active_seconds"] < minimum_seconds:
+        conn.close()
+
         return jsonify(
             ok=False,
-            error=f"Minimum active time not yet met ({minimum_seconds} seconds configured)."
+            error=(
+                "Minimum active time not yet met "
+                f"({minimum_seconds} seconds configured)."
+            )
         ), 400
 
     conn.execute(
-        "UPDATE module_progress SET completed_at=? WHERE id=?",
+        """
+        UPDATE module_progress
+        SET completed_at=?
+        WHERE id=?
+        """,
         (
             datetime.utcnow().isoformat(),
-            row["id"]
-        )
+            row["id"],
+        ),
     )
 
     conn.execute(
@@ -590,21 +856,22 @@ def complete_module(module_id):
             module_id,
             "module_complete",
             "{}",
-            datetime.utcnow().isoformat()
-        )
+            datetime.utcnow().isoformat(),
+        ),
     )
 
     count = conn.execute(
         """
-        SELECT COUNT(*) n
+        SELECT COUNT(*) AS n
         FROM module_progress
         WHERE user_id=?
         AND completed_at IS NOT NULL
         """,
-        (u["id"],)
+        (u["id"],),
     ).fetchone()["n"]
 
     if count >= len(MODULES):
+
         conn.execute(
             """
             UPDATE enrollments
@@ -615,20 +882,31 @@ def complete_module(module_id):
             (
                 datetime.utcnow().isoformat(),
                 u["id"],
-                "2026.08"
-            )
+                "2026.08",
+            ),
         )
 
     conn.commit()
     conn.close()
 
-    return jsonify(ok=True)
+    return jsonify(
+        ok=True
+    )
 
+
+# ---------------------------------------------------------
+# ADMIN
+# ---------------------------------------------------------
 
 @app.route("/admin")
-@role_required("admin", "reviewer")
+@role_required(
+    "admin",
+    "reviewer"
+)
 def admin_dashboard():
+
     u = current_user()
+
     conn = db()
 
     students = conn.execute(
@@ -639,24 +917,33 @@ def admin_dashboard():
             u.email,
             e.enrolled_at,
             e.completed_at,
+
             SUM(
                 CASE
-                    WHEN mp.completed_at IS NOT NULL
+                    WHEN mp.completed_at
+                    IS NOT NULL
                     THEN 1
                     ELSE 0
                 END
             ) completed_modules,
+
             COALESCE(
                 SUM(mp.active_seconds),
                 0
             ) active_seconds
+
         FROM users u
+
         LEFT JOIN enrollments e
             ON e.user_id=u.id
+
         LEFT JOIN module_progress mp
             ON mp.user_id=u.id
+
         WHERE u.role='student'
+
         GROUP BY u.id
+
         ORDER BY u.full_name
         """
     ).fetchall()
@@ -667,13 +954,19 @@ def admin_dashboard():
         "admin.html",
         user=u,
         students=students,
-        module_count=len(MODULES)
+        module_count=len(MODULES),
     )
 
 
-@app.route("/admin/student/<int:uid>")
-@role_required("admin", "reviewer")
+@app.route(
+    "/admin/student/<int:uid>"
+)
+@role_required(
+    "admin",
+    "reviewer"
+)
 def student_detail(uid):
+
     conn = db()
 
     student = conn.execute(
@@ -683,7 +976,7 @@ def student_detail(uid):
         WHERE id=?
         AND role='student'
         """,
-        (uid,)
+        (uid,),
     ).fetchone()
 
     rows = conn.execute(
@@ -693,7 +986,7 @@ def student_detail(uid):
         WHERE user_id=?
         ORDER BY module_id
         """,
-        (uid,)
+        (uid,),
     ).fetchall()
 
     events = conn.execute(
@@ -704,7 +997,7 @@ def student_detail(uid):
         ORDER BY created_at DESC
         LIMIT 100
         """,
-        (uid,)
+        (uid,),
     ).fetchall()
 
     conn.close()
@@ -715,20 +1008,37 @@ def student_detail(uid):
         student=student,
         rows=rows,
         events=events,
-        modules=MODULES
+        modules=MODULES,
     )
 
 
-@app.route("/admin/create-student", methods=["POST"])
+# ---------------------------------------------------------
+# CREATE STUDENT
+# ---------------------------------------------------------
+
+@app.route(
+    "/admin/create-student",
+    methods=["POST"]
+)
 @role_required("admin")
 def create_student():
-    name = request.form["full_name"].strip()
-    email = request.form["email"].strip().lower()
-    pw = request.form["password"]
+
+    name = request.form[
+        "full_name"
+    ].strip()
+
+    email = request.form[
+        "email"
+    ].strip().lower()
+
+    pw = request.form[
+        "password"
+    ]
 
     conn = db()
 
     try:
+
         conn.execute(
             """
             INSERT INTO users(
@@ -745,13 +1055,17 @@ def create_student():
                 name,
                 generate_password_hash(pw),
                 "student",
-                datetime.utcnow().isoformat()
-            )
+                datetime.utcnow().isoformat(),
+            ),
         )
 
         uid = conn.execute(
-            "SELECT id FROM users WHERE email=?",
-            (email,)
+            """
+            SELECT id
+            FROM users
+            WHERE email=?
+            """,
+            (email,),
         ).fetchone()["id"]
 
         conn.execute(
@@ -766,8 +1080,8 @@ def create_student():
             (
                 uid,
                 "2026.08",
-                datetime.utcnow().isoformat()
-            )
+                datetime.utcnow().isoformat(),
+            ),
         )
 
         conn.commit()
@@ -775,12 +1089,22 @@ def create_student():
     finally:
         conn.close()
 
-    return redirect(url_for("admin_dashboard"))
+    return redirect(
+        url_for("admin_dashboard")
+    )
 
+
+# ---------------------------------------------------------
+# CSV EXPORT
+# ---------------------------------------------------------
 
 @app.route("/admin/export.csv")
-@role_required("admin", "reviewer")
+@role_required(
+    "admin",
+    "reviewer"
+)
 def export_csv():
+
     conn = db()
 
     rows = conn.execute(
@@ -795,17 +1119,24 @@ def export_csv():
             mp.active_seconds,
             mp.quiz_attempts,
             mp.quiz_passed
+
         FROM users u
+
         JOIN module_progress mp
             ON u.id=mp.user_id
+
         WHERE u.role='student'
-        ORDER BY u.full_name, mp.module_id
+
+        ORDER BY
+            u.full_name,
+            mp.module_id
         """
     ).fetchall()
 
     conn.close()
 
     sio = io.StringIO()
+
     w = csv.writer(sio)
 
     w.writerow([
@@ -817,14 +1148,18 @@ def export_csv():
         "Completed",
         "Active Seconds",
         "Quiz Attempts",
-        "Quiz Passed"
+        "Quiz Passed",
     ])
 
     for r in rows:
-        w.writerow(list(r))
+        w.writerow(
+            list(r)
+        )
 
     mem = io.BytesIO(
-        sio.getvalue().encode("utf-8")
+        sio.getvalue().encode(
+            "utf-8"
+        )
     )
 
     mem.seek(0)
@@ -833,24 +1168,31 @@ def export_csv():
         mem,
         mimetype="text/csv",
         as_attachment=True,
-        download_name="rcfe_completion_records.csv"
+        download_name=
+            "rcfe_completion_records.csv",
     )
 
+
+# ---------------------------------------------------------
+# CERTIFICATE
+# ---------------------------------------------------------
 
 @app.route("/certificate")
 @role_required("student")
 def certificate():
+
     u = current_user()
+
     conn = db()
 
     count = conn.execute(
         """
-        SELECT COUNT(*) n
+        SELECT COUNT(*) AS n
         FROM module_progress
         WHERE user_id=?
         AND completed_at IS NOT NULL
         """,
-        (u["id"],)
+        (u["id"],),
     ).fetchone()["n"]
 
     if count < len(MODULES):
@@ -866,13 +1208,15 @@ def certificate():
         """,
         (
             u["id"],
-            "2026.08"
-        )
+            "2026.08",
+        ),
     ).fetchone()
 
     if not cert:
+
         cert_no = (
-            f"RCFE-{datetime.utcnow().year}-"
+            f"RCFE-"
+            f"{datetime.utcnow().year}-"
             f"{u['id']:05d}-"
             f"{int(datetime.utcnow().timestamp())}"
         )
@@ -891,8 +1235,8 @@ def certificate():
                 u["id"],
                 cert_no,
                 datetime.utcnow().isoformat(),
-                "2026.08"
-            )
+                "2026.08",
+            ),
         )
 
         conn.commit()
@@ -906,8 +1250,8 @@ def certificate():
             """,
             (
                 u["id"],
-                "2026.08"
-            )
+                "2026.08",
+            ),
         ).fetchone()
 
     conn.close()
@@ -921,42 +1265,66 @@ def certificate():
 
     W, H = letter
 
-    c.setFont("Helvetica-Bold", 20)
+    c.setFont(
+        "Helvetica-Bold",
+        20
+    )
+
     c.drawCentredString(
         W / 2,
         H - 1.2 * inch,
         "CALIFORNIA RCFE LEADERSHIP ACADEMY"
     )
 
-    c.setFont("Helvetica", 12)
+    c.setFont(
+        "Helvetica",
+        12
+    )
+
     c.drawCentredString(
         W / 2,
         H - 1.55 * inch,
         "Regulation to Real Life"
     )
 
-    c.setFont("Helvetica-Bold", 25)
+    c.setFont(
+        "Helvetica-Bold",
+        25
+    )
+
     c.drawCentredString(
         W / 2,
         H - 2.3 * inch,
         "Certificate of Completion"
     )
 
-    c.setFont("Helvetica", 13)
+    c.setFont(
+        "Helvetica",
+        13
+    )
+
     c.drawCentredString(
         W / 2,
         H - 3.05 * inch,
         "This certifies that"
     )
 
-    c.setFont("Helvetica-Bold", 19)
+    c.setFont(
+        "Helvetica-Bold",
+        19
+    )
+
     c.drawCentredString(
         W / 2,
         H - 3.45 * inch,
         u["full_name"]
     )
 
-    c.setFont("Helvetica", 12)
+    c.setFont(
+        "Helvetica",
+        12
+    )
+
     c.drawCentredString(
         W / 2,
         H - 4.05 * inch,
@@ -969,7 +1337,11 @@ def certificate():
         "Course Version 2026.08"
     )
 
-    c.setFont("Helvetica", 10)
+    c.setFont(
+        "Helvetica",
+        10
+    )
+
     c.drawCentredString(
         W / 2,
         H - 5.0 * inch,
@@ -982,7 +1354,11 @@ def certificate():
         f"Issued: {cert['issued_at'][:10]}"
     )
 
-    c.setFont("Helvetica-Oblique", 9)
+    c.setFont(
+        "Helvetica-Oblique",
+        9
+    )
+
     c.drawCentredString(
         W / 2,
         0.75 * inch,
@@ -990,6 +1366,7 @@ def certificate():
     )
 
     c.showPage()
+
     c.save()
 
     mem.seek(0)
@@ -998,5 +1375,6 @@ def certificate():
         mem,
         mimetype="application/pdf",
         as_attachment=True,
-        download_name="RCFE_Self_Paced_Certificate.pdf"
-    ) 
+        download_name=
+            "RCFE_Self_Paced_Certificate.pdf",
+    )

@@ -130,6 +130,27 @@
             line-height: 1.5;
         }
 
+        .voice-controls {
+            text-align: center;
+            margin: 20px 0 5px;
+        }
+
+        .voice-button {
+            border: none;
+            border-radius: 12px;
+            background: #d7b56d;
+            color: #1d252c;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 13px 20px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .voice-button:hover {
+            opacity: .9;
+        }
+
         .decision-box {
             background: #f7f9fa;
             border: 2px solid #d9e1e5;
@@ -155,6 +176,34 @@
 
         .choice:hover {
             opacity: .9;
+        }
+
+        .choice:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+        }
+
+        .quiz-result {
+            display: none;
+            margin-top: 18px;
+            padding: 16px;
+            border-radius: 12px;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+
+        .quiz-result.correct {
+            display: block;
+            background: #e7f6ec;
+            border: 2px solid #62a875;
+            color: #245c34;
+        }
+
+        .quiz-result.incorrect {
+            display: block;
+            background: #fdecec;
+            border: 2px solid #c86b6b;
+            color: #7d2626;
         }
 
         @keyframes enterScene {
@@ -255,6 +304,24 @@
 
                 </div>
 
+                <div class="voice-controls">
+                    <button
+                        class="voice-button"
+                        type="button"
+                        onclick="playScene()"
+                    >
+                        🔊 Play Scene
+                    </button>
+
+                    <button
+                        class="voice-button"
+                        type="button"
+                        onclick="stopScene()"
+                    >
+                        ⏹ Stop
+                    </button>
+                </div>
+
                 <div class="dialogue">
 
                     <div class="speech">
@@ -296,17 +363,31 @@
 
             <h2>What do you do first?</h2>
 
-            <button class="choice">
+            <button
+                class="choice"
+                type="button"
+                onclick="submitAnswer(0)"
+            >
                 A. Assess Mrs. Thompson for injuries before attempting to move her.
             </button>
 
-            <button class="choice">
+            <button
+                class="choice"
+                type="button"
+                onclick="submitAnswer(1)"
+            >
                 B. Help Mrs. Thompson back into bed immediately.
             </button>
 
-            <button class="choice">
+            <button
+                class="choice"
+                type="button"
+                onclick="submitAnswer(2)"
+            >
                 C. Ask Maria to finish getting the other residents ready first.
             </button>
+
+            <div id="quizResult" class="quiz-result"></div>
 
         </div>
 
@@ -327,6 +408,92 @@
     {% endif %}
 
 </div>
+
+
+<script>
+    function playScene() {
+        if (!("speechSynthesis" in window)) {
+            alert("Voice playback is not supported in this browser.");
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const sceneText =
+            "You have just started your morning when you hear quick footsteps coming down the hallway. " +
+            "Maria says: I need you in Room 108. I found Mrs. Thompson on the floor next to her bed. " +
+            "Maria looks worried. You can see that she is waiting for you to tell her what to do. " +
+            "You ask: Is she awake? " +
+            "Maria says: Yes. She's talking to me, but she says her hip hurts. I didn't move her. " +
+            "You arrive at the doorway. Mrs. Thompson is on the floor beside the bed.";
+
+        const utterance = new SpeechSynthesisUtterance(sceneText);
+
+        utterance.rate = 0.92;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+
+    function stopScene() {
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
+
+
+    async function submitAnswer(answerIndex) {
+        const resultBox = document.getElementById("quizResult");
+        const buttons = document.querySelectorAll(".choice");
+
+        resultBox.className = "quiz-result";
+        resultBox.style.display = "block";
+        resultBox.textContent = "Checking your answer...";
+
+        buttons.forEach(button => {
+            button.disabled = true;
+        });
+
+        try {
+            const response = await fetch("/api/quiz/{{ m['id'] }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    answer: answerIndex
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.ok) {
+                resultBox.className = "quiz-result correct";
+                resultBox.innerHTML =
+                    "✓ Correct.<br><br>" + data.why;
+            } else {
+                resultBox.className = "quiz-result incorrect";
+                resultBox.innerHTML =
+                    "Not quite. Try again.<br><br>" + data.why;
+
+                buttons.forEach(button => {
+                    button.disabled = false;
+                });
+            }
+
+        } catch (error) {
+            resultBox.className = "quiz-result incorrect";
+            resultBox.textContent =
+                "There was a problem submitting your answer. Please try again.";
+
+            buttons.forEach(button => {
+                button.disabled = false;
+            });
+        }
+    }
+</script>
 
 </body>
 </html>

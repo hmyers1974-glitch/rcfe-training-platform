@@ -1,1397 +1,1540 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Module {{ m["id"] }} - {{ m["title"] }}</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #eef4f7;
-            color: #24343b;
-        }
-
-        .page {
-            width: 94%;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px 0 50px;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #164e63, #26758c);
-            color: white;
-            border-radius: 20px;
-            padding: 26px;
-            margin-bottom: 18px;
-            box-shadow: 0 8px 25px rgba(0,0,0,.12);
-        }
-
-        .academy {
-            font-size: 13px;
-            font-weight: bold;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            opacity: .9;
-            margin-bottom: 8px;
-        }
-
-        h1 {
-            margin: 0 0 8px;
-            font-size: 30px;
-            line-height: 1.15;
-        }
-
-        .core {
-            font-size: 16px;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        .learning {
-            margin-top: 14px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 24px;
-            margin-bottom: 18px;
-            box-shadow: 0 5px 18px rgba(0,0,0,.08);
-        }
-
-        h2 {
-            margin-top: 0;
-            color: #164e63;
-        }
-
-        h3 {
-            color: #164e63;
-        }
-
-        .objectives {
-            padding-left: 22px;
-            line-height: 1.7;
-        }
-
-        .objective-intro {
-            font-weight: bold;
-        }
-
-        .active-time {
-            display: inline-block;
-            background: #e7f4f7;
-            color: #164e63;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 13px;
-        }
-
-        .episode-header {
-            border-left: 5px solid #26758c;
-            padding-left: 15px;
-            margin-bottom: 20px;
-        }
-
-        .episode-header h2 {
-            margin-bottom: 5px;
-        }
-
-        .episode-header p {
-            margin: 5px 0;
-            line-height: 1.5;
-        }
-
-        .scene-count {
-            font-weight: bold;
-            color: #26758c;
-        }
-
-        .scene-card {
-            background: #f8fbfc;
-            border: 1px solid #d8e5e9;
-            border-radius: 18px;
-            overflow: hidden;
-        }
-
-        .scene-top {
-            padding: 20px;
-        }
-
-        .scene-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #164e63;
-            margin: 0 0 8px;
-        }
-
-        .scene-time {
-            font-weight: bold;
-            color: #6b7280;
-            margin-bottom: 14px;
-        }
-
-        .visual-area {
-            width: 100%;
-            min-height: 260px;
-            background: #dce9ed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .visual-area img {
-            display: block;
-            width: 100%;
-            max-height: 430px;
-            object-fit: cover;
-        }
-
-        .visual-placeholder {
-            padding: 45px 25px;
-            text-align: center;
-            color: #52666e;
-        }
-
-        .visual-placeholder .icon {
-            font-size: 58px;
-            margin-bottom: 10px;
-        }
-
-        .scene-text {
-            padding: 20px;
-            font-size: 17px;
-            line-height: 1.65;
-        }
-
-        .dialogue {
-            margin-top: 16px;
-            padding: 16px;
-            background: white;
-            border-left: 4px solid #26758c;
-            border-radius: 10px;
-            font-style: italic;
-        }
-
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 18px 20px;
-            background: white;
-            border-top: 1px solid #d8e5e9;
-        }
-
-        button {
-            border: none;
-            border-radius: 10px;
-            padding: 12px 17px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform .15s, opacity .15s;
-        }
-
-        button:hover {
-            transform: translateY(-1px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        button:disabled {
-            opacity: .45;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .primary {
-            background: #164e63;
-            color: white;
-        }
-
-        .secondary {
-            background: #dcecef;
-            color: #164e63;
-        }
-
-        .voice {
-            background: #f0e6c8;
-            color: #5d4b1f;
-        }
-
-        .progress-wrap {
-            margin-top: 18px;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 6px;
-            color: #52666e;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #dce5e8;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 14.28%;
-            background: #26758c;
-            transition: width .3s ease;
-        }
-
-        .decision {
-            margin-top: 20px;
-            background: #fff;
-            border: 2px solid #d7e5e9;
-            border-radius: 16px;
-            padding: 20px;
-        }
-
-        .decision h3 {
-            margin-top: 0;
-        }
-
-        .question {
-            font-size: 18px;
-            font-weight: bold;
-            line-height: 1.5;
-        }
-
-        .answers {
-            display: grid;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .answer {
-            width: 100%;
-            text-align: left;
-            background: #f5f8f9;
-            border: 2px solid #d5e1e5;
-            color: #24343b;
-            padding: 15px;
-            border-radius: 12px;
-            font-weight: normal;
-            line-height: 1.45;
-        }
-
-        .answer:hover {
-            background: #eaf3f5;
-            border-color: #26758c;
-        }
-
-        .answer.correct {
-            background: #e6f5eb;
-            border-color: #2e7d4f;
-            color: #205b38;
-        }
-
-        .answer.incorrect {
-            background: #fff0ef;
-            border-color: #b84c43;
-            color: #7a2d28;
-        }
-
-        .feedback {
-            display: none;
-            margin-top: 15px;
-            padding: 16px;
-            border-radius: 12px;
-            line-height: 1.55;
-        }
-
-        .feedback.show {
-            display: block;
-        }
-
-        .feedback.good {
-            background: #e6f5eb;
-            color: #205b38;
-        }
-
-        .feedback.try-again {
-            background: #fff6df;
-            color: #67521e;
-        }
-
-        .next-area {
-            display: none;
-            margin-top: 16px;
-        }
-
-        .next-area.show {
-            display: block;
-        }
-
-        .next-button {
-            background: #26758c;
-            color: white;
-            width: 100%;
-        }
-
-        .complete {
-            display: none;
-            text-align: center;
-            padding: 35px 20px;
-        }
-
-        .complete.show {
-            display: block;
-        }
-
-        .complete-icon {
-            font-size: 62px;
-        }
-
-        .complete h2 {
-            margin-bottom: 8px;
-        }
-
-        .completion-message {
-            max-width: 650px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
-        }
-
-        .restart-button {
-            background: #164e63;
-            color: white;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 5px;
-            color: #164e63;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .small-note {
-            color: #68777d;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 600px) {
-            .page {
-                width: 96%;
-                padding-top: 10px;
-            }
-
-            .header {
-                padding: 20px;
-                border-radius: 16px;
-            }
-
-            h1 {
-                font-size: 25px;
-            }
-
-            .card {
-                padding: 18px;
-                border-radius: 15px;
-            }
-
-            .scene-title {
-                font-size: 21px;
-            }
-
-            .scene-text {
-                font-size: 16px;
-            }
-
-            .controls button {
-                flex: 1 1 45%;
-            }
-
-            .visual-area {
-                min-height: 220px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Module {{ m["id"] }} - {{ m["title"] }}</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef4f7;
+    color: #24343b;
+}
+
+.page {
+    width: 94%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 18px 0 50px;
+}
+
+.header {
+    background: linear-gradient(135deg, #164e63, #26758c);
+    color: white;
+    border-radius: 20px;
+    padding: 26px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.academy {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    opacity: .92;
+    margin-bottom: 8px;
+}
+
+h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+.core {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.learning {
+    margin-top: 14px;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+h2 {
+    color: #164e63;
+    margin-top: 0;
+}
+
+.objectives {
+    line-height: 1.7;
+}
+
+.active-time {
+    display: inline-block;
+    background: #e7f4f7;
+    color: #164e63;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.episode-header {
+    border-left: 5px solid #26758c;
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+.episode-header p {
+    line-height: 1.5;
+}
+
+.scene-count {
+    font-weight: bold;
+    color: #26758c;
+}
+
+.scene-card {
+    background: #f8fbfc;
+    border: 1px solid #d8e5e9;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.scene-top {
+    padding: 20px;
+}
+
+.scene-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #164e63;
+    margin-bottom: 8px;
+}
+
+.scene-time {
+    font-weight: bold;
+    color: #6b7280;
+}
+
+.visual-area {
+    width: 100%;
+    min-height: 280px;
+    background: #dce9ed;
+    position: relative;
+    overflow: hidden;
+}
+
+.visual-area img {
+    display: block;
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.visual-placeholder {
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+    color: #52666e;
+}
+
+.visual-placeholder .icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.scene-text {
+    padding: 20px;
+    font-size: 17px;
+    line-height: 1.65;
+}
+
+.dialogue {
+    margin-top: 16px;
+    padding: 16px;
+    background: white;
+    border-left: 4px solid #26758c;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+.audio-status {
+    margin: 0 20px 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #eef5f7;
+    color: #52666e;
+    font-size: 14px;
+}
+
+.audio-status.playing {
+    background: #e6f5eb;
+    color: #205b38;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 18px 20px;
+    background: white;
+    border-top: 1px solid #d8e5e9;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 17px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.primary {
+    background: #164e63;
+    color: white;
+}
+
+.secondary {
+    background: #dcecef;
+    color: #164e63;
+}
+
+.voice {
+    background: #f0e6c8;
+    color: #5d4b1f;
+}
+
+.progress-wrap {
+    margin-top: 18px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #dce5e8;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 14.28%;
+    background: #26758c;
+    transition: width .3s ease;
+}
+
+.decision {
+    margin-top: 20px;
+    background: white;
+    border: 2px solid #d7e5e9;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.answers {
+    display: grid;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.answer {
+    width: 100%;
+    text-align: left;
+    background: #f5f8f9;
+    border: 2px solid #d5e1e5;
+    color: #24343b;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: normal;
+    line-height: 1.45;
+}
+
+.answer:hover {
+    background: #eaf3f5;
+    border-color: #26758c;
+}
+
+.answer.correct {
+    background: #e6f5eb;
+    border-color: #2e7d4f;
+    color: #205b38;
+}
+
+.answer.incorrect {
+    background: #fff0ef;
+    border-color: #b84c43;
+    color: #7a2d28;
+}
+
+.feedback {
+    display: none;
+    margin-top: 15px;
+    padding: 16px;
+    border-radius: 12px;
+    line-height: 1.55;
+}
+
+.feedback.show {
+    display: block;
+}
+
+.feedback.good {
+    background: #e6f5eb;
+    color: #205b38;
+}
+
+.feedback.try-again {
+    background: #fff6df;
+    color: #67521e;
+}
+
+.next-area {
+    display: none;
+    margin-top: 16px;
+}
+
+.next-area.show {
+    display: block;
+}
+
+.next-button {
+    background: #26758c;
+    color: white;
+    width: 100%;
+}
+
+.complete {
+    display: none;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+.complete.show {
+    display: block;
+}
+
+.complete-icon {
+    font-size: 62px;
+}
+
+.completion-message {
+    max-width: 650px;
+    margin: auto auto 20px;
+    line-height: 1.6;
+}
+
+.restart-button {
+    background: #164e63;
+    color: white;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 5px;
+    color: #164e63;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.small-note {
+    color: #68777d;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media(max-width:600px) {
+
+    .page {
+        width: 96%;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .scene-title {
+        font-size: 21px;
+    }
+
+    .scene-text {
+        font-size: 16px;
+    }
+
+    .controls button {
+        flex: 1 1 45%;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <div class="page">
 
-    <!-- MODULE HEADER -->
-    <section class="header">
-        <div class="academy">California RCFE Leadership Academy</div>
+<section class="header">
 
-        <h1>
-            Module {{ m["id"] }}: {{ m["title"] }}
-        </h1>
+    <div class="academy">
+        California RCFE Leadership Academy
+    </div>
 
-        <p class="core">
-            {{ m["core"] }}
-        </p>
+    <h1>
+        Module {{ m["id"] }}: {{ m["title"] }}
+    </h1>
 
-        <div class="learning">
-            Estimated learning time: {{ m["minutes"] }} minutes
-        </div>
-    </section>
+    <p class="core">
+        {{ m["core"] }}
+    </p>
 
+    <div class="learning">
+        Estimated learning time: {{ m["minutes"] }} minutes
+    </div>
 
-    <!-- LEARNING OBJECTIVES -->
-    <section class="card">
+</section>
 
-        <h2>By the end of this module, you should be able to:</h2>
 
-        <ul class="objectives">
-            <li>Recognize immediate priorities when a resident is found on the floor.</li>
-            <li>Avoid actions that could worsen a possible injury.</li>
-            <li>Direct staff through an organized assessment and emergency response.</li>
-            <li>Identify documentation and notification responsibilities after a fall.</li>
-            <li>Apply the response process to a realistic RCFE incident.</li>
-        </ul>
+<section class="card">
 
-        <div class="active-time">
-            Active learning time:
-            <span id="activeTime">0:00</span>
-        </div>
+    <h2>By the end of this module, you should be able to:</h2>
 
-    </section>
+    <ul class="objectives">
+        <li>Recognize immediate priorities when a resident is found on the floor.</li>
+        <li>Avoid actions that could worsen a possible injury.</li>
+        <li>Direct staff through an organized assessment and emergency response.</li>
+        <li>Identify documentation and notification responsibilities after a fall.</li>
+        <li>Apply the response process to a realistic RCFE incident.</li>
+    </ul>
 
+    <div class="active-time">
+        Active learning time:
+        <span id="activeTime">0:00</span>
+    </div>
 
-    <!-- EPISODE -->
-    <section class="card">
+</section>
 
-        <div class="episode-header">
-            <h2>EPISODE 1 — Resident Down</h2>
 
-            <p>
-                You are the administrator on duty during the morning shift.
-                Watch the incident unfold.
-            </p>
-
-            <p>
-                The scene will pause when you must make a decision.
-            </p>
-
-            <div class="scene-count">
-                Scene <span id="sceneNumber">1</span> of 7
-            </div>
-        </div>
-
-
-        <!-- SCENE -->
-        <div class="scene-card">
-
-            <div class="scene-top">
-
-                <div class="scene-title" id="sceneTitle">
-                    8:05 AM — Assisted Living
-                </div>
-
-                <div class="scene-time" id="sceneTime">
-                    Morning shift
-                </div>
-
-            </div>
-
-
-            <!-- VISUAL -->
-            <div class="visual-area" id="visualArea">
-
-                <img
-                    id="sceneImage"
-                    src="/incident-storyboard.png"
-                    alt="Resident care incident scene"
-                    onerror="this.style.display='none'; document.getElementById('visualFallback').style.display='block';"
-                >
-
-                <div
-                    class="visual-placeholder"
-                    id="visualFallback"
-                    style="display:none;"
-                >
-                    <div class="icon">🏥</div>
-                    <strong>Resident care incident</strong>
-                    <p>
-                        The scene image is not available, but the training
-                        scenario will continue.
-                    </p>
-                </div>
-
-            </div>
-
+<section class="card">
 
-            <!-- SCENE NARRATION -->
-            <div class="scene-text">
-
-                <div id="sceneNarration">
-                    You are beginning the morning shift when a caregiver approaches
-                    you quickly. A resident has been found on the floor in their room.
-                    You walk with the caregiver toward the resident's room.
-                </div>
-
-                <div
-                    class="dialogue"
-                    id="sceneDialogue"
-                >
-                    "Administrator, I need you in Room 12. I found Mrs. Davis on the floor."
-                </div>
-
-            </div>
-
-
-            <!-- CONTROLS -->
-            <div class="controls">
-
-                <button
-                    type="button"
-                    class="primary"
-                    id="playButton"
-                    onclick="playScene()"
-                >
-                    ▶ Play
-                </button>
-
-                <button
-                    type="button"
-                    class="secondary"
-                    onclick="restartScene()"
-                >
-                    ↻ Restart
-                </button>
-
-                <button
-                    type="button"
-                    class="secondary"
-                    onclick="pauseScene()"
-                >
-                    ⏸ Pause
-                </button>
-
-                <button
-                    type="button"
-                    class="secondary"
-                    onclick="resumeScene()"
-                >
-                    ▶ Resume
-                </button>
-
-                <button
-                    type="button"
-                    class="voice"
-                    onclick="toggleVoice()"
-                    id="voiceButton"
-                >
-                    🔊 Sound On
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- PROGRESS -->
-        <div class="progress-wrap">
-
-            <div class="progress-label">
-                <span>Scenario Progress</span>
-                <span id="progressText">1 / 7</span>
-            </div>
-
-            <div class="progress-bar">
-                <div
-                    class="progress-fill"
-                    id="progressFill"
-                ></div>
-            </div>
-
-        </div>
-
-
-        <!-- DECISION -->
-        <div
-            class="decision"
-            id="decisionBox"
-        >
-
-            <h3>Administrator Decision</h3>
-
-            <div
-                class="question"
-                id="questionText"
-            >
-                What should you do first?
-            </div>
-
-            <div
-                class="answers"
-                id="answers"
-            >
-                <!-- Answers inserted by JavaScript -->
-            </div>
-
-            <div
-                class="feedback"
-                id="feedback"
-            ></div>
-
-            <div
-                class="next-area"
-                id="nextArea"
-            >
-                <button
-                    type="button"
-                    class="next-button"
-                    onclick="nextScene()"
-                >
-                    Continue to Next Scene →
-                </button>
-            </div>
-
-        </div>
-
-
-        <!-- COMPLETION -->
-        <div
-            class="complete"
-            id="completeBox"
-        >
-
-            <div class="complete-icon">✓</div>
-
-            <h2>Module Scenario Complete</h2>
-
-            <p class="completion-message">
-                You have completed the Resident Down emergency-response
-                scenario. You practiced immediate assessment, protecting the
-                resident from further harm, directing staff, obtaining
-                appropriate emergency assistance, and completing follow-up
-                responsibilities.
-            </p>
-
-            <p>
-                <strong>Your scenario score:</strong>
-                <span id="finalScore">0</span> / 7
-            </p>
-
-            <button
-                type="button"
-                class="restart-button"
-                onclick="restartModule()"
-            >
-                ↻ Restart Scenario
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <section class="card">
-
-        <h2>Key Leadership Reminder</h2>
-
-        <p style="line-height:1.7;">
-            When a resident is found on the floor, slow the situation down.
-            Protect the resident from additional injury, assess before moving
-            them when appropriate, obtain emergency assistance when indicated,
-            and direct staff clearly. Documentation and required notifications
-            are part of the response — not an afterthought.
-        </p>
-
-        <p class="small-note">
-            This training scenario is educational and should be applied
-            together with your facility's policies, emergency procedures,
-            resident care plan, and applicable California requirements.
-        </p>
-
-    </section>
-
-
-    <a
-        href="/student"
-        class="back-link"
+<div class="episode-header">
+
+    <h2>EPISODE 1 — Resident Down</h2>
+
+    <p>
+        You are the administrator on duty during the morning shift.
+        Watch the incident unfold.
+    </p>
+
+    <p>
+        The scene will pause when you must make a decision.
+    </p>
+
+    <div class="scene-count">
+        Scene <span id="sceneNumber">1</span> of 7
+    </div>
+
+</div>
+
+
+<div class="scene-card">
+
+<div class="scene-top">
+
+    <div class="scene-title" id="sceneTitle"></div>
+
+    <div class="scene-time" id="sceneTime"></div>
+
+</div>
+
+
+<div class="visual-area">
+
+    <img
+        id="sceneImage"
+        alt="Resident Down training scene"
     >
-        ← Return to Student Dashboard
-    </a>
+
+    <div
+        class="visual-placeholder"
+        id="visualFallback"
+    >
+
+        <div>
+            <div class="icon">🏥</div>
+
+            <strong id="imageMessage">
+                Loading training scene...
+            </strong>
+
+            <p>
+                The training scene will appear here.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="scene-text">
+
+    <div id="sceneNarration"></div>
+
+    <div
+        class="dialogue"
+        id="sceneDialogue"
+    ></div>
+
+</div>
+
+
+<div
+    class="audio-status"
+    id="audioStatus"
+>
+    Ready — press Play Scene to begin.
+</div>
+
+
+<div class="controls">
+
+    <button
+        type="button"
+        class="primary"
+        onclick="playScene()"
+        id="playButton"
+    >
+        ▶ Play Scene
+    </button>
+
+    <button
+        type="button"
+        class="secondary"
+        onclick="pauseScene()"
+    >
+        ⏸ Pause
+    </button>
+
+    <button
+        type="button"
+        class="secondary"
+        onclick="restartScene()"
+    >
+        ↻ Restart
+    </button>
+
+    <button
+        type="button"
+        class="voice"
+        onclick="toggleSound()"
+        id="soundButton"
+    >
+        🔊 Sound On
+    </button>
+
+</div>
+
+</div>
+
+
+<div class="progress-wrap">
+
+    <div class="progress-label">
+
+        <span>Scenario Progress</span>
+
+        <span id="progressText">
+            1 / 7
+        </span>
+
+    </div>
+
+    <div class="progress-bar">
+
+        <div
+            class="progress-fill"
+            id="progressFill"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<div
+    class="decision"
+    id="decisionBox"
+>
+
+    <h3>
+        Administrator Decision
+    </h3>
+
+    <div
+        class="question"
+        id="questionText"
+    ></div>
+
+    <div
+        class="answers"
+        id="answers"
+    ></div>
+
+    <div
+        class="feedback"
+        id="feedback"
+    ></div>
+
+    <div
+        class="next-area"
+        id="nextArea"
+    >
+
+        <button
+            type="button"
+            class="next-button"
+            onclick="nextScene()"
+        >
+            Continue to Next Scene →
+        </button>
+
+    </div>
+
+</div>
+
+
+<div
+    class="complete"
+    id="completeBox"
+>
+
+    <div class="complete-icon">
+        ✓
+    </div>
+
+    <h2>
+        Module Scenario Complete
+    </h2>
+
+    <p class="completion-message">
+        You have completed the Resident Down emergency-response
+        scenario. You practiced immediate assessment, protecting
+        the resident from further harm, directing staff, obtaining
+        appropriate emergency assistance, and completing follow-up
+        responsibilities.
+    </p>
+
+    <p>
+        <strong>Your scenario score:</strong>
+        <span id="finalScore">0</span> / 7
+    </p>
+
+    <button
+        type="button"
+        class="restart-button"
+        onclick="restartModule()"
+    >
+        ↻ Restart Scenario
+    </button>
+
+</div>
+
+</section>
+
+
+<section class="card">
+
+    <h2>
+        Key Leadership Reminder
+    </h2>
+
+    <p style="line-height:1.7;">
+
+        When a resident is found on the floor, slow the situation down.
+        Protect the resident from additional injury, assess before moving
+        them when appropriate, obtain emergency assistance when indicated,
+        and direct staff clearly.
+
+    </p>
+
+    <p class="small-note">
+
+        This training scenario is educational and should be applied
+        together with your facility's policies, emergency procedures,
+        resident care plan, and applicable California requirements.
+
+    </p>
+
+</section>
+
+
+<a
+    href="/student"
+    class="back-link"
+>
+    ← Return to Student Dashboard
+</a>
 
 </div>
 
 
 <script>
 
-    /* =========================================================
-       RCFE LEADERSHIP ACADEMY
-       MODULE 1 — RESIDENT DOWN
-       COMPLETE CLIENT-SIDE TRAINING ENGINE
-       ========================================================= */
+/* ============================================================
+   MODULE 1 — RESIDENT DOWN
+   AUDIO + IMAGE SCENE ENGINE
+
+   IMPORTANT:
+   This version does NOT use browser speech synthesis.
+
+   Each scene is designed to use:
+       /scene1.png
+       /scene2.png
+       ...
+       /scene7.png
+
+   And:
+       /audio/scene1.mp3
+       /audio/scene2.mp3
+       ...
+       /audio/scene7.mp3
+
+   This prevents the browser from mispronouncing
+   words such as "caregiver".
+============================================================ */
 
 
-    const scenes = [
+const scenes = [
 
-        {
-            title: "8:05 AM — Assisted Living",
-            time: "Morning shift",
-            narration:
-                "You are beginning the morning shift when a caregiver approaches you quickly. A resident has been found on the floor in their room. You walk with the caregiver toward the resident's room.",
-            dialogue:
-                "\"Administrator, I need you in Room 12. I found Mrs. Davis on the floor.\"",
-            question:
-                "What should you do first?",
-            answers: [
-                "Assess the resident and the situation before attempting to move the resident.",
-                "Tell the caregiver to immediately lift the resident into bed.",
-                "Leave the room and begin completing an incident report.",
-                "Ask another caregiver to get the resident into a wheelchair."
-            ],
-            correct: 0,
-            why:
-                "Correct. The immediate priority is to protect the resident and assess the situation. Moving a resident before determining whether there may be an injury can make an injury worse."
-        },
+{
+    title: "8:05 AM — Assisted Living",
+    time: "Morning shift",
 
-        {
-            title: "8:07 AM — Room 12",
-            time: "You enter the resident's room",
-            narration:
-                "You enter the room with the caregiver. Mrs. Davis is lying on her side near the bed. She is awake but appears frightened. You notice that the area around the bed is clear enough to approach safely.",
-            dialogue:
-                "\"Mrs. Davis, I'm here with you. Don't try to get up yet.\"",
-            question:
-                "What is the best next action?",
-            answers: [
-                "Keep the resident still and begin an organized assessment for immediate concerns.",
-                "Ask the resident to stand so you can see whether she can walk.",
-                "Pull the resident away from the bed.",
-                "Have the caregiver bring a wheelchair and transfer her."
-            ],
-            correct: 0,
-            why:
-                "Correct. Keep the resident in a safe position while you assess responsiveness, breathing, pain, bleeding, and other signs of injury."
-        },
+    image: "/scene1.png",
+    audio: "/audio/scene1.mp3",
 
-        {
-            title: "8:08 AM — Initial Assessment",
-            time: "Stay calm and organized",
-            narration:
-                "Mrs. Davis is responsive. She tells you that she struck the side of her head when she fell. She reports pain in her hip. The caregiver looks at you and asks what to do next.",
-            dialogue:
-                "\"My hip hurts, and I think I hit my head.\"",
-            question:
-                "Which finding should immediately increase your concern?",
-            answers: [
-                "Possible head impact combined with significant hip pain after a fall.",
-                "The resident says she is embarrassed.",
-                "The caregiver is worried about being late for the next task.",
-                "The resident's room is untidy."
-            ],
-            correct: 0,
-            why:
-                "Correct. A possible head injury and significant pain following a fall require careful assessment and escalation according to the resident's condition and facility emergency procedures."
-        },
+    narration:
+        "You are beginning the morning shift when a caregiver approaches you quickly. A resident has been found on the floor in their room. You walk with the caregiver toward the resident's room.",
 
-        {
-            title: "8:10 AM — Call for Help",
-            time: "Emergency response",
-            narration:
-                "The resident remains on the floor. She is responsive, but the possible head impact and hip pain concern you. You direct the caregiver to get the emergency response supplies and notify the appropriate clinical or emergency resource.",
-            dialogue:
-                "\"Please stay with me. We're going to get you the help you need.\"",
-            question:
-                "What is the best leadership action?",
-            answers: [
-                "Direct staff clearly, obtain appropriate assistance, and continue monitoring the resident.",
-                "Tell everyone to leave so the room stays quiet.",
-                "Have the caregiver move the resident before help arrives.",
-                "Wait until the end of the shift to decide whether the fall needs attention."
-            ],
-            correct: 0,
-            why:
-                "Correct. The administrator should provide calm direction, keep the resident supervised, obtain appropriate assistance, and continue monitoring."
-        },
+    dialogue:
+        "\"Administrator, I need you in Room 12. I found Mrs. Davis on the floor.\"",
 
-        {
-            title: "8:15 AM — Emergency Assistance",
-            time: "The situation is escalating appropriately",
-            narration:
-                "Emergency assistance is being arranged. You remain with Mrs. Davis while the caregiver gathers the information needed by responders. You continue observing the resident and avoid unnecessary movement.",
-            dialogue:
-                "\"Stay with me, Mrs. Davis. Help is on the way.\"",
-            question:
-                "What information should staff be prepared to provide?",
-            answers: [
-                "What happened, when the fall occurred, observed injuries or symptoms, relevant resident information, and actions already taken.",
-                "Only the resident's room number.",
-                "Only the name of the caregiver who found the resident.",
-                "Nothing until the responders arrive."
-            ],
-            correct: 0,
-            why:
-                "Correct. Clear factual information helps responders understand what happened and what has already been observed or done."
-        },
+    question:
+        "What should you do first?",
 
-        {
-            title: "8:25 AM — After the Resident Leaves",
-            time: "Follow-up responsibilities",
-            narration:
-                "Mrs. Davis has been transferred for further evaluation. The room is quiet again, but your responsibilities are not finished. You direct staff to preserve the facts of the event and begin the required follow-up.",
-            dialogue:
-                "\"Let's document exactly what we observed and what actions were taken.\"",
-            question:
-                "What should happen next?",
-            answers: [
-                "Complete required documentation, notifications, follow-up, and review of contributing factors according to policy.",
-                "Erase the event from the daily notes because EMS transported the resident.",
-                "Ask staff to discuss the incident casually so everyone knows what happened.",
-                "Wait several days before documenting the event."
-            ],
-            correct: 0,
-            why:
-                "Correct. A resident fall requires timely, factual documentation and appropriate notifications and follow-up under facility policy and applicable requirements."
-        },
+    answers: [
 
-        {
-            title: "8:45 AM — Leadership Review",
-            time: "Learning from the event",
-            narration:
-                "Later that morning, you review the event with the care team. You want to understand not only what happened, but whether anything can be changed to reduce future risk.",
-            dialogue:
-                "\"Let's look at what happened and identify anything we can improve.\"",
-            question:
-                "What demonstrates strong RCFE leadership after a resident fall?",
-            answers: [
-                "Review the facts, identify contributing factors, communicate appropriately, complete required follow-up, and use the event to improve resident safety.",
-                "Focus only on identifying which employee is at fault.",
-                "Avoid discussing the event with the care team.",
-                "Consider the event closed once the resident leaves the building."
-            ],
-            correct: 0,
-            why:
-                "Correct. Strong leadership combines immediate resident protection with accurate follow-up, communication, accountability, and prevention."
-        }
+        "Assess the resident and the situation before attempting to move the resident.",
 
-    ];
+        "Tell the caregiver to immediately lift the resident into bed.",
+
+        "Leave the room and begin completing an incident report.",
+
+        "Ask another caregiver to get the resident into a wheelchair."
+
+    ],
+
+    correct: 0,
+
+    why:
+        "Correct. The immediate priority is to protect the resident and assess the situation. Moving a resident before determining whether there may be an injury can make an injury worse."
+},
+
+{
+    title: "8:07 AM — Room 12",
+    time: "You enter the resident's room",
+
+    image: "/scene2.png",
+    audio: "/audio/scene2.mp3",
+
+    narration:
+        "You enter the room with the caregiver. Mrs. Davis is lying on her side near the bed. She is awake but appears frightened. You notice that the area around the bed is clear enough to approach safely.",
+
+    dialogue:
+        "\"Mrs. Davis, I'm here with you. Don't try to get up yet.\"",
+
+    question:
+        "What is the best next action?",
+
+    answers: [
+
+        "Keep the resident still and begin an organized assessment for immediate concerns.",
+
+        "Ask the resident to stand so you can see whether she can walk.",
+
+        "Pull the resident away from the bed.",
+
+        "Have the caregiver bring a wheelchair and transfer her."
+
+    ],
+
+    correct: 0,
+
+    why:
+        "Correct. Keep the resident in a safe position while you assess responsiveness, breathing, pain, bleeding, and other signs of injury."
+},
+
+{
+    title: "8:08 AM — Initial Assessment",
+    time: "Stay calm and organized",
+
+    image: "/scene3.png",
+    audio: "/audio/scene3.mp3",
+
+    narration:
+        "Mrs. Davis is responsive. She tells you that she struck the side of her head when she fell. She reports pain in her hip. The caregiver looks at you and asks what to do next.",
+
+    dialogue:
+        "\"My hip hurts, and I think I hit my head.\"",
+
+    question:
+        "Which finding should immediately increase your concern?",
+
+    answers: [
+
+        "Possible head impact combined with significant hip pain after a fall.",
+
+        "The resident says she is embarrassed.",
+
+        "The caregiver is worried about being late for the next task.",
+
+        "The resident's room is untidy."
+
+    ],
+
+    correct: 0,
+
+    why:
+        "Correct. A possible head injury and significant pain following a fall require careful assessment and escalation according to the resident's condition and facility emergency procedures."
+},
+
+{
+    title: "8:10 AM — Call for Help",
+    time: "Emergency response",
+
+    image: "/scene4.png",
+    audio: "/audio/scene4.mp3",
+
+    narration:
+        "The resident remains on the floor. She is responsive, but the possible head impact and hip pain concern you. You direct the caregiver to get the emergency response supplies and notify the appropriate clinical or emergency resource.",
+
+    dialogue:
+        "\"Please stay with me. We're going to get you the help you need.\"",
+
+    question:
+        "What is the best leadership action?",
+
+    answers: [
+
+        "Direct staff clearly, obtain appropriate assistance, and continue monitoring the resident.",
+
+        "Tell everyone to leave so the room stays quiet.",
+
+        "Have the caregiver move the resident before help arrives.",
+
+        "Wait until the end of the shift to decide whether the fall needs attention."
+
+    ],
+
+    correct: 0,
+
+    why:
+        "Correct. The administrator should provide calm direction, keep the resident supervised, obtain appropriate assistance, and continue monitoring."
+},
+
+{
+    title: "8:15 AM — Emergency Assistance",
+    time: "The situation is escalating appropriately",
+
+    image: "/scene5.png",
+    audio: "/audio/scene5.mp3",
+
+    narration:
+        "Emergency assistance is being arranged. You remain with Mrs. Davis while the caregiver gathers the information needed by responders. You continue observing the resident and avoid unnecessary movement.",
+
+    dialogue:
+        "\"Stay with me, Mrs. Davis. Help is on the way.\"",
+
+    question:
+        "What information should staff be prepared to provide?",
+
+    answers: [
+
+        "What happened, when the fall occurred, observed injuries or symptoms, relevant resident information, and actions already taken.",
+
+        "Only the resident's room number.",
+
+        "Only the name of the caregiver who found the resident.",
+
+        "Nothing until the responders arrive."
+
+    ],
+
+    correct: 0,
+
+    why:
+        "Correct. Clear factual information helps responders understand what happened and what has already been observed or done."
+},
+
+{
+    title: "8:25 AM — After the Resident Leaves",
+    time: "Follow-up responsibilities",
+
+    image: "/scene6.png",
+    audio: "/audio/scene6.mp3",
+
+    narration:
+        "Mrs. Davis has been transferred for further evaluation. The room is quiet again, but your responsibilities are not finished. You direct staff to preserve the facts of the event and begin the required follow-up.",
+
+    dialogue:
+        "\"Let's document exactly what we observed and what actions were taken.\"",
+
+    question:
+        "What should happen next?",
+
+    answers: [
+
+        "Complete required documentation, notifications, follow-up, and review of contributing factors according to policy.",
+
+        "Erase the event from the daily notes because EMS transported the resident.",
+
+        "Ask staff to discuss the incident casually so everyone knows what happened.",
+
+        "Wait several days before documenting the event."
+
+    ],
+
+    correct: 0,
+
+    why:
+        "Correct. A resident fall requires timely, factual documentation and appropriate notifications and follow-up under facility policy and applicable requirements."
+},
+
+{
+    title: "8:45 AM — Leadership Review",
+    time: "Learning from the event",
+
+    image: "/scene7.png",
+    audio: "/audio/scene7.mp3",
+
+    narration:
+        "Later that morning, you review the event with the care team. You want to understand not only what happened, but whether anything can be changed to reduce future risk.",
+
+    dialogue:
+        "\"Let's look at what happened and identify anything we can improve.\"",
+
+    question:
+        "What demonstrates strong RCFE leadership after a resident fall?",
+
+    answers: [
+
+        "Review the facts, identify contributing factors, communicate appropriately, complete required follow-up, and use the event to improve resident safety.",
+
+        "Focus only on identifying which employee is at fault.",
+
+        "Avoid discussing the event with the care team.",
+
+        "Consider the event closed once the resident leaves the building."
+
+    ],
+
+    correct: 0,
+
+    why:
+        "Correct. Strong leadership combines immediate resident protection with accurate follow-up, communication, accountability, and prevention."
+}
+
+];
 
 
-    let currentScene = 0;
-    let score = 0;
-    let answered = false;
-    let voiceEnabled = true;
-    let speechUtterance = null;
+let currentScene = 0;
+let score = 0;
+let answered = false;
+let soundEnabled = true;
 
-    let timerSeconds = 0;
-    let timerRunning = false;
-    let timerInterval = null;
+let currentAudio = null;
+
+let timerSeconds = 0;
+let timerRunning = false;
+let timerInterval = null;
 
 
-    /* =========================================================
-       TIMER
-       ========================================================= */
+/* ============================================================
+   TIMER
+============================================================ */
 
-    function startTimer() {
+function startTimer() {
 
-        if (timerRunning) {
-            return;
-        }
-
-        timerRunning = true;
-
-        timerInterval = setInterval(function() {
-
-            timerSeconds++;
-
-            const minutes = Math.floor(timerSeconds / 60);
-            const seconds = timerSeconds % 60;
-
-            document.getElementById("activeTime").textContent =
-                minutes + ":" + String(seconds).padStart(2, "0");
-
-        }, 1000);
+    if (timerRunning) {
+        return;
     }
 
+    timerRunning = true;
 
-    /* =========================================================
-       SCENE DISPLAY
-       ========================================================= */
+    timerInterval = setInterval(function() {
 
-    function showScene() {
+        timerSeconds++;
 
-        const scene = scenes[currentScene];
+        const minutes =
+            Math.floor(timerSeconds / 60);
 
-        answered = false;
+        const seconds =
+            timerSeconds % 60;
 
-        document.getElementById("sceneNumber").textContent =
-            currentScene + 1;
+        document.getElementById("activeTime")
+            .textContent =
+            minutes + ":" +
+            String(seconds).padStart(2, "0");
 
-        document.getElementById("progressText").textContent =
-            (currentScene + 1) + " / " + scenes.length;
+    }, 1000);
+}
 
-        document.getElementById("progressFill").style.width =
-            ((currentScene + 1) / scenes.length * 100) + "%";
 
-        document.getElementById("sceneTitle").textContent =
-            scene.title;
+/* ============================================================
+   STOP AUDIO
+============================================================ */
 
-        document.getElementById("sceneTime").textContent =
-            scene.time;
+function stopAudio() {
 
-        document.getElementById("sceneNarration").textContent =
-            scene.narration;
+    if (currentAudio) {
 
-        document.getElementById("sceneDialogue").textContent =
-            scene.dialogue;
+        currentAudio.pause();
 
-        document.getElementById("questionText").textContent =
-            scene.question;
+        currentAudio.currentTime = 0;
 
-        const answers = document.getElementById("answers");
+        currentAudio = null;
+    }
 
-        answers.innerHTML = "";
+}
 
-        scene.answers.forEach(function(answer, index) {
 
-            const button = document.createElement("button");
+/* ============================================================
+   IMAGE
+============================================================ */
 
-            button.type = "button";
+function loadSceneImage(scene) {
 
-            button.className = "answer";
+    const image =
+        document.getElementById("sceneImage");
 
-            button.textContent =
-                String.fromCharCode(65 + index) + ". " + answer;
+    const fallback =
+        document.getElementById("visualFallback");
 
-            button.onclick = function() {
+    const message =
+        document.getElementById("imageMessage");
+
+    image.style.display = "block";
+
+    fallback.style.display = "none";
+
+    image.src = scene.image;
+
+    image.onerror = function() {
+
+        image.style.display = "none";
+
+        fallback.style.display = "flex";
+
+        message.textContent =
+            "Scene image not uploaded yet.";
+
+    };
+
+}
+
+
+/* ============================================================
+   SCENE DISPLAY
+============================================================ */
+
+function showScene() {
+
+    stopAudio();
+
+    const scene =
+        scenes[currentScene];
+
+    answered = false;
+
+    document.getElementById("sceneNumber")
+        .textContent =
+        currentScene + 1;
+
+    document.getElementById("progressText")
+        .textContent =
+        (currentScene + 1) +
+        " / " +
+        scenes.length;
+
+    document.getElementById("progressFill")
+        .style.width =
+        ((currentScene + 1) /
+        scenes.length * 100) +
+        "%";
+
+    document.getElementById("sceneTitle")
+        .textContent =
+        scene.title;
+
+    document.getElementById("sceneTime")
+        .textContent =
+        scene.time;
+
+    document.getElementById("sceneNarration")
+        .textContent =
+        scene.narration;
+
+    document.getElementById("sceneDialogue")
+        .textContent =
+        scene.dialogue;
+
+    document.getElementById("questionText")
+        .textContent =
+        scene.question;
+
+    document.getElementById("audioStatus")
+        .textContent =
+        "Ready — press Play Scene to begin.";
+
+    document.getElementById("audioStatus")
+        .className =
+        "audio-status";
+
+    document.getElementById("playButton")
+        .textContent =
+        "▶ Play Scene";
+
+    loadSceneImage(scene);
+
+    const answers =
+        document.getElementById("answers");
+
+    answers.innerHTML = "";
+
+    scene.answers.forEach(function(answer, index) {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "answer";
+
+        button.textContent =
+            String.fromCharCode(65 + index) +
+            ". " +
+            answer;
+
+        button.onclick =
+            function() {
                 chooseAnswer(index);
             };
 
-            answers.appendChild(button);
+        answers.appendChild(button);
 
-        });
+    });
 
-        document.getElementById("feedback").className = "feedback";
+    document.getElementById("feedback")
+        .className =
+        "feedback";
 
-        document.getElementById("feedback").innerHTML = "";
+    document.getElementById("feedback")
+        .innerHTML = "";
 
-        document.getElementById("nextArea").className = "next-area";
+    document.getElementById("nextArea")
+        .className =
+        "next-area";
 
-        document.getElementById("decisionBox").style.display = "block";
+    document.getElementById("decisionBox")
+        .style.display =
+        "block";
 
-        document.getElementById("completeBox").className = "complete";
+    document.getElementById("completeBox")
+        .className =
+        "complete";
+}
 
-        stopSpeaking();
 
+/* ============================================================
+   PLAY SCENE AUDIO
+============================================================ */
+
+function playScene() {
+
+    startTimer();
+
+    if (!soundEnabled) {
+
+        document.getElementById("audioStatus")
+            .textContent =
+            "Sound is turned off.";
+
+        return;
     }
 
+    stopAudio();
 
-    /* =========================================================
-       ANSWER
-       ========================================================= */
+    const scene =
+        scenes[currentScene];
 
-    function chooseAnswer(index) {
+    const audio =
+        new Audio(scene.audio);
 
-        if (answered) {
-            return;
-        }
+    currentAudio = audio;
 
-        answered = true;
+    const status =
+        document.getElementById("audioStatus");
 
-        const scene = scenes[currentScene];
+    status.textContent =
+        "▶ Playing scene narration...";
 
-        const answerButtons =
-            document.querySelectorAll(".answer");
+    status.className =
+        "audio-status playing";
 
-        answerButtons.forEach(function(button, buttonIndex) {
+    document.getElementById("playButton")
+        .textContent =
+        "▶ Playing";
 
-            button.disabled = true;
+    audio.onended =
+        function() {
 
-            if (buttonIndex === scene.correct) {
-                button.classList.add("correct");
-            }
+            status.textContent =
+                "Narration complete. Make your decision.";
 
-            if (
-                buttonIndex === index &&
-                buttonIndex !== scene.correct
-            ) {
-                button.classList.add("incorrect");
-            }
-
-        });
-
-
-        const feedback =
-            document.getElementById("feedback");
-
-
-        if (index === scene.correct) {
-
-            score++;
-
-            feedback.className =
-                "feedback show good";
-
-            feedback.innerHTML =
-                "<strong>✓ Correct.</strong><br>" +
-                scene.why;
-
-        } else {
-
-            feedback.className =
-                "feedback show try-again";
-
-            feedback.innerHTML =
-                "<strong>Review this decision.</strong><br>" +
-                scene.why;
-        }
-
-
-        document.getElementById("nextArea")
-            .className = "next-area show";
-
-
-        speak(
-            index === scene.correct
-                ? "Correct. " + scene.why
-                : "Review this decision. " + scene.why
-        );
-
-    }
-
-
-    /* =========================================================
-       NEXT SCENE
-       ========================================================= */
-
-    function nextScene() {
-
-        stopSpeaking();
-
-        if (currentScene < scenes.length - 1) {
-
-            currentScene++;
-
-            showScene();
-
-            window.scrollTo({
-                top: document.querySelector(".scene-card").offsetTop - 15,
-                behavior: "smooth"
-            });
-
-        } else {
-
-            finishModule();
-
-        }
-
-    }
-
-
-    /* =========================================================
-       COMPLETE
-       ========================================================= */
-
-    function finishModule() {
-
-        stopSpeaking();
-
-        document.getElementById("decisionBox")
-            .style.display = "none";
-
-        document.getElementById("completeBox")
-            .className = "complete show";
-
-        document.getElementById("finalScore")
-            .textContent = score;
-
-        speak(
-            "Congratulations. You have completed the Resident Down scenario."
-        );
-
-        window.scrollTo({
-            top: document.querySelector(".complete").offsetTop - 20,
-            behavior: "smooth"
-        });
-
-    }
-
-
-    /* =========================================================
-       PLAY
-       ========================================================= */
-
-    function playScene() {
-
-        startTimer();
-
-        const scene = scenes[currentScene];
-
-        speak(
-            scene.narration + " " +
-            scene.dialogue
-        );
-
-        document.getElementById("playButton")
-            .textContent = "▶ Playing";
-
-    }
-
-
-    /* =========================================================
-       PAUSE
-       ========================================================= */
-
-    function pauseScene() {
-
-        if ("speechSynthesis" in window) {
-            window.speechSynthesis.pause();
-        }
-
-        document.getElementById("playButton")
-            .textContent = "▶ Paused";
-
-    }
-
-
-    /* =========================================================
-       RESUME
-       ========================================================= */
-
-    function resumeScene() {
-
-        startTimer();
-
-        if ("speechSynthesis" in window) {
-
-            if (window.speechSynthesis.paused) {
-
-                window.speechSynthesis.resume();
-
-            } else {
-
-                playScene();
-
-            }
-
-        }
-
-    }
-
-
-    /* =========================================================
-       RESTART CURRENT SCENE
-       ========================================================= */
-
-    function restartScene() {
-
-        stopSpeaking();
-
-        showScene();
-
-        document.getElementById("playButton")
-            .textContent = "▶ Play";
-
-    }
-
-
-    /* =========================================================
-       RESTART ENTIRE MODULE
-       ========================================================= */
-
-    function restartModule() {
-
-        stopSpeaking();
-
-        currentScene = 0;
-
-        score = 0;
-
-        timerSeconds = 0;
-
-        document.getElementById("activeTime")
-            .textContent = "0:00";
-
-        document.getElementById("decisionBox")
-            .style.display = "block";
-
-        document.getElementById("completeBox")
-            .className = "complete";
-
-        showScene();
-
-        startTimer();
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
-
-
-    /* =========================================================
-       VOICE
-       ========================================================= */
-
-    function speak(text) {
-
-        if (!voiceEnabled) {
-            return;
-        }
-
-        if (!("speechSynthesis" in window)) {
-            return;
-        }
-
-        stopSpeaking();
-
-        speechUtterance =
-            new SpeechSynthesisUtterance(text);
-
-        speechUtterance.rate = 0.88;
-
-        speechUtterance.pitch = 1.02;
-
-        speechUtterance.volume = 1;
-
-        const voices =
-            window.speechSynthesis.getVoices();
-
-        /*
-         * Prefer a natural English voice when the browser
-         * provides one. The browser/iPhone ultimately controls
-         * which voices are available.
-         */
-
-        const preferred =
-            voices.find(function(voice) {
-
-                return (
-                    voice.lang &&
-                    voice.lang.toLowerCase().startsWith("en") &&
-                    (
-                        voice.name.toLowerCase().includes("samantha") ||
-                        voice.name.toLowerCase().includes("ava") ||
-                        voice.name.toLowerCase().includes("karen") ||
-                        voice.name.toLowerCase().includes("siri")
-                    )
-                );
-
-            }) ||
-            voices.find(function(voice) {
-
-                return (
-                    voice.lang &&
-                    voice.lang.toLowerCase().startsWith("en")
-                );
-
-            });
-
-
-        if (preferred) {
-            speechUtterance.voice = preferred;
-        }
-
-
-        speechUtterance.onend = function() {
+            status.className =
+                "audio-status";
 
             document.getElementById("playButton")
-                .textContent = "▶ Play";
+                .textContent =
+                "▶ Play Scene";
 
         };
 
-
-        window.speechSynthesis.speak(
-            speechUtterance
-        );
-
-    }
-
-
-    function stopSpeaking() {
-
-        if ("speechSynthesis" in window) {
-
-            window.speechSynthesis.cancel();
-
-        }
-
-    }
-
-
-    function toggleVoice() {
-
-        voiceEnabled = !voiceEnabled;
-
-        const button =
-            document.getElementById("voiceButton");
-
-        if (voiceEnabled) {
-
-            button.textContent =
-                "🔊 Sound On";
-
-        } else {
-
-            stopSpeaking();
-
-            button.textContent =
-                "🔇 Sound Off";
-
-        }
-
-    }
-
-
-    /* =========================================================
-       BROWSER VOICE INITIALIZATION
-       ========================================================= */
-
-    if ("speechSynthesis" in window) {
-
-        window.speechSynthesis.onvoiceschanged =
-            function() {
-                window.speechSynthesis.getVoices();
-            };
-
-    }
-
-
-    /* =========================================================
-       INITIALIZE
-       ========================================================= */
-
-    document.addEventListener(
-        "DOMContentLoaded",
+    audio.onerror =
         function() {
 
-            showScene();
+            status.textContent =
+                "Audio file not found yet. The scene text is available.";
 
-            /*
-             * Do not automatically start speech.
-             * The user must press Play.
-             */
+            status.className =
+                "audio-status";
+
+            document.getElementById("playButton")
+                .textContent =
+                "▶ Play Scene";
+
+        };
+
+    audio.play()
+        .catch(function() {
+
+            status.textContent =
+                "Press Play Scene again to start the narration.";
+
+            status.className =
+                "audio-status";
+
+        });
+
+}
+
+
+/* ============================================================
+   PAUSE
+============================================================ */
+
+function pauseScene() {
+
+    if (currentAudio) {
+
+        currentAudio.pause();
+
+        document.getElementById("audioStatus")
+            .textContent =
+            "⏸ Narration paused.";
+
+        document.getElementById("audioStatus")
+            .className =
+            "audio-status";
+
+    }
+
+}
+
+
+/* ============================================================
+   RESTART SCENE
+============================================================ */
+
+function restartScene() {
+
+    stopAudio();
+
+    showScene();
+
+}
+
+
+/* ============================================================
+   SOUND ON / OFF
+============================================================ */
+
+function toggleSound() {
+
+    soundEnabled =
+        !soundEnabled;
+
+    const button =
+        document.getElementById("soundButton");
+
+    if (soundEnabled) {
+
+        button.textContent =
+            "🔊 Sound On";
+
+    } else {
+
+        stopAudio();
+
+        button.textContent =
+            "🔇 Sound Off";
+
+        document.getElementById("audioStatus")
+            .textContent =
+            "Sound is turned off.";
+
+    }
+
+}
+
+
+/* ============================================================
+   ANSWERS
+============================================================ */
+
+function chooseAnswer(index) {
+
+    if (answered) {
+        return;
+    }
+
+    answered = true;
+
+    stopAudio();
+
+    const scene =
+        scenes[currentScene];
+
+    const buttons =
+        document.querySelectorAll(".answer");
+
+    buttons.forEach(function(button, buttonIndex) {
+
+        button.disabled = true;
+
+        if (buttonIndex === scene.correct) {
+
+            button.classList.add("correct");
 
         }
-    );
+
+        if (
+            buttonIndex === index &&
+            buttonIndex !== scene.correct
+        ) {
+
+            button.classList.add("incorrect");
+
+        }
+
+    });
+
+
+    const feedback =
+        document.getElementById("feedback");
+
+
+    if (index === scene.correct) {
+
+        score++;
+
+        feedback.className =
+            "feedback show good";
+
+        feedback.innerHTML =
+            "<strong>✓ Correct.</strong><br>" +
+            scene.why;
+
+    } else {
+
+        feedback.className =
+            "feedback show try-again";
+
+        feedback.innerHTML =
+            "<strong>Review this decision.</strong><br>" +
+            scene.why;
+
+    }
+
+
+    document.getElementById("nextArea")
+        .className =
+        "next-area show";
+
+}
+
+
+/* ============================================================
+   NEXT SCENE
+============================================================ */
+
+function nextScene() {
+
+    stopAudio();
+
+    if (
+        currentScene <
+        scenes.length - 1
+    ) {
+
+        currentScene++;
+
+        showScene();
+
+        window.scrollTo({
+            top:
+                document.querySelector(".scene-card")
+                    .offsetTop - 15,
+
+            behavior: "smooth"
+        });
+
+    } else {
+
+        finishModule();
+
+    }
+
+}
+
+
+/* ============================================================
+   COMPLETE
+============================================================ */
+
+function finishModule() {
+
+    stopAudio();
+
+    document.getElementById("decisionBox")
+        .style.display =
+        "none";
+
+    document.getElementById("completeBox")
+        .className =
+        "complete show";
+
+    document.getElementById("finalScore")
+        .textContent =
+        score;
+
+    window.scrollTo({
+        top:
+            document.querySelector(".complete")
+                .offsetTop - 20,
+
+        behavior: "smooth"
+    });
+
+}
+
+
+/* ============================================================
+   RESTART MODULE
+============================================================ */
+
+function restartModule() {
+
+    stopAudio();
+
+    currentScene = 0;
+
+    score = 0;
+
+    timerSeconds = 0;
+
+    document.getElementById("activeTime")
+        .textContent =
+        "0:00";
+
+    document.getElementById("decisionBox")
+        .style.display =
+        "block";
+
+    document.getElementById("completeBox")
+        .className =
+        "complete";
+
+    showScene();
+
+    startTimer();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* ============================================================
+   INITIALIZE
+============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        showScene();
+
+    }
+);
 
 </script>
 

@@ -21,7 +21,7 @@
 
         .container {
             width: 94%;
-            max-width: 900px;
+            max-width: 960px;
             margin: 20px auto;
         }
 
@@ -55,108 +55,290 @@
             font-weight: bold;
         }
 
-        .scene {
-            background: #1d252c;
-            border-radius: 18px;
+        .video-stage {
+            position: relative;
+            width: 100%;
+            min-height: 520px;
             overflow: hidden;
-            margin-top: 20px;
+            border-radius: 18px;
+            background: #1a2026;
             color: white;
+            margin-top: 20px;
         }
 
-        .scene-top {
-            padding: 18px;
-            background: #111820;
-        }
-
-        .scene-time {
+        .video-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+            padding: 14px 18px;
+            background: rgba(0,0,0,.62);
             font-size: 14px;
-            opacity: .75;
         }
 
-        .scene-body {
-            padding: 22px;
+        .scene {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .8s ease;
         }
 
-        .character {
-            text-align: center;
-            animation: enterScene 1.2s ease-out;
+        .scene.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .character img {
-            width: 180px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 8px 25px rgba(0,0,0,.35);
+        .hallway {
+            background:
+                linear-gradient(rgba(25,32,38,.12), rgba(25,32,38,.12)),
+                linear-gradient(
+                    to bottom,
+                    #e9e5dd 0%,
+                    #ddd7ca 62%,
+                    #b29f83 62%,
+                    #a28d70 100%
+                );
         }
 
-        .character-name {
-            font-size: 22px;
+        .hallway::before {
+            content: "";
+            position: absolute;
+            top: 80px;
+            left: 12%;
+            width: 22%;
+            height: 310px;
+            background: #9d7a5b;
+            border: 10px solid #73543d;
+            box-shadow:
+                260px 0 0 #9d7a5b,
+                260px 0 0 10px #73543d;
+        }
+
+        .hallway::after {
+            content: "ROOM 108";
+            position: absolute;
+            top: 105px;
+            left: 17%;
+            color: #fff;
             font-weight: bold;
-            margin-top: 12px;
+            letter-spacing: 1px;
+            background: #3c4b55;
+            padding: 7px 12px;
+            border-radius: 6px;
         }
 
-        .character-role {
-            font-size: 14px;
+        .hallway-light {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 190px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255,255,230,.8);
+            filter: blur(8px);
+        }
+
+        .room {
+            background:
+                linear-gradient(
+                    to bottom,
+                    #ece5db 0%,
+                    #e5ddd2 67%,
+                    #c8b69d 67%,
+                    #b9a489 100%
+                );
+        }
+
+        .bed {
+            position: absolute;
+            right: 10%;
+            bottom: 90px;
+            width: 42%;
+            height: 115px;
+            background: #e6edf2;
+            border: 8px solid #72818b;
+            border-radius: 16px 16px 8px 8px;
+        }
+
+        .bed::before {
+            content: "";
+            position: absolute;
+            top: -45px;
+            left: 6%;
+            width: 26%;
+            height: 48px;
+            background: white;
+            border-radius: 14px;
+        }
+
+        .bed::after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: #b4cfdd;
             opacity: .8;
         }
 
-        .dialogue {
-            margin-top: 24px;
+        .floor-person {
+            position: absolute;
+            left: 18%;
+            bottom: 70px;
+            width: 155px;
+            height: 82px;
+            transform: rotate(-8deg);
         }
 
-        .speech {
-            background: white;
-            color: #222;
-            padding: 18px;
-            border-radius: 18px;
-            margin-bottom: 16px;
-            line-height: 1.5;
-            animation: fadeIn 1s ease;
+        .floor-head {
+            position: absolute;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #d9b18d;
+            left: 5px;
+            top: 5px;
         }
 
-        .speech strong {
-            color: #235c74;
+        .floor-body {
+            position: absolute;
+            left: 42px;
+            top: 28px;
+            width: 95px;
+            height: 42px;
+            border-radius: 25px;
+            background: #8a6179;
         }
 
-        .narrator {
-            padding: 16px;
-            margin: 18px 0;
-            border-left: 4px solid #d7b56d;
-            background: rgba(255,255,255,.08);
-            border-radius: 8px;
-            font-style: italic;
-            line-height: 1.5;
+        .floor-leg {
+            position: absolute;
+            width: 75px;
+            height: 20px;
+            border-radius: 14px;
+            background: #4f5661;
+            right: -10px;
+            bottom: 2px;
+            transform: rotate(18deg);
         }
 
-        .voice-controls {
+        .maria-wrap {
+            position: absolute;
+            bottom: 58px;
+            left: -220px;
+            width: 200px;
             text-align: center;
-            margin: 20px 0 5px;
+            transition: left 1.2s ease;
         }
 
-        .voice-button {
-            border: none;
-            border-radius: 12px;
-            background: #d7b56d;
-            color: #1d252c;
-            font-size: 16px;
+        .scene.active .maria-wrap.walk-in {
+            left: 11%;
+        }
+
+        .maria-wrap img {
+            width: 165px;
+            height: 165px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 8px 24px rgba(0,0,0,.4);
+        }
+
+        .maria-name {
+            margin-top: 9px;
             font-weight: bold;
-            padding: 13px 20px;
-            cursor: pointer;
-            margin: 5px;
+            font-size: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,.6);
         }
 
-        .voice-button:hover {
-            opacity: .9;
+        .caption {
+            position: absolute;
+            left: 6%;
+            right: 6%;
+            bottom: 22px;
+            z-index: 30;
+            background: rgba(0,0,0,.78);
+            color: white;
+            padding: 15px 18px;
+            border-radius: 12px;
+            line-height: 1.45;
+            font-size: 17px;
+            min-height: 58px;
+        }
+
+        .caption strong {
+            color: #f0cc7a;
+        }
+
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,.45);
+        }
+
+        .play-button {
+            border: none;
+            border-radius: 999px;
+            background: white;
+            color: #1d252c;
+            width: 92px;
+            height: 92px;
+            font-size: 42px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,.35);
+        }
+
+        .video-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .video-controls button {
+            border: none;
+            border-radius: 10px;
+            padding: 11px 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #235c74;
+            color: white;
+        }
+
+        .progress {
+            margin-top: 14px;
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: #d7dde0;
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background: #235c74;
+            transition: width .4s linear;
         }
 
         .decision-box {
+            display: none;
             background: #f7f9fa;
             border: 2px solid #d9e1e5;
             border-radius: 16px;
             padding: 20px;
             margin-top: 22px;
+        }
+
+        .decision-box.show {
+            display: block;
         }
 
         .choice {
@@ -175,11 +357,11 @@
         }
 
         .choice:hover {
-            opacity: .9;
+            opacity: .92;
         }
 
         .choice:disabled {
-            opacity: .65;
+            opacity: .6;
             cursor: not-allowed;
         }
 
@@ -206,25 +388,32 @@
             color: #7d2626;
         }
 
-        @keyframes enterScene {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+        @media (max-width: 700px) {
+            .video-stage {
+                min-height: 500px;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+            .maria-wrap img {
+                width: 135px;
+                height: 135px;
             }
 
-            to {
-                opacity: 1;
+            .maria-wrap {
+                width: 160px;
+            }
+
+            .floor-person {
+                transform: scale(.82) rotate(-8deg);
+                left: 10%;
+            }
+
+            .bed {
+                right: 4%;
+                width: 48%;
+            }
+
+            .caption {
+                font-size: 15px;
             }
         }
     </style>
@@ -268,98 +457,92 @@
         <h2>Resident Down</h2>
 
         <p>
-            Your shift has just begun. What happens next depends on the
-            decisions you make.
+            Watch the incident unfold. The scene will stop when it is time
+            for you to make the first decision.
         </p>
 
-        <div class="scene">
+        <div class="video-stage" id="videoStage">
 
-            <div class="scene-top">
-                <div class="scene-time">
-                    8:05 AM — Assisted Living
-                </div>
+            <div class="video-header">
+                8:05 AM — Assisted Living
             </div>
 
-            <div class="scene-body">
+            <div class="scene hallway active" id="scene1">
+                <div class="hallway-light"></div>
 
-                <div class="narrator">
-                    You have just started your morning when you hear quick
-                    footsteps coming down the hallway.
-                </div>
-
-                <div class="character">
-
+                <div class="maria-wrap walk-in">
                     <img
                         src="{{ url_for('maria_caregiver_image') }}"
                         alt="Maria, caregiver"
                     >
-
-                    <div class="character-name">
-                        Maria
+                    <div class="maria-name">
+                        Maria — Caregiver
                     </div>
-
-                    <div class="character-role">
-                        Caregiver
-                    </div>
-
                 </div>
+            </div>
 
-                <div class="voice-controls">
-                    <button
-                        class="voice-button"
-                        type="button"
-                        onclick="playScene()"
-                    >
-                        🔊 Play Scene
-                    </button>
+            <div class="scene hallway" id="scene2">
+                <div class="hallway-light"></div>
 
-                    <button
-                        class="voice-button"
-                        type="button"
-                        onclick="stopScene()"
+                <div class="maria-wrap" style="left: 11%;">
+                    <img
+                        src="{{ url_for('maria_caregiver_image') }}"
+                        alt="Maria, caregiver"
                     >
-                        ⏹ Stop
-                    </button>
+                    <div class="maria-name">
+                        Maria — Caregiver
+                    </div>
                 </div>
+            </div>
 
-                <div class="dialogue">
+            <div class="scene room" id="scene3">
 
-                    <div class="speech">
-                        <strong>Maria:</strong><br><br>
+                <div class="bed"></div>
 
-                        “I need you in Room 108. I found Mrs. Thompson on the
-                        floor next to her bed.”
-                    </div>
-
-                    <div class="narrator">
-                        Maria looks worried. You can see that she is waiting
-                        for you to tell her what to do.
-                    </div>
-
-                    <div class="speech">
-                        <strong>You:</strong><br><br>
-                        “Is she awake?”
-                    </div>
-
-                    <div class="speech">
-                        <strong>Maria:</strong><br><br>
-
-                        “Yes. She's talking to me, but she says her hip hurts.
-                        I didn't move her.”
-                    </div>
-
-                    <div class="narrator">
-                        You arrive at the doorway. Mrs. Thompson is on the
-                        floor beside the bed.
-                    </div>
-
+                <div class="floor-person">
+                    <div class="floor-head"></div>
+                    <div class="floor-body"></div>
+                    <div class="floor-leg"></div>
                 </div>
 
             </div>
 
+            <div class="caption" id="caption">
+                Tap play to begin the incident.
+            </div>
+
+            <div class="play-overlay" id="playOverlay">
+                <button
+                    class="play-button"
+                    type="button"
+                    onclick="startIncident()"
+                    aria-label="Play incident"
+                >
+                    ▶
+                </button>
+            </div>
+
         </div>
 
-        <div class="decision-box">
+        <div class="video-controls">
+            <button type="button" onclick="restartIncident()">
+                ↻ Restart
+            </button>
+
+            <button type="button" onclick="pauseIncident()">
+                ⏸ Pause
+            </button>
+
+            <button type="button" onclick="resumeIncident()">
+                ▶ Resume
+            </button>
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="decision-box" id="decisionBox">
 
             <h2>What do you do first?</h2>
 
@@ -411,36 +594,177 @@
 
 
 <script>
-    function playScene() {
-        if (!("speechSynthesis" in window)) {
-            alert("Voice playback is not supported in this browser.");
-            return;
+    let incidentTimers = [];
+    let incidentStarted = false;
+    let incidentPaused = false;
+    let currentStep = 0;
+
+    const steps = [
+        {
+            scene: "scene1",
+            caption:
+                "Your morning shift has just begun. You hear quick footsteps coming down the hallway.",
+            progress: 15,
+            delay: 3500
+        },
+        {
+            scene: "scene2",
+            caption:
+                "<strong>Maria:</strong> I need you in Room 108. I found Mrs. Thompson on the floor next to her bed.",
+            progress: 35,
+            delay: 4500
+        },
+        {
+            scene: "scene2",
+            caption:
+                "Maria looks worried. She is waiting for you to tell her what to do.",
+            progress: 50,
+            delay: 3500
+        },
+        {
+            scene: "scene2",
+            caption:
+                "<strong>You:</strong> Is she awake?",
+            progress: 62,
+            delay: 2500
+        },
+        {
+            scene: "scene2",
+            caption:
+                "<strong>Maria:</strong> Yes. She's talking to me, but she says her hip hurts. I didn't move her.",
+            progress: 78,
+            delay: 5000
+        },
+        {
+            scene: "scene3",
+            caption:
+                "You enter Room 108. Mrs. Thompson is on the floor beside the bed.",
+            progress: 92,
+            delay: 4000
+        },
+        {
+            scene: "scene3",
+            caption:
+                "The incident pauses here. What do you do first?",
+            progress: 100,
+            delay: 2500
         }
+    ];
 
-        window.speechSynthesis.cancel();
 
-        const sceneText =
-            "You have just started your morning when you hear quick footsteps coming down the hallway. " +
-            "Maria says: I need you in Room 108. I found Mrs. Thompson on the floor next to her bed. " +
-            "Maria looks worried. You can see that she is waiting for you to tell her what to do. " +
-            "You ask: Is she awake? " +
-            "Maria says: Yes. She's talking to me, but she says her hip hurts. I didn't move her. " +
-            "You arrive at the doorway. Mrs. Thompson is on the floor beside the bed.";
-
-        const utterance = new SpeechSynthesisUtterance(sceneText);
-
-        utterance.rate = 0.92;
-        utterance.pitch = 1;
-        utterance.volume = 1;
-
-        window.speechSynthesis.speak(utterance);
+    function clearIncidentTimers() {
+        incidentTimers.forEach(timer => clearTimeout(timer));
+        incidentTimers = [];
     }
 
 
-    function stopScene() {
-        if ("speechSynthesis" in window) {
-            window.speechSynthesis.cancel();
+    function showScene(sceneId) {
+        document.querySelectorAll(".scene").forEach(scene => {
+            scene.classList.remove("active");
+        });
+
+        document.getElementById(sceneId).classList.add("active");
+    }
+
+
+    function runStep(index) {
+        if (incidentPaused || index >= steps.length) {
+            return;
         }
+
+        currentStep = index;
+
+        const step = steps[index];
+
+        showScene(step.scene);
+
+        document.getElementById("caption").innerHTML = step.caption;
+        document.getElementById("progressBar").style.width =
+            step.progress + "%";
+
+        if (index === steps.length - 1) {
+            const timer = setTimeout(() => {
+                document.getElementById("decisionBox").classList.add("show");
+
+                document.getElementById("decisionBox").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }, step.delay);
+
+            incidentTimers.push(timer);
+
+            return;
+        }
+
+        const timer = setTimeout(() => {
+            runStep(index + 1);
+        }, step.delay);
+
+        incidentTimers.push(timer);
+    }
+
+
+    function startIncident() {
+        document.getElementById("playOverlay").style.display = "none";
+
+        incidentStarted = true;
+        incidentPaused = false;
+        currentStep = 0;
+
+        clearIncidentTimers();
+
+        document.getElementById("decisionBox").classList.remove("show");
+        document.getElementById("quizResult").className = "quiz-result";
+        document.getElementById("quizResult").innerHTML = "";
+
+        runStep(0);
+    }
+
+
+    function restartIncident() {
+        clearIncidentTimers();
+
+        incidentPaused = false;
+        incidentStarted = true;
+        currentStep = 0;
+
+        document.getElementById("playOverlay").style.display = "none";
+        document.getElementById("decisionBox").classList.remove("show");
+        document.getElementById("progressBar").style.width = "0%";
+
+        document.querySelectorAll(".choice").forEach(button => {
+            button.disabled = false;
+        });
+
+        document.getElementById("quizResult").className = "quiz-result";
+        document.getElementById("quizResult").innerHTML = "";
+
+        runStep(0);
+    }
+
+
+    function pauseIncident() {
+        if (!incidentStarted) {
+            return;
+        }
+
+        incidentPaused = true;
+        clearIncidentTimers();
+
+        document.getElementById("caption").innerHTML +=
+            "<br><br><em>Paused</em>";
+    }
+
+
+    function resumeIncident() {
+        if (!incidentStarted || !incidentPaused) {
+            return;
+        }
+
+        incidentPaused = false;
+
+        runStep(currentStep);
     }
 
 

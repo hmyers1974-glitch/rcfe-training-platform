@@ -111,13 +111,9 @@ def numbered_scene_image(scene_number):
 # AUDIO ROUTES
 # =========================================================
 
-@app.route("/audio/<path:filename>")
-def audio_file(filename):
-    audio_path = os.path.join(
-        BASE_DIR,
-        "audio",
-        filename,
-    )
+@app.route("/audio/scene1.mp3")
+def scene1_audio():
+    audio_path = os.path.join(BASE_DIR, "scene1.mp3")
 
     if not os.path.exists(audio_path):
         abort(404)

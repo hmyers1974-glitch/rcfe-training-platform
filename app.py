@@ -21,6 +21,11 @@ def maria_caregiver_image():
     return send_file(os.path.join(BASE_DIR, "maria-caregiver.png"))
 
 
+@app.route("/incident-storyboard.png")
+def incident_storyboard_image():
+    return send_file(os.path.join(BASE_DIR, "incident-storyboard.png"))
+
+
 with open(MODULES_PATH, "r", encoding="utf-8") as f:
     MODULES = json.load(f)
 
@@ -96,7 +101,6 @@ def init_db():
 
     conn.commit()
 
-    # Seed admin/reviewer/student if absent.
     seeds = [
         ("admin@rcfeacademy.local", "Heather Myers", "admin", "Admin123!"),
         ("reviewer@rcfeacademy.local", "ACB Reviewer", "reviewer", "Review123!"),
@@ -106,16 +110,7 @@ def init_db():
     for email, name, role, pw in seeds:
         try:
             cur.execute(
-                """
-                INSERT INTO users(
-                    email,
-                    full_name,
-                    password_hash,
-                    role,
-                    created_at
-                )
-                VALUES (?,?,?,?,?)
-                """,
+                "INSERT INTO users(email,full_name,password_hash,role,created_at) VALUES (?,?,?,?,?)",
                 (
                     email,
                     name,
@@ -129,14 +124,7 @@ def init_db():
 
             if role == "student":
                 cur.execute(
-                    """
-                    INSERT INTO enrollments(
-                        user_id,
-                        course_version,
-                        enrolled_at
-                    )
-                    VALUES (?,?,?)
-                    """,
+                    "INSERT INTO enrollments(user_id,course_version,enrolled_at) VALUES (?,?,?)",
                     (
                         uid,
                         "2026.08",
@@ -237,10 +225,7 @@ def login():
 
         error = "Invalid email or password."
 
-    return render_template(
-        "login.html",
-        error=error
-    )
+    return render_template("login.html", error=error)
 
 
 @app.route("/logout")
@@ -582,11 +567,7 @@ def complete_module(module_id):
         ), 400
 
     conn.execute(
-        """
-        UPDATE module_progress
-        SET completed_at=?
-        WHERE id=?
-        """,
+        "UPDATE module_progress SET completed_at=? WHERE id=?",
         (
             datetime.utcnow().isoformat(),
             row["id"]
@@ -794,9 +775,7 @@ def create_student():
     finally:
         conn.close()
 
-    return redirect(
-        url_for("admin_dashboard")
-    )
+    return redirect(url_for("admin_dashboard"))
 
 
 @app.route("/admin/export.csv")
@@ -942,66 +921,42 @@ def certificate():
 
     W, H = letter
 
-    c.setFont(
-        "Helvetica-Bold",
-        20
-    )
-
+    c.setFont("Helvetica-Bold", 20)
     c.drawCentredString(
         W / 2,
         H - 1.2 * inch,
         "CALIFORNIA RCFE LEADERSHIP ACADEMY"
     )
 
-    c.setFont(
-        "Helvetica",
-        12
-    )
-
+    c.setFont("Helvetica", 12)
     c.drawCentredString(
         W / 2,
         H - 1.55 * inch,
         "Regulation to Real Life"
     )
 
-    c.setFont(
-        "Helvetica-Bold",
-        25
-    )
-
+    c.setFont("Helvetica-Bold", 25)
     c.drawCentredString(
         W / 2,
         H - 2.3 * inch,
         "Certificate of Completion"
     )
 
-    c.setFont(
-        "Helvetica",
-        13
-    )
-
+    c.setFont("Helvetica", 13)
     c.drawCentredString(
         W / 2,
         H - 3.05 * inch,
         "This certifies that"
     )
 
-    c.setFont(
-        "Helvetica-Bold",
-        19
-    )
-
+    c.setFont("Helvetica-Bold", 19)
     c.drawCentredString(
         W / 2,
         H - 3.45 * inch,
         u["full_name"]
     )
 
-    c.setFont(
-        "Helvetica",
-        12
-    )
-
+    c.setFont("Helvetica", 12)
     c.drawCentredString(
         W / 2,
         H - 4.05 * inch,
@@ -1014,11 +969,7 @@ def certificate():
         "Course Version 2026.08"
     )
 
-    c.setFont(
-        "Helvetica",
-        10
-    )
-
+    c.setFont("Helvetica", 10)
     c.drawCentredString(
         W / 2,
         H - 5.0 * inch,
@@ -1031,11 +982,7 @@ def certificate():
         f"Issued: {cert['issued_at'][:10]}"
     )
 
-    c.setFont(
-        "Helvetica-Oblique",
-        9
-    )
-
+    c.setFont("Helvetica-Oblique", 9)
     c.drawCentredString(
         W / 2,
         0.75 * inch,
@@ -1052,4 +999,4 @@ def certificate():
         mimetype="application/pdf",
         as_attachment=True,
         download_name="RCFE_Self_Paced_Certificate.pdf"
-    )
+    ) 

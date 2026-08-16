@@ -1,72 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>RCFE Training Platform - Admin</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #f4f6f8;
             margin: 0;
             padding: 20px;
+            color: #222;
         }
 
         .container {
+            width: 100%;
             max-width: 1000px;
-            margin: auto;
+            margin: 0 auto;
         }
 
-        .header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
+        .header,
         .card {
             background: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
         }
 
-        h1, h2 {
+        .header {
+            position: relative;
+        }
+
+        h1,
+        h2 {
             margin-top: 0;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 21px;
+        }
+
+        p {
+            line-height: 1.5;
+        }
+
+        .logout {
+            float: right;
+            color: #235c74;
+            text-decoration: none;
+            font-weight: bold;
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
         }
 
         button {
             padding: 12px 20px;
-            background: #333;
+            background: #235c74;
             color: white;
             border: 0;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 650px;
         }
 
-        th, td {
+        th,
+        td {
             text-align: left;
-            padding: 10px;
+            padding: 12px 10px;
             border-bottom: 1px solid #ddd;
         }
 
-        a {
-            color: #333;
+        th {
+            background: #f4f6f8;
         }
 
-        .logout {
-            float: right;
+        a {
+            color: #235c74;
+            font-weight: bold;
+        }
+
+        .student-link {
+            text-decoration: none;
+        }
+
+        .export-link {
+            display: inline-block;
+            padding: 12px 18px;
+            background: #235c74;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 12px;
+            }
+
+            .header,
+            .card {
+                padding: 16px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            h2 {
+                font-size: 19px;
+            }
+
+            .logout {
+                float: none;
+                display: block;
+                text-align: right;
+                margin-bottom: 12px;
+            }
         }
     </style>
 </head>
@@ -76,17 +164,42 @@
 <div class="container">
 
     <div class="header">
-        <a class="logout" href="/logout">Sign Out</a>
-        <h1>RCFE Training Platform</h1>
-        <p>Administrator Dashboard</p>
-        <p>Welcome, {{ user["full_name"] }}</p>
+
+        <a
+            class="logout"
+            href="/logout"
+        >
+            Sign Out
+        </a>
+
+        <h1>
+            RCFE Training Platform
+        </h1>
+
+        <p>
+            <strong>Administrator Dashboard</strong>
+        </p>
+
+        <p>
+            Welcome, {{ user["full_name"] }}
+        </p>
+
     </div>
 
-    {% if user["role"] == "admin" %}
-    <div class="card">
-        <h2>Create Student</h2>
 
-        <form method="POST" action="/admin/create-student">
+    {% if user["role"] == "admin" %}
+
+    <div class="card">
+
+        <h2>
+            Create Student
+        </h2>
+
+        <form
+            method="POST"
+            action="/admin/create-student"
+        >
+
             <input
                 type="text"
                 name="full_name"
@@ -108,58 +221,114 @@
                 required
             >
 
-            <button type="submit">Create Student</button>
+            <button type="submit">
+                Create Student
+            </button>
+
         </form>
+
     </div>
+
     {% endif %}
 
+
     <div class="card">
-        <h2>Students</h2>
 
-        <p>Total course modules: {{ module_count }}</p>
+        <h2>
+            Students
+        </h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Student</th>
-                    <th>Email</th>
-                    <th>Progress</th>
-                    <th>Active Time</th>
-                </tr>
-            </thead>
+        <p>
+            Total course modules:
+            <strong>{{ module_count }}</strong>
+        </p>
 
-            <tbody>
-                {% for student in students %}
-                <tr>
-                    <td>
-                        <a href="/admin/student/{{ student['id'] }}">
-                            {{ student["full_name"] }}
-                        </a>
-                    </td>
+        <div class="table-wrapper">
 
-                    <td>{{ student["email"] }}</td>
+            <table>
 
-                    <td>
-                        {{ student["completed_modules"] or 0 }}
-                        /
-                        {{ module_count }}
-                    </td>
+                <thead>
 
-                    <td>
-                        {{ student["active_seconds"] or 0 }} seconds
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="4">No students found.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    <tr>
+                        <th>Student</th>
+                        <th>Email</th>
+                        <th>Progress</th>
+                        <th>Active Time</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for student in students %}
+
+                    <tr>
+
+                        <td>
+
+                            <a
+                                class="student-link"
+                                href="/admin/student/{{ student['id'] }}"
+                            >
+                                {{ student["full_name"] }}
+                            </a>
+
+                        </td>
+
+                        <td>
+                            {{ student["email"] }}
+                        </td>
+
+                        <td>
+
+                            {{ student["completed_modules"] or 0 }}
+
+                            /
+
+                            {{ module_count }}
+
+                        </td>
+
+                        <td>
+
+                            {{ student["active_seconds"] or 0 }}
+                            seconds
+
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="4">
+                            No students found.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
     </div>
 
+
     <div class="card">
-        <a href="/admin/export.csv">Download Completion Records</a>
+
+        <a
+            class="export-link"
+            href="/admin/export.csv"
+        >
+            Download Completion Records
+        </a>
+
     </div>
 
 </div>

@@ -60,6 +60,16 @@ def serve_root_file(filename, mimetype=None):
     )
 
 
+def template_exists(filename):
+    template_path = os.path.join(
+        BASE_DIR,
+        "templates",
+        filename,
+    )
+
+    return os.path.exists(template_path)
+
+
 # =========================================================
 # IMAGE ROUTES
 # =========================================================
@@ -138,6 +148,7 @@ def scene_7_image():
 
 @app.route("/scene<int:scene_number>.png")
 def numbered_scene_image(scene_number):
+
     if scene_number < 1 or scene_number > 7:
         abort(404)
 
@@ -153,6 +164,7 @@ def numbered_scene_image(scene_number):
 
 @app.route("/audio/scene<int:scene_number>.mp3")
 def numbered_scene_audio(scene_number):
+
     if scene_number < 1 or scene_number > 7:
         abort(404)
 
@@ -174,12 +186,15 @@ with open(
     MODULES = json.load(f)
 
 
-with open(
-    MODULE_CONTENT_PATH,
-    "r",
-    encoding="utf-8",
-) as f:
-    MODULE_CONTENT = json.load(f)
+if os.path.exists(MODULE_CONTENT_PATH):
+    with open(
+        MODULE_CONTENT_PATH,
+        "r",
+        encoding="utf-8",
+    ) as f:
+        MODULE_CONTENT = json.load(f)
+else:
+    MODULE_CONTENT = {}
 
 
 # =========================================================
@@ -193,6 +208,7 @@ def db():
 
 
 def init_db():
+
     conn = db()
     cur = conn.cursor()
 
@@ -283,7 +299,9 @@ def init_db():
     ]
 
     for email, name, role, password in seeds:
+
         try:
+
             cur.execute(
                 """
                 INSERT INTO users(
@@ -307,6 +325,7 @@ def init_db():
             user_id = cur.lastrowid
 
             if role == "student":
+
                 cur.execute(
                     """
                     INSERT INTO enrollments(
@@ -338,6 +357,7 @@ init_db()
 # =========================================================
 
 def current_user():
+
     user_id = session.get("uid")
 
     if not user_id:
@@ -361,8 +381,10 @@ def current_user():
 
 
 def login_required(fn):
+
     @wraps(fn)
     def wrapper(*args, **kwargs):
+
         if not current_user():
             return redirect(url_for("login"))
 
@@ -372,9 +394,12 @@ def login_required(fn):
 
 
 def role_required(*roles):
+
     def decorator(fn):
+
         @wraps(fn)
         def wrapper(*args, **kwargs):
+
             user = current_user()
 
             if not user:
@@ -396,6 +421,7 @@ def role_required(*roles):
 
 @app.route("/")
 def index():
+
     user = current_user()
 
     if not user:
@@ -416,9 +442,11 @@ def index():
     methods=["GET", "POST"],
 )
 def login():
+
     error = None
 
     if request.method == "POST":
+
         email = (
             request.form
             .get("email", "")
@@ -449,6 +477,7 @@ def login():
             user["password_hash"],
             password,
         ):
+
             session.clear()
             session["uid"] = user["id"]
             session.permanent = True
@@ -467,6 +496,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+
     session.clear()
 
     return redirect(
@@ -479,6 +509,7 @@ def logout():
 # =========================================================
 
 def student_progress(user_id):
+
     conn = db()
 
     rows = conn.execute(
@@ -501,9 +532,11 @@ def student_progress(user_id):
 @app.route("/student")
 @login_required
 def student_dashboard():
+
     user = current_user()
 
     if user["role"] != "student":
+
         return redirect(
             url_for("admin_dashboard")
         )
@@ -555,9 +588,15 @@ def module_page(module_id):
         abort(404)
 
     user = current_user()
+
     progress = {}
 
+    # -----------------------------------------------------
+    # Create/read progress record for students
+    # -----------------------------------------------------
+
     if user["role"] == "student":
+
         conn = db()
 
         row = conn.execute(
@@ -576,6 +615,9 @@ def module_page(module_id):
         ).fetchone()
 
         if not row:
+
+            now = datetime.utcnow().isoformat()
+
             conn.execute(
                 """
                 INSERT INTO module_progress(
@@ -591,8 +633,8 @@ def module_page(module_id):
                     user["id"],
                     module_id,
                     "2026.08",
-                    datetime.utcnow().isoformat(),
-                    datetime.utcnow().isoformat(),
+                    now,
+                    now,
                 ),
             )
 
@@ -613,19 +655,22 @@ def module_page(module_id):
                 ),
             ).fetchone()
 
-        progress = dict(row)
+        if row:
+            progress = dict(row)
 
         conn.close()
 
 
     # =====================================================
     # MODULE 1
-    # Resident Down has its own dedicated template
+    # Resident Down
+    # Uses templates/module.html
     # =====================================================
 
     if module_id == 1:
+
         return render_template(
-            "module1.html",
+            "module.html",
             user=user,
             m=module,
             prog=progress,
@@ -633,23 +678,137 @@ def module_page(module_id):
 
 
     # =====================================================
-    # MODULES 2-20
-    # Load matching content from module_content.json
+    # MODULE 2
+    # Title 22: Read It. Interpret It. Apply It.
+    # Uses templates/module2.html
     # =====================================================
+
+    if module_id == 2:
+
+        return render_template(
+            "module2.html",
+            user=user,
+            m=module,
+            prog=progress,
+        )
+
+
+    # =====================================================
+    # MODULES 3+
+    #
+    # As we build dedicated module files, this automatically
+    # looks for:
+    #
+    # module3.html
+    # module4.html
+    # module5.html
+    # etc.
+    # =====================================================
+
+    dedicated_template = f"module{module_id}.html"
+
+    if template_exists(dedicated_template):
+
+        return render_template(
+            dedicated_template,
+            user=user,
+            m=module,
+            prog=progress,
+        )
+
+
+    # -----------------------------------------------------
+    # Optional fallback for old module_course.html system
+    # -----------------------------------------------------
 
     content = MODULE_CONTENT.get(
         str(module_id)
     )
 
-    if not content:
-        abort(404)
+    if (
+        content
+        and template_exists("module_course.html")
+    ):
 
-    return render_template(
-        "module_course.html",
-        user=user,
-        m=module,
-        content=content,
-        prog=progress,
+        return render_template(
+            "module_course.html",
+            user=user,
+            m=module,
+            content=content,
+            prog=progress,
+        )
+
+
+    # -----------------------------------------------------
+    # Module exists in modules.json but content/template
+    # has not been built yet.
+    # -----------------------------------------------------
+
+    return (
+        """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1.0">
+            <title>Module Coming Soon</title>
+
+            <style>
+                body {
+                    font-family: Arial, Helvetica, sans-serif;
+                    background: #eef2f5;
+                    margin: 0;
+                    padding: 30px 20px;
+                    color: #222;
+                }
+
+                .card {
+                    max-width: 700px;
+                    margin: 30px auto;
+                    background: white;
+                    padding: 30px;
+                    border-radius: 18px;
+                    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+                }
+
+                h1 {
+                    margin-top: 0;
+                }
+
+                a {
+                    display: inline-block;
+                    margin-top: 20px;
+                    background: #333;
+                    color: white;
+                    padding: 13px 18px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                }
+            </style>
+        </head>
+
+        <body>
+
+            <div class="card">
+
+                <h1>Module Content Coming Soon</h1>
+
+                <p>
+                    This training module has been added to the
+                    student dashboard, but its individual training
+                    lesson has not been built yet.
+                </p>
+
+                <a href="/student">
+                    Back to Training Modules
+                </a>
+
+            </div>
+
+        </body>
+        </html>
+        """,
+        200,
     )
 
 
@@ -682,7 +841,9 @@ def save_progress(module_id):
     values = []
 
     for key in allowed:
+
         if key in payload:
+
             value = payload[key]
 
             if isinstance(
@@ -783,6 +944,7 @@ def quiz(module_id):
     )
 
     try:
+
         answer_index = int(
             payload.get(
                 "answer",
@@ -869,6 +1031,7 @@ def quiz(module_id):
 def complete_module(module_id):
 
     user = current_user()
+
     conn = db()
 
     row = conn.execute(
@@ -887,7 +1050,9 @@ def complete_module(module_id):
     ).fetchone()
 
     if not row:
+
         conn.close()
+
         abort(400)
 
     minimum_seconds = int(
@@ -905,6 +1070,7 @@ def complete_module(module_id):
     ]
 
     if not all(required):
+
         conn.close()
 
         return jsonify(
@@ -916,6 +1082,7 @@ def complete_module(module_id):
         ), 400
 
     if not row["quiz_passed"]:
+
         conn.close()
 
         return jsonify(
@@ -927,6 +1094,7 @@ def complete_module(module_id):
         ), 400
 
     if row["active_seconds"] < minimum_seconds:
+
         conn.close()
 
         return jsonify(
@@ -982,6 +1150,7 @@ def complete_module(module_id):
     ).fetchone()["n"]
 
     if count >= len(MODULES):
+
         conn.execute(
             """
             UPDATE enrollments
@@ -1014,6 +1183,7 @@ def complete_module(module_id):
 def admin_dashboard():
 
     user = current_user()
+
     conn = db()
 
     students = conn.execute(
@@ -1093,7 +1263,9 @@ def student_detail(uid):
     ).fetchone()
 
     if not student:
+
         conn.close()
+
         abort(404)
 
     rows = conn.execute(
@@ -1156,6 +1328,7 @@ def create_student():
     )
 
     if not name or not email or not password:
+
         return redirect(
             url_for("admin_dashboard")
         )
@@ -1163,6 +1336,7 @@ def create_student():
     conn = db()
 
     try:
+
         cursor = conn.execute(
             """
             INSERT INTO users(
@@ -1204,9 +1378,11 @@ def create_student():
         conn.commit()
 
     except sqlite3.IntegrityError:
+
         conn.rollback()
 
     finally:
+
         conn.close()
 
     return redirect(
@@ -1276,6 +1452,7 @@ def export_csv():
     )
 
     for row in rows:
+
         writer.writerow(
             list(row)
         )
@@ -1307,6 +1484,7 @@ def export_csv():
 def certificate():
 
     user = current_user()
+
     conn = db()
 
     count = conn.execute(
@@ -1320,7 +1498,9 @@ def certificate():
     ).fetchone()["n"]
 
     if count < len(MODULES):
+
         conn.close()
+
         abort(403)
 
     cert = conn.execute(

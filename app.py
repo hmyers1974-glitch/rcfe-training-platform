@@ -99,22 +99,34 @@ def scene_7_image():
     return serve_image("scene-7-decision.png")
 
 
-# NEW SCENE IMAGE ROUTE
-# Serves:
-# /scene1.png
-# /scene2.png
-# /scene3.png
-# /scene4.png
-# /scene5.png
-# /scene6.png
-# /scene7.png
-
 @app.route("/scene<int:scene_number>.png")
 def numbered_scene_image(scene_number):
     if scene_number < 1 or scene_number > 7:
         abort(404)
 
     return serve_image(f"scene{scene_number}.png")
+
+
+# =========================================================
+# AUDIO ROUTES
+# =========================================================
+
+@app.route("/audio/<path:filename>")
+def audio_file(filename):
+    audio_path = os.path.join(
+        BASE_DIR,
+        "audio",
+        filename,
+    )
+
+    if not os.path.exists(audio_path):
+        abort(404)
+
+    return send_file(
+        audio_path,
+        mimetype="audio/mpeg",
+        conditional=True,
+    )
 
 
 # =========================================================

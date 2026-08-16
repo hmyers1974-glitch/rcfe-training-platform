@@ -42,61 +42,69 @@ app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=8)
 
 
 # =========================================================
+# FILE HELPERS
+# =========================================================
+
+def serve_root_file(filename, mimetype=None):
+    file_path = os.path.join(BASE_DIR, filename)
+
+    if not os.path.exists(file_path):
+        abort(404)
+
+    return send_file(
+        file_path,
+        mimetype=mimetype,
+        conditional=True,
+    )
+
+
+# =========================================================
 # IMAGE ROUTES
 # =========================================================
 
-def serve_image(filename):
-    image_path = os.path.join(BASE_DIR, filename)
-
-    if not os.path.exists(image_path):
-        abort(404)
-
-    return send_file(image_path)
-
-
 @app.route("/maria-caregiver.png")
 def maria_caregiver_image():
-    return serve_image("maria-caregiver.png")
+    return serve_root_file("maria-caregiver.png", "image/png")
 
 
 @app.route("/incident-storyboard.png")
 def incident_storyboard_image():
-    return serve_image("incident-storyboard.png")
+    return serve_root_file("incident-storyboard.png", "image/png")
 
 
 @app.route("/scene-1-maria-admin.png")
 def scene_1_image():
-    return serve_image("scene-1-maria-admin.png")
+    return serve_root_file("scene-1-maria-admin.png", "image/png")
 
 
 @app.route("/scene-2-report-fall.png")
 def scene_2_image():
-    return serve_image("scene-2-report-fall.png")
+    return serve_root_file("scene-2-report-fall.png", "image/png")
 
 
 @app.route("/scene-3-walk-room108.png")
 def scene_3_image():
-    return serve_image("scene-3-walk-room108.png")
+    return serve_root_file("scene-3-walk-room108.png", "image/png")
 
 
 @app.route("/scene-4-enter-room.png")
 def scene_4_image():
-    return serve_image("scene-4-enter-room.png")
+    return serve_root_file("scene-4-enter-room.png", "image/png")
 
 
 @app.route("/scene-5-resident-floor.png")
 def scene_5_image():
-    return serve_image("scene-5-resident-floor.png")
+    return serve_root_file("scene-5-resident-floor.png", "image/png")
 
 
 @app.route("/scene-6-resident-speaks.png")
 def scene_6_image():
-    return serve_image("scene-6-resident-speaks.png")
+    return serve_root_file("scene-6-resident-speaks.png", "image/png")
 
 
 @app.route("/scene-7-decision.png")
 def scene_7_image():
-    return serve_image("scene-7-decision.png")
+    return serve_root_file("scene-7-decision.png", "image/png")
 
 
 @app.route("/scene<int:scene_number>.png")
@@ -104,24 +112,24 @@ def numbered_scene_image(scene_number):
     if scene_number < 1 or scene_number > 7:
         abort(404)
 
-    return serve_image(f"scene{scene_number}.png")
+    return serve_root_file(
+        f"scene{scene_number}.png",
+        "image/png",
+    )
 
 
 # =========================================================
 # AUDIO ROUTES
 # =========================================================
 
-@app.route("/audio/scene1.mp3")
-def scene1_audio():
-    audio_path = os.path.join(BASE_DIR, "scene1.mp3")
-
-    if not os.path.exists(audio_path):
+@app.route("/audio/scene<int:scene_number>.mp3")
+def numbered_scene_audio(scene_number):
+    if scene_number < 1 or scene_number > 7:
         abort(404)
 
-    return send_file(
-        audio_path,
-        mimetype="audio/mpeg",
-        conditional=True,
+    return serve_root_file(
+        f"scene{scene_number}.mp3",
+        "audio/mpeg",
     )
 
 

@@ -536,6 +536,10 @@
             <button type="button" onclick="resumeIncident()">
                 ▶ Resume
             </button>
+
+            <button type="button" onclick="toggleSound()">
+                🔊 Sound On/Off
+            </button>
         </div>
 
         <div class="progress">
@@ -598,11 +602,15 @@
     let incidentStarted = false;
     let incidentPaused = false;
     let currentStep = 0;
+    let soundEnabled = true;
+    let selectedVoice = null;
 
     const steps = [
         {
             scene: "scene1",
             caption:
+                "Your morning shift has just begun. You hear quick footsteps coming down the hallway.",
+            speech:
                 "Your morning shift has just begun. You hear quick footsteps coming down the hallway.",
             progress: 15,
             delay: 3500
@@ -611,12 +619,16 @@
             scene: "scene2",
             caption:
                 "<strong>Maria:</strong> I need you in Room 108. I found Mrs. Thompson on the floor next to her bed.",
+            speech:
+                "I need you in Room 108. I found Mrs. Thompson on the floor next to her bed.",
             progress: 35,
             delay: 4500
         },
         {
             scene: "scene2",
             caption:
+                "Maria looks worried. She is waiting for you to tell her what to do.",
+            speech:
                 "Maria looks worried. She is waiting for you to tell her what to do.",
             progress: 50,
             delay: 3500
@@ -625,6 +637,8 @@
             scene: "scene2",
             caption:
                 "<strong>You:</strong> Is she awake?",
+            speech:
+                "Is she awake?",
             progress: 62,
             delay: 2500
         },
@@ -632,12 +646,16 @@
             scene: "scene2",
             caption:
                 "<strong>Maria:</strong> Yes. She's talking to me, but she says her hip hurts. I didn't move her.",
+            speech:
+                "Yes. She's talking to me, but she says her hip hurts. I didn't move her.",
             progress: 78,
             delay: 5000
         },
         {
             scene: "scene3",
             caption:
+                "You enter Room 108. Mrs. Thompson is on the floor beside the bed.",
+            speech:
                 "You enter Room 108. Mrs. Thompson is on the floor beside the bed.",
             progress: 92,
             delay: 4000
@@ -646,10 +664,115 @@
             scene: "scene3",
             caption:
                 "The incident pauses here. What do you do first?",
+            speech:
+                "The incident pauses here. What do you do first?",
             progress: 100,
             delay: 2500
         }
     ];
+
+
+    function loadVoice() {
+        if (!("speechSynthesis" in window)) {
+            return;
+        }
+
+        const voices = window.speechSynthesis.getVoices();
+
+        if (!voices.length) {
+            return;
+        }
+
+        const preferredNames = [
+            "Samantha",
+            "Ava",
+            "Serena",
+            "Karen",
+            "Moira",
+            "Victoria",
+            "Susan",
+            "Allison"
+        ];
+
+        for (const name of preferredNames) {
+            const match = voices.find(voice =>
+                voice.name.toLowerCase().includes(name.toLowerCase()) &&
+                voice.lang.toLowerCase().startsWith("en")
+            );
+
+            if (match) {
+                selectedVoice = match;
+                return;
+            }
+        }
+
+        selectedVoice = voices.find(voice =>
+            voice.lang.toLowerCase().startsWith("en") &&
+            (
+                voice.name.toLowerCase().includes("female") ||
+                voice.name.toLowerCase().includes("enhanced") ||
+                voice.name.toLowerCase().includes("premium")
+            )
+        );
+
+        if (!selectedVoice) {
+            selectedVoice = voices.find(voice =>
+                voice.lang.toLowerCase().startsWith("en")
+            );
+        }
+    }
+
+
+    if ("speechSynthesis" in window) {
+        loadVoice();
+
+        window.speechSynthesis.onvoiceschanged = function() {
+            loadVoice();
+        };
+    }
+
+
+    function speakText(text) {
+        if (!soundEnabled) {
+            return;
+        }
+
+        if (!("speechSynthesis" in window)) {
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
+        }
+
+        utterance.rate = 0.9;
+        utterance.pitch = 1.02;
+        utterance.volume = 1;
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+
+    function stopSpeech() {
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
+
+
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+
+        if (!soundEnabled) {
+            stopSpeech();
+        }
+
+        alert(soundEnabled ? "Sound is on." : "Sound is off.");
+    }
 
 
     function clearIncidentTimers() {
@@ -682,6 +805,8 @@
         document.getElementById("progressBar").style.width =
             step.progress + "%";
 
+        speakText(step.speech);
+
         if (index === steps.length - 1) {
             const timer = setTimeout(() => {
                 document.getElementById("decisionBox").classList.add("show");
@@ -713,6 +838,7 @@
         currentStep = 0;
 
         clearIncidentTimers();
+        stopSpeech();
 
         document.getElementById("decisionBox").classList.remove("show");
         document.getElementById("quizResult").className = "quiz-result";
@@ -724,6 +850,7 @@
 
     function restartIncident() {
         clearIncidentTimers();
+        stopSpeech();
 
         incidentPaused = false;
         incidentStarted = true;
@@ -752,6 +879,10 @@
         incidentPaused = true;
         clearIncidentTimers();
 
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.pause();
+        }
+
         document.getElementById("caption").innerHTML +=
             "<br><br><em>Paused</em>";
     }
@@ -763,6 +894,11 @@
         }
 
         incidentPaused = false;
+
+        if ("speechSynthesis" in window &&
+            window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+        }
 
         runStep(currentStep);
     }
@@ -797,10 +933,19 @@
                 resultBox.className = "quiz-result correct";
                 resultBox.innerHTML =
                     "✓ Correct.<br><br>" + data.why;
+
+                speakText(
+                    "Correct. " + data.why
+                );
+
             } else {
                 resultBox.className = "quiz-result incorrect";
                 resultBox.innerHTML =
                     "Not quite. Try again.<br><br>" + data.why;
+
+                speakText(
+                    "Not quite. Try again."
+                );
 
                 buttons.forEach(button => {
                     button.disabled = false;

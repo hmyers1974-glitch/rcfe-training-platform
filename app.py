@@ -28,8 +28,10 @@ from reportlab.lib.units import inch
 # =========================================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 DB_PATH = os.path.join(BASE_DIR, "rcfe.db")
 MODULES_PATH = os.path.join(BASE_DIR, "modules.json")
+MODULE_CONTENT_PATH = os.path.join(BASE_DIR, "module_content.json")
 
 app = Flask(__name__)
 
@@ -64,47 +66,74 @@ def serve_root_file(filename, mimetype=None):
 
 @app.route("/maria-caregiver.png")
 def maria_caregiver_image():
-    return serve_root_file("maria-caregiver.png", "image/png")
+    return serve_root_file(
+        "maria-caregiver.png",
+        "image/png",
+    )
 
 
 @app.route("/incident-storyboard.png")
 def incident_storyboard_image():
-    return serve_root_file("incident-storyboard.png", "image/png")
+    return serve_root_file(
+        "incident-storyboard.png",
+        "image/png",
+    )
 
 
 @app.route("/scene-1-maria-admin.png")
 def scene_1_image():
-    return serve_root_file("scene-1-maria-admin.png", "image/png")
+    return serve_root_file(
+        "scene-1-maria-admin.png",
+        "image/png",
+    )
 
 
 @app.route("/scene-2-report-fall.png")
 def scene_2_image():
-    return serve_root_file("scene-2-report-fall.png", "image/png")
+    return serve_root_file(
+        "scene-2-report-fall.png",
+        "image/png",
+    )
 
 
 @app.route("/scene-3-walk-room108.png")
 def scene_3_image():
-    return serve_root_file("scene-3-walk-room108.png", "image/png")
+    return serve_root_file(
+        "scene-3-walk-room108.png",
+        "image/png",
+    )
 
 
 @app.route("/scene-4-enter-room.png")
 def scene_4_image():
-    return serve_root_file("scene-4-enter-room.png", "image/png")
+    return serve_root_file(
+        "scene-4-enter-room.png",
+        "image/png",
+    )
 
 
 @app.route("/scene-5-resident-floor.png")
 def scene_5_image():
-    return serve_root_file("scene-5-resident-floor.png", "image/png")
+    return serve_root_file(
+        "scene-5-resident-floor.png",
+        "image/png",
+    )
 
 
 @app.route("/scene-6-resident-speaks.png")
 def scene_6_image():
-    return serve_root_file("scene-6-resident-speaks.png", "image/png")
+    return serve_root_file(
+        "scene-6-resident-speaks.png",
+        "image/png",
+    )
 
 
 @app.route("/scene-7-decision.png")
 def scene_7_image():
-    return serve_root_file("scene-7-decision.png", "image/png")
+    return serve_root_file(
+        "scene-7-decision.png",
+        "image/png",
+    )
 
 
 @app.route("/scene<int:scene_number>.png")
@@ -137,8 +166,20 @@ def numbered_scene_audio(scene_number):
 # LOAD MODULE DATA
 # =========================================================
 
-with open(MODULES_PATH, "r", encoding="utf-8") as f:
+with open(
+    MODULES_PATH,
+    "r",
+    encoding="utf-8",
+) as f:
     MODULES = json.load(f)
+
+
+with open(
+    MODULE_CONTENT_PATH,
+    "r",
+    encoding="utf-8",
+) as f:
+    MODULE_CONTENT = json.load(f)
 
 
 # =========================================================
@@ -361,18 +402,34 @@ def index():
         return redirect(url_for("login"))
 
     if user["role"] == "student":
-        return redirect(url_for("student_dashboard"))
+        return redirect(
+            url_for("student_dashboard")
+        )
 
-    return redirect(url_for("admin_dashboard"))
+    return redirect(
+        url_for("admin_dashboard")
+    )
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route(
+    "/login",
+    methods=["GET", "POST"],
+)
 def login():
     error = None
 
     if request.method == "POST":
-        email = request.form.get("email", "").strip().lower()
-        password = request.form.get("password", "")
+        email = (
+            request.form
+            .get("email", "")
+            .strip()
+            .lower()
+        )
+
+        password = request.form.get(
+            "password",
+            "",
+        )
 
         conn = db()
 
@@ -396,7 +453,9 @@ def login():
             session["uid"] = user["id"]
             session.permanent = True
 
-            return redirect(url_for("index"))
+            return redirect(
+                url_for("index")
+            )
 
         error = "Invalid email or password."
 
@@ -409,7 +468,10 @@ def login():
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("login"))
+
+    return redirect(
+        url_for("login")
+    )
 
 
 # =========================================================
@@ -442,9 +504,13 @@ def student_dashboard():
     user = current_user()
 
     if user["role"] != "student":
-        return redirect(url_for("admin_dashboard"))
+        return redirect(
+            url_for("admin_dashboard")
+        )
 
-    progress = student_progress(user["id"])
+    progress = student_progress(
+        user["id"]
+    )
 
     complete = sum(
         1
@@ -469,8 +535,13 @@ def student_dashboard():
 # =========================================================
 
 @app.route("/module/<int:module_id>")
-@role_required("student", "reviewer", "admin")
+@role_required(
+    "student",
+    "reviewer",
+    "admin",
+)
 def module_page(module_id):
+
     module = next(
         (
             item
@@ -543,12 +614,41 @@ def module_page(module_id):
             ).fetchone()
 
         progress = dict(row)
+
         conn.close()
 
+
+    # =====================================================
+    # MODULE 1
+    # Keep the original Resident Down experience
+    # =====================================================
+
+    if module_id == 1:
+        return render_template(
+            "module.html",
+            user=user,
+            m=module,
+            prog=progress,
+        )
+
+
+    # =====================================================
+    # MODULES 2-20
+    # Load the matching content from module_content.json
+    # =====================================================
+
+    content = MODULE_CONTENT.get(
+        str(module_id)
+    )
+
+    if not content:
+        abort(404)
+
     return render_template(
-        "module.html",
+        "module_course.html",
         user=user,
         m=module,
+        content=content,
         prog=progress,
     )
 
@@ -563,8 +663,12 @@ def module_page(module_id):
 )
 @role_required("student")
 def save_progress(module_id):
+
     user = current_user()
-    payload = request.get_json(force=True)
+
+    payload = request.get_json(
+        force=True
+    )
 
     allowed = {
         "hunt_response",
@@ -581,14 +685,28 @@ def save_progress(module_id):
         if key in payload:
             value = payload[key]
 
-            if isinstance(value, (dict, list)):
+            if isinstance(
+                value,
+                (dict, list),
+            ):
                 value = json.dumps(value)
 
-            sets.append(f"{key}=?")
+            sets.append(
+                f"{key}=?"
+            )
+
             values.append(value)
 
-    sets.append("last_seen_at=?")
-    values.append(datetime.utcnow().isoformat())
+    if not sets:
+        return jsonify(ok=True)
+
+    sets.append(
+        "last_seen_at=?"
+    )
+
+    values.append(
+        datetime.utcnow().isoformat()
+    )
 
     values += [
         user["id"],
@@ -645,6 +763,7 @@ def save_progress(module_id):
 )
 @role_required("student")
 def quiz(module_id):
+
     user = current_user()
 
     module = next(
@@ -659,14 +778,28 @@ def quiz(module_id):
     if not module:
         abort(404)
 
-    payload = request.get_json(force=True)
+    payload = request.get_json(
+        force=True
+    )
 
     try:
-        answer_index = int(payload.get("answer", -1))
-    except (TypeError, ValueError):
+        answer_index = int(
+            payload.get(
+                "answer",
+                -1,
+            )
+        )
+
+    except (
+        TypeError,
+        ValueError,
+    ):
         answer_index = -1
 
-    correct = answer_index == module["quiz"]["answer"]
+    correct = (
+        answer_index
+        == module["quiz"]["answer"]
+    )
 
     conn = db()
 
@@ -734,6 +867,7 @@ def quiz(module_id):
 )
 @role_required("student")
 def complete_module(module_id):
+
     user = current_user()
     conn = db()
 
@@ -775,7 +909,10 @@ def complete_module(module_id):
 
         return jsonify(
             ok=False,
-            error="Required interactions are incomplete.",
+            error=(
+                "Required interactions "
+                "are incomplete."
+            ),
         ), 400
 
     if not row["quiz_passed"]:
@@ -783,7 +920,10 @@ def complete_module(module_id):
 
         return jsonify(
             ok=False,
-            error="Knowledge check must be passed.",
+            error=(
+                "Knowledge check must "
+                "be passed."
+            ),
         ), 400
 
     if row["active_seconds"] < minimum_seconds:
@@ -792,8 +932,10 @@ def complete_module(module_id):
         return jsonify(
             ok=False,
             error=(
-                "Minimum active time not yet met "
-                f"({minimum_seconds} seconds configured)."
+                "Minimum active time "
+                "not yet met "
+                f"({minimum_seconds} "
+                "seconds configured)."
             ),
         ), 400
 
@@ -865,8 +1007,12 @@ def complete_module(module_id):
 # =========================================================
 
 @app.route("/admin")
-@role_required("admin", "reviewer")
+@role_required(
+    "admin",
+    "reviewer",
+)
 def admin_dashboard():
+
     user = current_user()
     conn = db()
 
@@ -928,8 +1074,12 @@ def admin_dashboard():
 # =========================================================
 
 @app.route("/admin/student/<int:uid>")
-@role_required("admin", "reviewer")
+@role_required(
+    "admin",
+    "reviewer",
+)
 def student_detail(uid):
+
     conn = db()
 
     student = conn.execute(
@@ -989,12 +1139,26 @@ def student_detail(uid):
 )
 @role_required("admin")
 def create_student():
-    name = request.form.get("full_name", "").strip()
-    email = request.form.get("email", "").strip().lower()
-    password = request.form.get("password", "")
+
+    name = request.form.get(
+        "full_name",
+        "",
+    ).strip()
+
+    email = request.form.get(
+        "email",
+        "",
+    ).strip().lower()
+
+    password = request.form.get(
+        "password",
+        "",
+    )
 
     if not name or not email or not password:
-        return redirect(url_for("admin_dashboard"))
+        return redirect(
+            url_for("admin_dashboard")
+        )
 
     conn = db()
 
@@ -1045,7 +1209,9 @@ def create_student():
     finally:
         conn.close()
 
-    return redirect(url_for("admin_dashboard"))
+    return redirect(
+        url_for("admin_dashboard")
+    )
 
 
 # =========================================================
@@ -1053,8 +1219,12 @@ def create_student():
 # =========================================================
 
 @app.route("/admin/export.csv")
-@role_required("admin", "reviewer")
+@role_required(
+    "admin",
+    "reviewer",
+)
 def export_csv():
+
     conn = db()
 
     rows = conn.execute(
@@ -1086,7 +1256,10 @@ def export_csv():
     conn.close()
 
     text_buffer = io.StringIO()
-    writer = csv.writer(text_buffer)
+
+    writer = csv.writer(
+        text_buffer
+    )
 
     writer.writerow(
         [
@@ -1103,10 +1276,14 @@ def export_csv():
     )
 
     for row in rows:
-        writer.writerow(list(row))
+        writer.writerow(
+            list(row)
+        )
 
     memory_file = io.BytesIO(
-        text_buffer.getvalue().encode("utf-8")
+        text_buffer
+        .getvalue()
+        .encode("utf-8")
     )
 
     memory_file.seek(0)
@@ -1115,7 +1292,9 @@ def export_csv():
         memory_file,
         mimetype="text/csv",
         as_attachment=True,
-        download_name="rcfe_completion_records.csv",
+        download_name=(
+            "rcfe_completion_records.csv"
+        ),
     )
 
 
@@ -1126,6 +1305,7 @@ def export_csv():
 @app.route("/certificate")
 @role_required("student")
 def certificate():
+
     user = current_user()
     conn = db()
 
@@ -1157,6 +1337,7 @@ def certificate():
     ).fetchone()
 
     if not cert:
+
         cert_no = (
             f"RCFE-"
             f"{datetime.utcnow().year}-"
@@ -1208,42 +1389,66 @@ def certificate():
 
     width, height = letter
 
-    pdf.setFont("Helvetica-Bold", 20)
+    pdf.setFont(
+        "Helvetica-Bold",
+        20,
+    )
+
     pdf.drawCentredString(
         width / 2,
         height - 1.2 * inch,
         "CALIFORNIA RCFE LEADERSHIP ACADEMY",
     )
 
-    pdf.setFont("Helvetica", 12)
+    pdf.setFont(
+        "Helvetica",
+        12,
+    )
+
     pdf.drawCentredString(
         width / 2,
         height - 1.55 * inch,
         "Regulation to Real Life",
     )
 
-    pdf.setFont("Helvetica-Bold", 25)
+    pdf.setFont(
+        "Helvetica-Bold",
+        25,
+    )
+
     pdf.drawCentredString(
         width / 2,
         height - 2.3 * inch,
         "Certificate of Completion",
     )
 
-    pdf.setFont("Helvetica", 13)
+    pdf.setFont(
+        "Helvetica",
+        13,
+    )
+
     pdf.drawCentredString(
         width / 2,
         height - 3.05 * inch,
         "This certifies that",
     )
 
-    pdf.setFont("Helvetica-Bold", 19)
+    pdf.setFont(
+        "Helvetica-Bold",
+        19,
+    )
+
     pdf.drawCentredString(
         width / 2,
         height - 3.45 * inch,
         user["full_name"],
     )
 
-    pdf.setFont("Helvetica", 12)
+    pdf.setFont(
+        "Helvetica",
+        12,
+    )
+
     pdf.drawCentredString(
         width / 2,
         height - 4.05 * inch,
@@ -1256,7 +1461,11 @@ def certificate():
         "Course Version 2026.08",
     )
 
-    pdf.setFont("Helvetica", 10)
+    pdf.setFont(
+        "Helvetica",
+        10,
+    )
+
     pdf.drawCentredString(
         width / 2,
         height - 5.0 * inch,
@@ -1269,7 +1478,11 @@ def certificate():
         f"Issued: {cert['issued_at'][:10]}",
     )
 
-    pdf.setFont("Helvetica-Oblique", 9)
+    pdf.setFont(
+        "Helvetica-Oblique",
+        9,
+    )
+
     pdf.drawCentredString(
         width / 2,
         0.75 * inch,
@@ -1285,7 +1498,9 @@ def certificate():
         memory_file,
         mimetype="application/pdf",
         as_attachment=True,
-        download_name="RCFE_Self_Paced_Certificate.pdf",
+        download_name=(
+            "RCFE_Self_Paced_Certificate.pdf"
+        ),
     )
 
 

@@ -21,7 +21,7 @@
 
         .container {
             width: 94%;
-            max-width: 960px;
+            max-width: 1000px;
             margin: 20px auto;
         }
 
@@ -58,274 +58,92 @@
         .video-stage {
             position: relative;
             width: 100%;
-            min-height: 520px;
             overflow: hidden;
             border-radius: 18px;
-            background: #1a2026;
-            color: white;
+            background: #101820;
             margin-top: 20px;
         }
 
-        .video-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 20;
-            padding: 14px 18px;
-            background: rgba(0,0,0,.62);
-            font-size: 14px;
+        .storyboard-image {
+            display: block;
+            width: 100%;
+            height: auto;
         }
 
-        .scene {
+        .video-overlay {
             position: absolute;
             inset: 0;
-            opacity: 0;
+            background: rgba(0,0,0,.08);
             pointer-events: none;
-            transition: opacity .8s ease;
         }
 
-        .scene.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .hallway {
-            background:
-                linear-gradient(rgba(25,32,38,.12), rgba(25,32,38,.12)),
-                linear-gradient(
-                    to bottom,
-                    #e9e5dd 0%,
-                    #ddd7ca 62%,
-                    #b29f83 62%,
-                    #a28d70 100%
-                );
-        }
-
-        .hallway::before {
-            content: "";
-            position: absolute;
-            top: 80px;
-            left: 12%;
-            width: 22%;
-            height: 310px;
-            background: #9d7a5b;
-            border: 10px solid #73543d;
-            box-shadow:
-                260px 0 0 #9d7a5b,
-                260px 0 0 10px #73543d;
-        }
-
-        .hallway::after {
-            content: "ROOM 108";
-            position: absolute;
-            top: 105px;
-            left: 17%;
-            color: #fff;
-            font-weight: bold;
-            letter-spacing: 1px;
-            background: #3c4b55;
-            padding: 7px 12px;
-            border-radius: 6px;
-        }
-
-        .hallway-light {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 190px;
-            height: 18px;
-            border-radius: 50%;
-            background: rgba(255,255,230,.8);
-            filter: blur(8px);
-        }
-
-        .room {
-            background:
-                linear-gradient(
-                    to bottom,
-                    #ece5db 0%,
-                    #e5ddd2 67%,
-                    #c8b69d 67%,
-                    #b9a489 100%
-                );
-        }
-
-        .bed {
-            position: absolute;
-            right: 10%;
-            bottom: 90px;
-            width: 42%;
-            height: 115px;
-            background: #e6edf2;
-            border: 8px solid #72818b;
-            border-radius: 16px 16px 8px 8px;
-        }
-
-        .bed::before {
-            content: "";
-            position: absolute;
-            top: -45px;
-            left: 6%;
-            width: 26%;
-            height: 48px;
-            background: white;
-            border-radius: 14px;
-        }
-
-        .bed::after {
-            content: "";
-            position: absolute;
-            top: 15px;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: #b4cfdd;
-            opacity: .8;
-        }
-
-        .floor-person {
-            position: absolute;
-            left: 18%;
-            bottom: 70px;
-            width: 155px;
-            height: 82px;
-            transform: rotate(-8deg);
-        }
-
-        .floor-head {
-            position: absolute;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: #d9b18d;
-            left: 5px;
-            top: 5px;
-        }
-
-        .floor-body {
-            position: absolute;
-            left: 42px;
-            top: 28px;
-            width: 95px;
-            height: 42px;
-            border-radius: 25px;
-            background: #8a6179;
-        }
-
-        .floor-leg {
-            position: absolute;
-            width: 75px;
-            height: 20px;
-            border-radius: 14px;
-            background: #4f5661;
-            right: -10px;
-            bottom: 2px;
-            transform: rotate(18deg);
-        }
-
-        .maria-wrap {
-            position: absolute;
-            bottom: 58px;
-            left: -220px;
-            width: 200px;
-            text-align: center;
-            transition: left 1.2s ease;
-        }
-
-        .scene.active .maria-wrap.walk-in {
-            left: 11%;
-        }
-
-        .maria-wrap img {
-            width: 165px;
-            height: 165px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 8px 24px rgba(0,0,0,.4);
-        }
-
-        .maria-name {
-            margin-top: 9px;
-            font-weight: bold;
-            font-size: 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,.6);
-        }
-
-        .caption {
-            position: absolute;
-            left: 6%;
-            right: 6%;
-            bottom: 22px;
-            z-index: 30;
-            background: rgba(0,0,0,.78);
+        .caption-box {
+            margin-top: 18px;
+            background: #111820;
             color: white;
-            padding: 15px 18px;
-            border-radius: 12px;
-            line-height: 1.45;
+            border-radius: 14px;
+            padding: 18px;
+            min-height: 88px;
+            line-height: 1.5;
             font-size: 17px;
-            min-height: 58px;
         }
 
-        .caption strong {
+        .caption-box strong {
             color: #f0cc7a;
         }
 
-        .play-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 40;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,.45);
-        }
-
-        .play-button {
-            border: none;
-            border-radius: 999px;
-            background: white;
-            color: #1d252c;
-            width: 92px;
-            height: 92px;
-            font-size: 42px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0,0,0,.35);
+        .scene-label {
+            color: #9ecfe2;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
 
         .video-controls {
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 16px;
             flex-wrap: wrap;
         }
 
         .video-controls button {
             border: none;
-            border-radius: 10px;
-            padding: 11px 16px;
+            border-radius: 12px;
+            padding: 12px 17px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             background: #235c74;
             color: white;
         }
 
+        .video-controls button.secondary {
+            background: #66757e;
+        }
+
         .progress {
-            margin-top: 14px;
-            height: 8px;
+            margin-top: 16px;
+            height: 9px;
             border-radius: 999px;
             overflow: hidden;
-            background: #d7dde0;
+            background: #d8dee1;
         }
 
         .progress-bar {
             width: 0;
             height: 100%;
             background: #235c74;
-            transition: width .4s linear;
+            transition: width .4s ease;
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #667;
         }
 
         .decision-box {
@@ -389,31 +207,20 @@
         }
 
         @media (max-width: 700px) {
-            .video-stage {
-                min-height: 500px;
+            .container {
+                width: 96%;
             }
 
-            .maria-wrap img {
-                width: 135px;
-                height: 135px;
+            .card {
+                padding: 16px;
             }
 
-            .maria-wrap {
-                width: 160px;
-            }
-
-            .floor-person {
-                transform: scale(.82) rotate(-8deg);
-                left: 10%;
-            }
-
-            .bed {
-                right: 4%;
-                width: 48%;
-            }
-
-            .caption {
+            .caption-box {
                 font-size: 15px;
+            }
+
+            .video-controls button {
+                flex: 1 1 40%;
             }
         }
     </style>
@@ -457,93 +264,60 @@
         <h2>Resident Down</h2>
 
         <p>
-            Watch the incident unfold. The scene will stop when it is time
-            for you to make the first decision.
+            Watch the incident unfold. Maria alerts the Administrator,
+            they walk together to Room 108, and the scene pauses when
+            you must decide what to do first.
         </p>
 
-        <div class="video-stage" id="videoStage">
+        <div class="video-stage">
+            <img
+                class="storyboard-image"
+                src="/incident-storyboard.png"
+                alt="Resident Down training incident storyboard"
+            >
+            <div class="video-overlay"></div>
+        </div>
 
-            <div class="video-header">
-                8:05 AM — Assisted Living
+        <div class="caption-box">
+            <div class="scene-label" id="sceneLabel">
+                Ready
             </div>
 
-            <div class="scene hallway active" id="scene1">
-                <div class="hallway-light"></div>
-
-                <div class="maria-wrap walk-in">
-                    <img
-                        src="{{ url_for('maria_caregiver_image') }}"
-                        alt="Maria, caregiver"
-                    >
-                    <div class="maria-name">
-                        Maria — Caregiver
-                    </div>
-                </div>
+            <div id="caption">
+                Tap Play Incident to begin.
             </div>
-
-            <div class="scene hallway" id="scene2">
-                <div class="hallway-light"></div>
-
-                <div class="maria-wrap" style="left: 11%;">
-                    <img
-                        src="{{ url_for('maria_caregiver_image') }}"
-                        alt="Maria, caregiver"
-                    >
-                    <div class="maria-name">
-                        Maria — Caregiver
-                    </div>
-                </div>
-            </div>
-
-            <div class="scene room" id="scene3">
-
-                <div class="bed"></div>
-
-                <div class="floor-person">
-                    <div class="floor-head"></div>
-                    <div class="floor-body"></div>
-                    <div class="floor-leg"></div>
-                </div>
-
-            </div>
-
-            <div class="caption" id="caption">
-                Tap play to begin the incident.
-            </div>
-
-            <div class="play-overlay" id="playOverlay">
-                <button
-                    class="play-button"
-                    type="button"
-                    onclick="startIncident()"
-                    aria-label="Play incident"
-                >
-                    ▶
-                </button>
-            </div>
-
         </div>
 
         <div class="video-controls">
-            <button type="button" onclick="restartIncident()">
-                ↻ Restart
+
+            <button type="button" onclick="startIncident()">
+                ▶ Play Incident
             </button>
 
-            <button type="button" onclick="pauseIncident()">
+            <button type="button" class="secondary" onclick="pauseIncident()">
                 ⏸ Pause
             </button>
 
-            <button type="button" onclick="resumeIncident()">
+            <button type="button" class="secondary" onclick="resumeIncident()">
                 ▶ Resume
             </button>
 
-            <button type="button" onclick="toggleSound()">
+            <button type="button" class="secondary" onclick="restartIncident()">
+                ↻ Restart
+            </button>
+
+            <button type="button" class="secondary" onclick="toggleSound()">
                 🔊 Sound On/Off
             </button>
+
         </div>
 
         <div class="progress">
             <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="status" id="statusText">
+            Incident not started
         </div>
 
         <div class="decision-box" id="decisionBox">
@@ -598,76 +372,61 @@
 
 
 <script>
-    let incidentTimers = [];
-    let incidentStarted = false;
+    let incidentRunning = false;
     let incidentPaused = false;
-    let currentStep = 0;
     let soundEnabled = true;
+    let currentStep = 0;
     let selectedVoice = null;
 
     const steps = [
         {
-            scene: "scene1",
+            label: "Scene 1 — 8:05 AM",
             caption:
                 "Your morning shift has just begun. You hear quick footsteps coming down the hallway.",
             speech:
-                "Your morning shift has just begun. You hear quick footsteps coming down the hallway.",
-            progress: 15,
-            delay: 3500
+                "Your morning shift has just begun. You hear quick footsteps coming down the hallway."
         },
         {
-            scene: "scene2",
+            label: "Scene 2 — Maria alerts the Administrator",
             caption:
                 "<strong>Maria:</strong> I need you in Room 108. I found Mrs. Thompson on the floor next to her bed.",
             speech:
-                "I need you in Room 108. I found Mrs. Thompson on the floor next to her bed.",
-            progress: 35,
-            delay: 4500
+                "I need you in Room 108. I found Mrs. Thompson on the floor next to her bed."
         },
         {
-            scene: "scene2",
+            label: "Scene 3 — Walking to Room 108",
             caption:
-                "Maria looks worried. She is waiting for you to tell her what to do.",
+                "Maria leads you down the hallway. You both hurry toward Room 108.",
             speech:
-                "Maria looks worried. She is waiting for you to tell her what to do.",
-            progress: 50,
-            delay: 3500
+                "Maria leads you down the hallway. You both hurry toward Room 108."
         },
         {
-            scene: "scene2",
+            label: "Scene 4 — Entering the room",
             caption:
-                "<strong>You:</strong> Is she awake?",
+                "You enter Room 108 together and immediately see Mrs. Thompson on the floor beside her bed.",
             speech:
-                "Is she awake?",
-            progress: 62,
-            delay: 2500
+                "You enter Room 108 together and immediately see Mrs. Thompson on the floor beside her bed."
         },
         {
-            scene: "scene2",
+            label: "Scene 5 — Initial observation",
             caption:
-                "<strong>Maria:</strong> Yes. She's talking to me, but she says her hip hurts. I didn't move her.",
+                "Mrs. Thompson is awake and talking. She appears uncomfortable and says her hip hurts.",
             speech:
-                "Yes. She's talking to me, but she says her hip hurts. I didn't move her.",
-            progress: 78,
-            delay: 5000
+                "Mrs. Thompson is awake and talking. She appears uncomfortable and says her hip hurts."
         },
         {
-            scene: "scene3",
+            label: "Scene 6 — Resident statement",
             caption:
-                "You enter Room 108. Mrs. Thompson is on the floor beside the bed.",
+                "<strong>Mrs. Thompson:</strong> My hip hurts. I didn't try to get up. I just slid off the bed.",
             speech:
-                "You enter Room 108. Mrs. Thompson is on the floor beside the bed.",
-            progress: 92,
-            delay: 4000
+                "My hip hurts. I didn't try to get up. I just slid off the bed."
         },
         {
-            scene: "scene3",
+            label: "Decision Point",
             caption:
-                "The incident pauses here. What do you do first?",
+                "You and Maria pause. Mrs. Thompson remains on the floor. What do you do first?",
             speech:
-                "The incident pauses here. What do you do first?",
-            progress: 100,
-            delay: 2500
+                "You and Maria pause. Mrs. Thompson remains on the floor. What do you do first?"
         }
     ];
 
@@ -683,21 +442,20 @@
             return;
         }
 
-        const preferredNames = [
+        const preferred = [
             "Samantha",
             "Ava",
+            "Allison",
             "Serena",
-            "Karen",
-            "Moira",
             "Victoria",
-            "Susan",
-            "Allison"
+            "Karen",
+            "Moira"
         ];
 
-        for (const name of preferredNames) {
-            const match = voices.find(voice =>
-                voice.name.toLowerCase().includes(name.toLowerCase()) &&
-                voice.lang.toLowerCase().startsWith("en")
+        for (const name of preferred) {
+            const match = voices.find(v =>
+                v.lang.toLowerCase().startsWith("en") &&
+                v.name.toLowerCase().includes(name.toLowerCase())
             );
 
             if (match) {
@@ -706,20 +464,17 @@
             }
         }
 
-        selectedVoice = voices.find(voice =>
-            voice.lang.toLowerCase().startsWith("en") &&
-            (
-                voice.name.toLowerCase().includes("female") ||
-                voice.name.toLowerCase().includes("enhanced") ||
-                voice.name.toLowerCase().includes("premium")
-            )
-        );
-
-        if (!selectedVoice) {
-            selectedVoice = voices.find(voice =>
-                voice.lang.toLowerCase().startsWith("en")
+        selectedVoice =
+            voices.find(v =>
+                v.lang.toLowerCase().startsWith("en") &&
+                (
+                    v.name.toLowerCase().includes("enhanced") ||
+                    v.name.toLowerCase().includes("premium")
+                )
+            ) ||
+            voices.find(v =>
+                v.lang.toLowerCase().startsWith("en")
             );
-        }
     }
 
 
@@ -732,131 +487,100 @@
     }
 
 
-    function speakText(text) {
-        if (!soundEnabled) {
-            return;
-        }
+    function speakAndWait(text) {
+        return new Promise(resolve => {
 
-        if (!("speechSynthesis" in window)) {
-            return;
-        }
+            if (!soundEnabled || !("speechSynthesis" in window)) {
+                setTimeout(resolve, 1600);
+                return;
+            }
 
-        window.speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(text);
-
-        if (selectedVoice) {
-            utterance.voice = selectedVoice;
-        }
-
-        utterance.rate = 0.9;
-        utterance.pitch = 1.02;
-        utterance.volume = 1;
-
-        window.speechSynthesis.speak(utterance);
-    }
-
-
-    function stopSpeech() {
-        if ("speechSynthesis" in window) {
             window.speechSynthesis.cancel();
-        }
-    }
 
+            const utterance =
+                new SpeechSynthesisUtterance(text);
 
-    function toggleSound() {
-        soundEnabled = !soundEnabled;
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
 
-        if (!soundEnabled) {
-            stopSpeech();
-        }
+            utterance.rate = 0.78;
+            utterance.pitch = 1.0;
+            utterance.volume = 1;
 
-        alert(soundEnabled ? "Sound is on." : "Sound is off.");
-    }
+            utterance.onend = function() {
+                setTimeout(resolve, 700);
+            };
 
+            utterance.onerror = function() {
+                setTimeout(resolve, 1200);
+            };
 
-    function clearIncidentTimers() {
-        incidentTimers.forEach(timer => clearTimeout(timer));
-        incidentTimers = [];
-    }
-
-
-    function showScene(sceneId) {
-        document.querySelectorAll(".scene").forEach(scene => {
-            scene.classList.remove("active");
+            window.speechSynthesis.speak(utterance);
         });
-
-        document.getElementById(sceneId).classList.add("active");
     }
 
 
-    function runStep(index) {
-        if (incidentPaused || index >= steps.length) {
-            return;
+    async function runIncident() {
+        incidentRunning = true;
+
+        while (
+            currentStep < steps.length &&
+            incidentRunning
+        ) {
+            if (incidentPaused) {
+                return;
+            }
+
+            const step = steps[currentStep];
+
+            document.getElementById("sceneLabel").textContent =
+                step.label;
+
+            document.getElementById("caption").innerHTML =
+                step.caption;
+
+            document.getElementById("statusText").textContent =
+                "Playing scene " +
+                (currentStep + 1) +
+                " of " +
+                steps.length;
+
+            document.getElementById("progressBar").style.width =
+                (((currentStep + 1) / steps.length) * 100) + "%";
+
+            await speakAndWait(step.speech);
+
+            if (incidentPaused || !incidentRunning) {
+                return;
+            }
+
+            currentStep++;
         }
 
-        currentStep = index;
+        if (currentStep >= steps.length) {
+            incidentRunning = false;
 
-        const step = steps[index];
+            document.getElementById("statusText").textContent =
+                "Incident paused for your decision";
 
-        showScene(step.scene);
+            document.getElementById("decisionBox").classList.add("show");
 
-        document.getElementById("caption").innerHTML = step.caption;
-        document.getElementById("progressBar").style.width =
-            step.progress + "%";
-
-        speakText(step.speech);
-
-        if (index === steps.length - 1) {
-            const timer = setTimeout(() => {
-                document.getElementById("decisionBox").classList.add("show");
-
-                document.getElementById("decisionBox").scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-            }, step.delay);
-
-            incidentTimers.push(timer);
-
-            return;
+            document.getElementById("decisionBox").scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
         }
-
-        const timer = setTimeout(() => {
-            runStep(index + 1);
-        }, step.delay);
-
-        incidentTimers.push(timer);
     }
 
 
     function startIncident() {
-        document.getElementById("playOverlay").style.display = "none";
+        window.speechSynthesis.cancel();
 
-        incidentStarted = true;
-        incidentPaused = false;
         currentStep = 0;
-
-        clearIncidentTimers();
-        stopSpeech();
-
-        document.getElementById("decisionBox").classList.remove("show");
-        document.getElementById("quizResult").className = "quiz-result";
-        document.getElementById("quizResult").innerHTML = "";
-
-        runStep(0);
-    }
-
-
-    function restartIncident() {
-        clearIncidentTimers();
-        stopSpeech();
-
         incidentPaused = false;
-        incidentStarted = true;
-        currentStep = 0;
+        incidentRunning = true;
 
-        document.getElementById("playOverlay").style.display = "none";
         document.getElementById("decisionBox").classList.remove("show");
         document.getElementById("progressBar").style.width = "0%";
 
@@ -864,105 +588,53 @@
             button.disabled = false;
         });
 
-        document.getElementById("quizResult").className = "quiz-result";
-        document.getElementById("quizResult").innerHTML = "";
+        const resultBox = document.getElementById("quizResult");
+        resultBox.className = "quiz-result";
+        resultBox.innerHTML = "";
 
-        runStep(0);
+        runIncident();
     }
 
 
     function pauseIncident() {
-        if (!incidentStarted) {
+        if (!incidentRunning) {
             return;
         }
 
         incidentPaused = true;
-        clearIncidentTimers();
 
         if ("speechSynthesis" in window) {
             window.speechSynthesis.pause();
         }
 
-        document.getElementById("caption").innerHTML +=
-            "<br><br><em>Paused</em>";
+        document.getElementById("statusText").textContent =
+            "Paused";
     }
 
 
     function resumeIncident() {
-        if (!incidentStarted || !incidentPaused) {
+        if (!incidentPaused) {
             return;
         }
 
         incidentPaused = false;
 
-        if ("speechSynthesis" in window &&
-            window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
         }
 
-        runStep(currentStep);
+        document.getElementById("statusText").textContent =
+            "Resuming";
+
+        runIncident();
     }
 
 
-    async function submitAnswer(answerIndex) {
-        const resultBox = document.getElementById("quizResult");
-        const buttons = document.querySelectorAll(".choice");
-
-        resultBox.className = "quiz-result";
-        resultBox.style.display = "block";
-        resultBox.textContent = "Checking your answer...";
-
-        buttons.forEach(button => {
-            button.disabled = true;
-        });
-
-        try {
-            const response = await fetch("/api/quiz/{{ m['id'] }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    answer: answerIndex
-                })
-            });
-
-            const data = await response.json();
-
-            if (data.ok) {
-                resultBox.className = "quiz-result correct";
-                resultBox.innerHTML =
-                    "✓ Correct.<br><br>" + data.why;
-
-                speakText(
-                    "Correct. " + data.why
-                );
-
-            } else {
-                resultBox.className = "quiz-result incorrect";
-                resultBox.innerHTML =
-                    "Not quite. Try again.<br><br>" + data.why;
-
-                speakText(
-                    "Not quite. Try again."
-                );
-
-                buttons.forEach(button => {
-                    button.disabled = false;
-                });
-            }
-
-        } catch (error) {
-            resultBox.className = "quiz-result incorrect";
-            resultBox.textContent =
-                "There was a problem submitting your answer. Please try again.";
-
-            buttons.forEach(button => {
-                button.disabled = false;
-            });
+    function restartIncident() {
+        if ("speechSynthesis" in window) {
+            window.speechSynthesis.cancel();
         }
-    }
-</script>
 
-</body>
-</html>
+        currentStep = 0;
+        incidentPaused = false;
+        incidentRunning = false;

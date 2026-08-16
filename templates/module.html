@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -21,7 +21,7 @@
 
         .container {
             width: 94%;
-            max-width: 1000px;
+            max-width: 980px;
             margin: 20px auto;
         }
 
@@ -55,95 +55,127 @@
             font-weight: bold;
         }
 
-        .video-stage {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 18px;
-            background: #101820;
+        .video-shell {
             margin-top: 20px;
         }
 
-        .storyboard-image {
-            display: block;
+        .video-stage {
+            position: relative;
             width: 100%;
-            height: auto;
-        }
-
-        .video-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,.08);
-            pointer-events: none;
-        }
-
-        .caption-box {
-            margin-top: 18px;
+            height: 540px;
+            overflow: hidden;
+            border-radius: 18px;
             background: #111820;
+        }
+
+        .storyboard {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            object-fit: cover;
+            max-width: none;
+            transition:
+                left 1.5s ease,
+                top 1.5s ease,
+                transform 1.5s ease;
+        }
+
+        .scene-title {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 20;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(0,0,0,.72);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .caption {
+            position: absolute;
+            z-index: 20;
+            bottom: 18px;
+            left: 5%;
+            right: 5%;
+            background: rgba(0,0,0,.82);
             color: white;
             border-radius: 14px;
-            padding: 18px;
-            min-height: 88px;
-            line-height: 1.5;
+            padding: 16px 18px;
+            line-height: 1.45;
             font-size: 17px;
+            min-height: 68px;
         }
 
-        .caption-box strong {
+        .caption strong {
             color: #f0cc7a;
         }
 
-        .scene-label {
-            color: #9ecfe2;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-            margin-bottom: 8px;
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,.35);
+        }
+
+        .play-button {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #1d252c;
+            font-size: 42px;
+            cursor: pointer;
+            box-shadow: 0 8px 28px rgba(0,0,0,.35);
         }
 
         .video-controls {
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-top: 16px;
             flex-wrap: wrap;
+            margin-top: 15px;
         }
 
         .video-controls button {
             border: none;
             border-radius: 12px;
-            padding: 12px 17px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
+            padding: 12px 16px;
             background: #235c74;
             color: white;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .video-controls button.secondary {
-            background: #66757e;
+            background: #6d7980;
         }
 
         .progress {
-            margin-top: 16px;
+            margin-top: 15px;
             height: 9px;
+            background: #d8dee1;
             border-radius: 999px;
             overflow: hidden;
-            background: #d8dee1;
         }
 
         .progress-bar {
             width: 0;
             height: 100%;
             background: #235c74;
-            transition: width .4s ease;
+            transition: width .5s ease;
         }
 
         .status {
             text-align: center;
             margin-top: 10px;
-            font-size: 14px;
             color: #667;
+            font-size: 14px;
         }
 
         .decision-box {
@@ -172,10 +204,6 @@
             font-weight: bold;
             cursor: pointer;
             text-align: left;
-        }
-
-        .choice:hover {
-            opacity: .92;
         }
 
         .choice:disabled {
@@ -207,20 +235,16 @@
         }
 
         @media (max-width: 700px) {
-            .container {
-                width: 96%;
+            .video-stage {
+                height: 460px;
             }
 
-            .card {
-                padding: 16px;
-            }
-
-            .caption-box {
+            .caption {
                 font-size: 15px;
             }
 
             .video-controls button {
-                flex: 1 1 40%;
+                flex: 1 1 42%;
             }
         }
     </style>
@@ -231,25 +255,17 @@
 <div class="container">
 
     <div class="card">
-
         <a href="/">← Back to Dashboard</a>
 
-        <h1>
-            Module {{ m["id"] }}: {{ m["title"] }}
-        </h1>
+        <h1>Module {{ m["id"] }}: {{ m["title"] }}</h1>
 
         {% if m.get("core") %}
-        <p>
-            <strong>{{ m["core"] }}</strong>
-        </p>
+        <p><strong>{{ m["core"] }}</strong></p>
         {% endif %}
 
         {% if m.get("minutes") %}
-        <p>
-            Estimated time: {{ m["minutes"] }} minutes
-        </p>
+        <p>Estimated time: {{ m["minutes"] }} minutes</p>
         {% endif %}
-
     </div>
 
 
@@ -257,67 +273,77 @@
 
     <div class="card">
 
-        <div class="episode-label">
-            Episode 1
-        </div>
+        <div class="episode-label">Episode 1</div>
 
         <h2>Resident Down</h2>
 
         <p>
-            Watch the incident unfold. Maria alerts the Administrator,
-            they walk together to Room 108, and the scene pauses when
-            you must decide what to do first.
+            Watch the incident unfold. Follow Maria and the Administrator
+            to Room 108, then decide what should happen first.
         </p>
 
-        <div class="video-stage">
-            <img
-                class="storyboard-image"
-                src="/incident-storyboard.png"
-                alt="Resident Down training incident storyboard"
-            >
-            <div class="video-overlay"></div>
-        </div>
+        <div class="video-shell">
 
-        <div class="caption-box">
-            <div class="scene-label" id="sceneLabel">
-                Ready
+            <div class="video-stage">
+
+                <img
+                    id="storyboard"
+                    class="storyboard"
+                    src="/incident-storyboard.png"
+                    alt="Resident Down incident"
+                >
+
+                <div class="scene-title" id="sceneTitle">
+                    8:05 AM — Assisted Living
+                </div>
+
+                <div class="caption" id="caption">
+                    Tap play to begin the incident.
+                </div>
+
+                <div class="play-overlay" id="playOverlay">
+                    <button
+                        class="play-button"
+                        type="button"
+                        onclick="startIncident()"
+                        aria-label="Play incident"
+                    >
+                        ▶
+                    </button>
+                </div>
+
             </div>
 
-            <div id="caption">
-                Tap Play Incident to begin.
+            <div class="video-controls">
+                <button type="button" onclick="restartIncident()">
+                    ↻ Restart
+                </button>
+
+                <button
+                    type="button"
+                    class="secondary"
+                    onclick="pauseIncident()"
+                >
+                    ⏸ Pause
+                </button>
+
+                <button
+                    type="button"
+                    class="secondary"
+                    onclick="resumeIncident()"
+                >
+                    ▶ Resume
+                </button>
             </div>
-        </div>
 
-        <div class="video-controls">
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
 
-            <button type="button" onclick="startIncident()">
-                ▶ Play Incident
-            </button>
+            <div class="status" id="statusText">
+                Incident not started
+            </div>
 
-            <button type="button" class="secondary" onclick="pauseIncident()">
-                ⏸ Pause
-            </button>
-
-            <button type="button" class="secondary" onclick="resumeIncident()">
-                ▶ Resume
-            </button>
-
-            <button type="button" class="secondary" onclick="restartIncident()">
-                ↻ Restart
-            </button>
-
-            <button type="button" class="secondary" onclick="toggleSound()">
-                🔊 Sound On/Off
-            </button>
-
-        </div>
-
-        <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-
-        <div class="status" id="statusText">
-            Incident not started
         </div>
 
         <div class="decision-box" id="decisionBox">
@@ -357,13 +383,8 @@
     {% else %}
 
     <div class="card">
-
         <h2>{{ m["title"] }}</h2>
-
-        <p>
-            This module is ready for training content.
-        </p>
-
+        <p>This module is ready for training content.</p>
     </div>
 
     {% endif %}
@@ -372,227 +393,160 @@
 
 
 <script>
-    let incidentRunning = false;
-    let incidentPaused = false;
-    let soundEnabled = true;
     let currentStep = 0;
-    let selectedVoice = null;
+    let incidentPaused = false;
+    let incidentRunning = false;
+    let stepTimer = null;
 
     const steps = [
         {
-            label: "Scene 1 — 8:05 AM",
+            title: "Scene 1 — Maria finds the Administrator",
             caption:
-                "Your morning shift has just begun. You hear quick footsteps coming down the hallway.",
-            speech:
-                "Your morning shift has just begun. You hear quick footsteps coming down the hallway."
+                "Maria hurries down the hallway looking for the Administrator.",
+            left: "0%",
+            top: "0%",
+            transform: "scale(1)",
+            duration: 3200
         },
         {
-            label: "Scene 2 — Maria alerts the Administrator",
+            title: "Scene 2 — Maria reports the emergency",
             caption:
                 "<strong>Maria:</strong> I need you in Room 108. I found Mrs. Thompson on the floor next to her bed.",
-            speech:
-                "I need you in Room 108. I found Mrs. Thompson on the floor next to her bed."
+            left: "-50%",
+            top: "0%",
+            transform: "scale(1)",
+            duration: 4800
         },
         {
-            label: "Scene 3 — Walking to Room 108",
+            title: "Scene 3 — Walking to Room 108",
             caption:
-                "Maria leads you down the hallway. You both hurry toward Room 108.",
-            speech:
-                "Maria leads you down the hallway. You both hurry toward Room 108."
+                "The Administrator follows Maria down the hallway toward Room 108.",
+            left: "0%",
+            top: "-50%",
+            transform: "scale(1)",
+            duration: 4000
         },
         {
-            label: "Scene 4 — Entering the room",
+            title: "Scene 4 — Entering Room 108",
             caption:
-                "You enter Room 108 together and immediately see Mrs. Thompson on the floor beside her bed.",
-            speech:
-                "You enter Room 108 together and immediately see Mrs. Thompson on the floor beside her bed."
+                "Maria and the Administrator enter the room together.",
+            left: "-50%",
+            top: "-50%",
+            transform: "scale(1)",
+            duration: 3500
         },
         {
-            label: "Scene 5 — Initial observation",
+            title: "Scene 5 — Resident found on floor",
             caption:
-                "Mrs. Thompson is awake and talking. She appears uncomfortable and says her hip hurts.",
-            speech:
-                "Mrs. Thompson is awake and talking. She appears uncomfortable and says her hip hurts."
+                "Mrs. Thompson is on the floor beside the bed. She is awake and speaking.",
+            left: "-50%",
+            top: "-50%",
+            transform: "scale(1.2)",
+            duration: 4300
         },
         {
-            label: "Scene 6 — Resident statement",
+            title: "Scene 6 — Resident reports pain",
             caption:
-                "<strong>Mrs. Thompson:</strong> My hip hurts. I didn't try to get up. I just slid off the bed.",
-            speech:
-                "My hip hurts. I didn't try to get up. I just slid off the bed."
+                "<strong>Mrs. Thompson:</strong> My hip hurts.",
+            left: "-50%",
+            top: "-50%",
+            transform: "scale(1.35)",
+            duration: 3300
         },
         {
-            label: "Decision Point",
+            title: "Decision Point",
             caption:
-                "You and Maria pause. Mrs. Thompson remains on the floor. What do you do first?",
-            speech:
-                "You and Maria pause. Mrs. Thompson remains on the floor. What do you do first?"
+                "Mrs. Thompson remains on the floor. What do you do first?",
+            left: "-50%",
+            top: "-50%",
+            transform: "scale(1.15)",
+            duration: 2500
         }
     ];
 
 
-    function loadVoice() {
-        if (!("speechSynthesis" in window)) {
+    function applyStep(step) {
+        const storyboard = document.getElementById("storyboard");
+
+        storyboard.style.left = step.left;
+        storyboard.style.top = step.top;
+        storyboard.style.transform = step.transform;
+
+        document.getElementById("sceneTitle").textContent =
+            step.title;
+
+        document.getElementById("caption").innerHTML =
+            step.caption;
+
+        document.getElementById("progressBar").style.width =
+            (((currentStep + 1) / steps.length) * 100) + "%";
+
+        document.getElementById("statusText").textContent =
+            "Scene " +
+            (currentStep + 1) +
+            " of " +
+            steps.length;
+    }
+
+
+    function playCurrentStep() {
+        if (!incidentRunning || incidentPaused) {
             return;
         }
 
-        const voices = window.speechSynthesis.getVoices();
+        const step = steps[currentStep];
 
-        if (!voices.length) {
-            return;
-        }
+        applyStep(step);
 
-        const preferred = [
-            "Samantha",
-            "Ava",
-            "Allison",
-            "Serena",
-            "Victoria",
-            "Karen",
-            "Moira"
-        ];
-
-        for (const name of preferred) {
-            const match = voices.find(v =>
-                v.lang.toLowerCase().startsWith("en") &&
-                v.name.toLowerCase().includes(name.toLowerCase())
-            );
-
-            if (match) {
-                selectedVoice = match;
-                return;
-            }
-        }
-
-        selectedVoice =
-            voices.find(v =>
-                v.lang.toLowerCase().startsWith("en") &&
-                (
-                    v.name.toLowerCase().includes("enhanced") ||
-                    v.name.toLowerCase().includes("premium")
-                )
-            ) ||
-            voices.find(v =>
-                v.lang.toLowerCase().startsWith("en")
-            );
-    }
-
-
-    if ("speechSynthesis" in window) {
-        loadVoice();
-
-        window.speechSynthesis.onvoiceschanged = function() {
-            loadVoice();
-        };
-    }
-
-
-    function speakAndWait(text) {
-        return new Promise(resolve => {
-
-            if (!soundEnabled || !("speechSynthesis" in window)) {
-                setTimeout(resolve, 1600);
-                return;
-            }
-
-            window.speechSynthesis.cancel();
-
-            const utterance =
-                new SpeechSynthesisUtterance(text);
-
-            if (selectedVoice) {
-                utterance.voice = selectedVoice;
-            }
-
-            utterance.rate = 0.78;
-            utterance.pitch = 1.0;
-            utterance.volume = 1;
-
-            utterance.onend = function() {
-                setTimeout(resolve, 700);
-            };
-
-            utterance.onerror = function() {
-                setTimeout(resolve, 1200);
-            };
-
-            window.speechSynthesis.speak(utterance);
-        });
-    }
-
-
-    async function runIncident() {
-        incidentRunning = true;
-
-        while (
-            currentStep < steps.length &&
-            incidentRunning
-        ) {
-            if (incidentPaused) {
-                return;
-            }
-
-            const step = steps[currentStep];
-
-            document.getElementById("sceneLabel").textContent =
-                step.label;
-
-            document.getElementById("caption").innerHTML =
-                step.caption;
-
-            document.getElementById("statusText").textContent =
-                "Playing scene " +
-                (currentStep + 1) +
-                " of " +
-                steps.length;
-
-            document.getElementById("progressBar").style.width =
-                (((currentStep + 1) / steps.length) * 100) + "%";
-
-            await speakAndWait(step.speech);
+        stepTimer = setTimeout(() => {
 
             if (incidentPaused || !incidentRunning) {
                 return;
             }
 
             currentStep++;
-        }
 
-        if (currentStep >= steps.length) {
-            incidentRunning = false;
+            if (currentStep >= steps.length) {
+                incidentRunning = false;
 
-            document.getElementById("statusText").textContent =
-                "Incident paused for your decision";
+                document.getElementById("statusText").textContent =
+                    "Incident paused for your decision";
 
-            document.getElementById("decisionBox").classList.add("show");
+                document.getElementById("decisionBox")
+                    .classList.add("show");
 
-            document.getElementById("decisionBox").scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-        }
+                document.getElementById("decisionBox")
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                return;
+            }
+
+            playCurrentStep();
+
+        }, step.duration);
     }
 
 
     function startIncident() {
-        window.speechSynthesis.cancel();
+        clearTimeout(stepTimer);
 
         currentStep = 0;
         incidentPaused = false;
         incidentRunning = true;
 
-        document.getElementById("decisionBox").classList.remove("show");
-        document.getElementById("progressBar").style.width = "0%";
+        document.getElementById("playOverlay").style.display =
+            "none";
 
-        document.querySelectorAll(".choice").forEach(button => {
-            button.disabled = false;
-        });
+        document.getElementById("decisionBox")
+            .classList.remove("show");
 
-        const resultBox = document.getElementById("quizResult");
-        resultBox.className = "quiz-result";
-        resultBox.innerHTML = "";
+        document.getElementById("progressBar").style.width =
+            "0%";
 
-        runIncident();
+        playCurrentStep();
     }
 
 
@@ -603,9 +557,7 @@
 
         incidentPaused = true;
 
-        if ("speechSynthesis" in window) {
-            window.speechSynthesis.pause();
-        }
+        clearTimeout(stepTimer);
 
         document.getElementById("statusText").textContent =
             "Paused";
@@ -618,23 +570,116 @@
         }
 
         incidentPaused = false;
+        incidentRunning = true;
 
-        if ("speechSynthesis" in window) {
-            window.speechSynthesis.cancel();
-        }
-
-        document.getElementById("statusText").textContent =
-            "Resuming";
-
-        runIncident();
+        playCurrentStep();
     }
 
 
     function restartIncident() {
-        if ("speechSynthesis" in window) {
-            window.speechSynthesis.cancel();
-        }
+        clearTimeout(stepTimer);
 
         currentStep = 0;
         incidentPaused = false;
         incidentRunning = false;
+
+        const storyboard = document.getElementById("storyboard");
+
+        storyboard.style.left = "0%";
+        storyboard.style.top = "0%";
+        storyboard.style.transform = "scale(1)";
+
+        document.getElementById("sceneTitle").textContent =
+            "8:05 AM — Assisted Living";
+
+        document.getElementById("caption").textContent =
+            "Tap play to begin the incident.";
+
+        document.getElementById("progressBar").style.width =
+            "0%";
+
+        document.getElementById("statusText").textContent =
+            "Incident not started";
+
+        document.getElementById("playOverlay").style.display =
+            "flex";
+
+        document.getElementById("decisionBox")
+            .classList.remove("show");
+
+        document.querySelectorAll(".choice").forEach(button => {
+            button.disabled = false;
+        });
+
+        const resultBox =
+            document.getElementById("quizResult");
+
+        resultBox.className = "quiz-result";
+        resultBox.innerHTML = "";
+    }
+
+
+    async function submitAnswer(answerIndex) {
+        const resultBox =
+            document.getElementById("quizResult");
+
+        const buttons =
+            document.querySelectorAll(".choice");
+
+        resultBox.className = "quiz-result";
+        resultBox.style.display = "block";
+        resultBox.textContent = "Checking your answer...";
+
+        buttons.forEach(button => {
+            button.disabled = true;
+        });
+
+        try {
+            const response =
+                await fetch("/api/quiz/{{ m['id'] }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        answer: answerIndex
+                    })
+                });
+
+            const data = await response.json();
+
+            if (data.ok) {
+                resultBox.className =
+                    "quiz-result correct";
+
+                resultBox.innerHTML =
+                    "✓ Correct.<br><br>" + data.why;
+
+            } else {
+                resultBox.className =
+                    "quiz-result incorrect";
+
+                resultBox.innerHTML =
+                    "Not quite. Try again.<br><br>" + data.why;
+
+                buttons.forEach(button => {
+                    button.disabled = false;
+                });
+            }
+
+        } catch (error) {
+            resultBox.className =
+                "quiz-result incorrect";
+
+            resultBox.textContent =
+                "There was a problem submitting your answer. Please try again.";
+
+            buttons.forEach(button => {
+                button.disabled = false;
+            });
+        }
+    }
+</script>
+
+</body>
+</html>

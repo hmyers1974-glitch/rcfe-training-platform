@@ -15,22 +15,22 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f3f4f6;
+            background: #eef2f5;
             color: #222;
         }
 
         .container {
-            width: 92%;
+            width: 94%;
             max-width: 900px;
-            margin: 25px auto;
+            margin: 20px auto;
         }
 
         .card {
             background: white;
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 22px;
             margin-bottom: 22px;
-            box-shadow: 0 4px 14px rgba(0,0,0,.08);
+            box-shadow: 0 5px 18px rgba(0,0,0,.08);
         }
 
         a {
@@ -40,94 +40,111 @@
         }
 
         h1 {
-            margin-top: 18px;
-            color: #173f50;
+            margin-bottom: 8px;
         }
 
         h2 {
-            color: #235c74;
-        }
-
-        h3 {
-            margin-bottom: 10px;
+            margin-top: 5px;
         }
 
         .episode-label {
-            color: #235c74;
-            font-weight: bold;
+            font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            color: #667;
+            font-weight: bold;
         }
 
         .scene {
-            background: #eef6f8;
-            border-left: 5px solid #235c74;
-        }
-
-        .maria-area {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .maria-image {
-            width: 100%;
-            max-width: 420px;
-            height: auto;
-            display: block;
-            margin: 15px auto;
+            background: #182129;
             border-radius: 18px;
-            box-shadow: 0 6px 18px rgba(0,0,0,.15);
+            overflow: hidden;
+            margin-top: 20px;
+            color: white;
         }
 
-        .dialogue {
-            max-width: 650px;
-            margin: 18px auto 0;
+        .scene-header {
+            padding: 15px 20px;
+            background: #10171d;
+            font-size: 14px;
+            color: #d9e1e5;
+        }
+
+        .scene-body {
+            padding: 22px;
+        }
+
+        .narrator {
+            padding: 16px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d7b56d;
+            background: rgba(255,255,255,.08);
+            border-radius: 8px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .maria {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .maria img {
+            display: block;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 12px auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,.4);
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .role {
+            font-size: 14px;
+            opacity: .75;
+            margin-top: 4px;
+        }
+
+        .speech {
             background: white;
+            color: #222;
             padding: 18px;
-            border-radius: 14px;
-            border: 1px solid #d7e3e7;
-            text-align: left;
-            font-size: 18px;
-            line-height: 1.55;
+            border-radius: 18px;
+            margin: 16px 0;
+            line-height: 1.6;
         }
 
-        textarea {
+        .speech strong {
+            color: #235c74;
+            font-size: 17px;
+        }
+
+        .decision {
+            background: #f7f9fa;
+            border: 2px solid #d9e1e5;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 22px;
+        }
+
+        .choice {
+            display: block;
             width: 100%;
-            min-height: 130px;
-            padding: 14px;
-            border: 1px solid #bbb;
-            border-radius: 10px;
-            font-size: 16px;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        button {
-            margin-top: 12px;
-            padding: 12px 18px;
-            border: none;
-            border-radius: 9px;
+            margin: 12px 0;
+            padding: 17px;
+            border: 0;
+            border-radius: 12px;
             background: #235c74;
             color: white;
             font-size: 16px;
             font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #173f50;
-        }
-
-        .real-box {
-            background: #f8fafb;
-            border: 1px solid #d8e0e4;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 14px;
-        }
-
-        .coming-next {
-            background: #fff9e8;
-            border-left: 5px solid #d9a928;
+            text-align: left;
         }
 
     </style>
@@ -140,16 +157,19 @@
 
     <div class="card">
 
-        <a href="/">← Back to Dashboard</a>
+        <a href="/">
+            ← Back to Dashboard
+        </a>
 
         <h1>
-            Module {{ m["id"] }}:
-            {{ m["title"] }}
+            Module {{ m["id"] }}: {{ m["title"] }}
         </h1>
 
+        {% if m.get("core") %}
         <p>
-            <strong>{{ m.get("core", "") }}</strong>
+            <strong>{{ m["core"] }}</strong>
         </p>
+        {% endif %}
 
         {% if m.get("minutes") %}
         <p>
@@ -165,186 +185,125 @@
 
     <div class="card">
 
-        <h2>Administrator Mindset: Regulation to Real Life</h2>
-
-        <p>
-            Strong RCFE administration means recognizing risk,
-            verifying the governing rule, acting within scope,
-            documenting objectively, and fixing the system.
-        </p>
-
-        <div class="real-box">
-            <strong>Use R.E.A.L.</strong>
-
-            <p>
-                <strong>R</strong> — Recognize
-            </p>
-
-            <p>
-                <strong>E</strong> — Evaluate
-            </p>
-
-            <p>
-                <strong>A</strong> — Act
-            </p>
-
-            <p>
-                <strong>L</strong> — Learn & Lead
-            </p>
-        </div>
-
-    </div>
-
-
-    <div class="card scene">
-
         <div class="episode-label">
             Episode 1
         </div>
 
-        <h2>Resident Down</h2>
+        <h2>
+            Resident Down
+        </h2>
 
         <p>
-            It is 8:05 AM. You have just started your morning
-            when a caregiver approaches you.
+            Your shift has just begun. What happens next depends on the
+            decisions you make.
         </p>
 
 
-        <div class="maria-area">
+        <div class="scene">
 
-            <h3>Maria — Caregiver</h3>
+            <div class="scene-header">
+                8:05 AM — Assisted Living
+            </div>
 
-            <img
-                class="maria-image"
-                src="{{ url_for('static', filename='maria-caregiver.png') }}"
-                alt="Maria, caregiver"
-            >
 
-            <div class="dialogue">
+            <div class="scene-body">
 
-                <strong>Maria:</strong>
+                <div class="narrator">
+                    You have just started your morning when you hear quick
+                    footsteps coming down the hallway.
+                </div>
 
-                <p>
-                    “Heather, I walked into Mrs. Smith's room
-                    and observed her beside the bed on the floor.
-                    She's awake, but I haven't moved her.
-                    What do you want me to do?”
-                </p>
+
+                <div class="maria">
+
+                    <img
+                        src="/static/static/maria-caregiver.png"
+                        alt="Maria the caregiver"
+                    >
+
+                    <div class="name">
+                        Maria
+                    </div>
+
+                    <div class="role">
+                        Caregiver
+                    </div>
+
+                </div>
+
+
+                <div class="speech">
+
+                    <strong>Maria</strong>
+
+                    <br><br>
+
+                    “I need you in Room 108. I found Mrs. Thompson on the
+                    floor next to her bed.”
+
+                </div>
+
+
+                <div class="narrator">
+                    Maria looks worried. She waits for your direction.
+                </div>
+
+
+                <div class="speech">
+
+                    <strong>You</strong>
+
+                    <br><br>
+
+                    “Is she awake?”
+
+                </div>
+
+
+                <div class="speech">
+
+                    <strong>Maria</strong>
+
+                    <br><br>
+
+                    “Yes. She's talking to me, but she says her hip hurts.
+                    I didn't move her.”
+
+                </div>
+
+
+                <div class="narrator">
+                    You walk quickly with Maria to Room 108. Mrs. Thompson
+                    is lying on the floor beside her bed.
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+
+        <div class="decision">
+
+            <h2>
+                What do you do first?
+            </h2>
 
 
-    <div class="card">
-
-        <h2>Your Administrator Decision</h2>
-
-        <p>
-            You are the Administrator. Maria is waiting for your direction.
-        </p>
-
-        <p>
-            What are your immediate priorities?
-        </p>
-
-        <textarea
-            id="administratorResponse"
-            placeholder="Type what you would do next..."
-        ></textarea>
-
-        <button onclick="saveResponse()">
-            Save My Response
-        </button>
-
-        <p id="savedMessage"></p>
-
-    </div>
+            <button class="choice">
+                A. Assess Mrs. Thompson for injuries before attempting to move her.
+            </button>
 
 
-    <div class="card">
+            <button class="choice">
+                B. Help Mrs. Thompson back into bed immediately.
+            </button>
 
-        <h2>Think Like an Administrator</h2>
 
-        <div class="real-box">
-
-            <p>
-                <strong>Recognize:</strong>
-                A resident has been found on the floor.
-                Immediate resident safety comes first.
-            </p>
-
-            <p>
-                <strong>Evaluate:</strong>
-                Determine the resident's condition,
-                circumstances surrounding the event,
-                and whether emergency assistance is needed.
-            </p>
-
-            <p>
-                <strong>Act:</strong>
-                Follow facility policy and the resident's
-                emergency and care plan while ensuring
-                appropriate assessment, notification,
-                documentation, and follow-up.
-            </p>
-
-            <p>
-                <strong>Learn & Lead:</strong>
-                After the immediate situation is stabilized,
-                identify contributing factors and determine
-                what interventions may prevent another occurrence.
-            </p>
+            <button class="choice">
+                C. Ask Maria to finish getting the other residents ready first.
+            </button>
 
         </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h2>Regulation Hunt</h2>
-
-        <p>
-            Locate the current California RCFE regulation or topic
-            that addresses Administrator responsibility.
-        </p>
-
-        <p>
-            Enter the section or topic and one sentence describing
-            what it requires.
-        </p>
-
-        <textarea
-            id="regulationResponse"
-            placeholder="Enter the regulation/topic and what it requires..."
-        ></textarea>
-
-        <button onclick="saveRegulation()">
-            Save Progress
-        </button>
-
-        <p id="regulationSaved"></p>
-
-    </div>
-
-
-    <div class="card coming-next">
-
-        <div class="episode-label">
-            Coming Next
-        </div>
-
-        <h2>Episode 2</h2>
-
-        <p>
-            The immediate emergency is only the beginning.
-            Next, you will decide what must be documented,
-            who must be notified, and what the Administrator
-            must do to prevent the incident from happening again.
-        </p>
 
     </div>
 
@@ -354,10 +313,12 @@
 
     <div class="card">
 
-        <h2>Lesson</h2>
+        <h2>
+            {{ m["title"] }}
+        </h2>
 
         <p>
-            {{ m.get("lesson", "Module content coming soon.") }}
+            This module is ready for training content.
         </p>
 
     </div>
@@ -368,71 +329,6 @@
 
 </div>
 
-
-<script>
-
-function saveResponse() {
-
-    const response =
-        document.getElementById("administratorResponse").value;
-
-    localStorage.setItem(
-        "module1_administrator_response",
-        response
-    );
-
-    document.getElementById("savedMessage").innerText =
-        "✓ Response saved on this device.";
-}
-
-
-function saveRegulation() {
-
-    const response =
-        document.getElementById("regulationResponse").value;
-
-    localStorage.setItem(
-        "module1_regulation_response",
-        response
-    );
-
-    document.getElementById("regulationSaved").innerText =
-        "✓ Progress saved on this device.";
-}
-
-
-window.onload = function() {
-
-    const savedResponse =
-        localStorage.getItem("module1_administrator_response");
-
-    const savedRegulation =
-        localStorage.getItem("module1_regulation_response");
-
-
-    if (
-        savedResponse &&
-        document.getElementById("administratorResponse")
-    ) {
-        document.getElementById(
-            "administratorResponse"
-        ).value = savedResponse;
-    }
-
-
-    if (
-        savedRegulation &&
-        document.getElementById("regulationResponse")
-    ) {
-        document.getElementById(
-            "regulationResponse"
-        ).value = savedRegulation;
-    }
-
-};
-
-</script>
-
-
 </body>
+
 </html>

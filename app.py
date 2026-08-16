@@ -620,12 +620,12 @@ def module_page(module_id):
 
     # =====================================================
     # MODULE 1
-    # Keep the original Resident Down experience
+    # Resident Down has its own dedicated template
     # =====================================================
 
     if module_id == 1:
         return render_template(
-            "module.html",
+            "module1.html",
             user=user,
             m=module,
             prog=progress,
@@ -634,7 +634,7 @@ def module_page(module_id):
 
     # =====================================================
     # MODULES 2-20
-    # Load the matching content from module_content.json
+    # Load matching content from module_content.json
     # =====================================================
 
     content = MODULE_CONTENT.get(

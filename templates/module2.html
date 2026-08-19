@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Module 2 - Title 22</title>
 
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -42,7 +45,9 @@
             line-height: 1.2;
         }
 
-        .hero p { font-size: 18px; }
+        .hero p {
+            font-size: 18px;
+        }
 
         .module-label {
             text-transform: uppercase;
@@ -57,7 +62,9 @@
             margin-top: 0;
         }
 
-        h3 { color: #285d72; }
+        h3 {
+            color: #285d72;
+        }
 
         .lesson-number {
             display: inline-block;
@@ -94,7 +101,9 @@
             margin: 18px 0;
         }
 
-        ul, ol { padding-left: 24px; }
+        ul {
+            padding-left: 24px;
+        }
 
         button {
             border: none;
@@ -107,7 +116,9 @@
             margin-top: 10px;
         }
 
-        button:hover { background: #285d72; }
+        button:hover {
+            background: #285d72;
+        }
 
         button:disabled {
             opacity: .65;
@@ -123,8 +134,6 @@
             border: 1px solid #ccc;
             margin: 10px 0;
         }
-
-        .choice:hover { background: #e6eef2; }
 
         .choice.correct {
             background: #dff3e4;
@@ -142,9 +151,12 @@
             padding: 15px;
             border-radius: 10px;
             font-weight: bold;
+            background: #eef7fa;
         }
 
-        .feedback.show { display: block; }
+        .feedback.show {
+            display: block;
+        }
 
         .progress-shell {
             height: 16px;
@@ -161,9 +173,13 @@
             transition: width .4s ease;
         }
 
-        .hidden { display: none !important; }
+        .hidden {
+            display: none !important;
+        }
 
-        .next-button { margin-top: 20px; }
+        .next-button {
+            margin-top: 20px;
+        }
 
         .top-link {
             color: white;
@@ -171,7 +187,9 @@
             font-weight: bold;
         }
 
-        .completion { text-align: center; }
+        .completion {
+            text-align: center;
+        }
 
         .score {
             font-size: 36px;
@@ -179,19 +197,28 @@
             font-weight: bold;
         }
 
+        .rule {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 24px 0;
+        }
+
+        /* VIDEO */
+
         .media-card {
             margin: 20px 0 24px;
             border: 1px solid #d9e1e5;
             border-radius: 16px;
             overflow: hidden;
             background: #101820;
+            box-shadow: 0 4px 14px rgba(0,0,0,.10);
         }
 
         .media-stage {
             position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: linear-gradient(135deg, #173d4f, #285d72);
+            background: #173d4f;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -201,7 +228,7 @@
         .lesson-video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             background: #000;
         }
 
@@ -216,16 +243,24 @@
             padding: 28px;
         }
 
+        .media-fallback-inner {
+            max-width: 650px;
+        }
+
         .media-fallback h3 {
             color: white;
-            margin-bottom: 8px;
+        }
+
+        .scene-label {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
         .media-controls {
             display: flex;
             flex-wrap: wrap;
             gap: 9px;
-            align-items: center;
             padding: 12px;
             background: #f7f9fa;
         }
@@ -244,15 +279,8 @@
             font-weight: bold;
         }
 
-        .quiz-question {
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 18px;
-            margin: 18px 0;
-            background: #fafbfc;
-        }
-
         @media (max-width: 600px) {
+
             .container {
                 width: 94%;
                 margin-top: 10px;
@@ -260,12 +288,15 @@
 
             .card {
                 padding: 20px;
-                border-radius: 14px;
             }
 
-            .hero h1 { font-size: 29px; }
+            .hero h1 {
+                font-size: 29px;
+            }
 
-            button { width: 100%; }
+            button {
+                width: 100%;
+            }
 
             .media-controls button {
                 width: calc(50% - 5px);
@@ -273,8 +304,8 @@
 
             .media-status {
                 width: 100%;
-                margin-left: 0;
                 text-align: center;
+                margin-left: 0;
             }
         }
     </style>
@@ -285,7 +316,10 @@
 <div class="container">
 
     <div class="card hero">
-        <div class="module-label">California RCFE Leadership Academy</div>
+
+        <div class="module-label">
+            California RCFE Leadership Academy
+        </div>
 
         <h1>
             Module 2:<br>
@@ -299,11 +333,18 @@
 
         <p><strong>Estimated learning time:</strong> 60 minutes</p>
 
-        <a class="top-link" href="/student">← Back to Training Modules</a>
+        <a class="top-link" href="/student">
+            ← Back to Training Modules
+        </a>
+
     </div>
 
+
     <div class="card">
+
         <h2>Learning Objectives</h2>
+
+        <p>By the end of this module, you should be able to:</p>
 
         <ul>
             <li>Recognize when an RCFE issue requires regulatory review.</li>
@@ -312,21 +353,25 @@
             <li>Apply regulations to real operational situations.</li>
             <li>Protect resident rights while managing safety and risk.</li>
             <li>Document administrative decisions in a defensible manner.</li>
+            <li>Explain your reasoning clearly during a licensing review.</li>
         </ul>
 
         <div class="callout">
             <strong>Administrator mindset:</strong>
-            Your job is not simply to memorize regulations.
-            Your job is to recognize the issue, verify the facts,
-            identify the authority, apply it correctly, and document the decision.
+            Knowing regulations is important. Knowing how to apply them
+            correctly when the situation is unclear is what separates
+            strong administrators from administrators who simply memorize rules.
         </div>
 
         <button onclick="startTraining()">Begin Module</button>
+
     </div>
+
 
     <div id="trainingArea" class="hidden">
 
         <div class="card">
+
             <strong>Module Progress</strong>
 
             <div class="progress-shell">
@@ -334,59 +379,95 @@
             </div>
 
             <div id="progressText">Lesson 1 of 6</div>
+
         </div>
+
 
         <!-- LESSON 1 -->
 
         <div id="lesson1" class="lesson card">
+
             <div class="lesson-number">LESSON 1</div>
 
             <h2>Title 22 Is a Decision-Making Tool</h2>
 
             <div class="media-card">
+
                 <div class="media-stage">
 
-                    <video id="video1" class="lesson-video hidden"
-                           playsinline preload="metadata">
+                    <video id="video1"
+                           class="lesson-video hidden"
+                           playsinline
+                           controls
+                           preload="metadata">
+
                         <source src="/static/module2/lesson1.mp4"
                                 type="video/mp4">
+
                     </video>
 
                     <div id="fallback1" class="media-fallback">
-                        <div>
+
+                        <div class="media-fallback-inner">
+
+                            <div class="scene-label">OPENING SCENARIO</div>
+
                             <h3>A Regulatory Question Lands on Your Desk</h3>
 
                             <p>
-                                A caregiver approaches the administrator
-                                with a family request that may conflict
-                                with a resident's rights.
+                                Video 1 will appear here when uploaded.
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="media-controls">
+
                     <button onclick="playMedia(1)">▶ Play</button>
+
                     <button onclick="pauseMedia(1)">⏸ Pause</button>
+
                     <button onclick="restartMedia(1)">↻ Restart</button>
-                    <button id="soundButton1"
-                            onclick="toggleSound(1)">🔊 Sound On</button>
 
                     <span id="mediaStatus1"
-                          class="media-status">Checking video…</span>
+                          class="media-status">
+                        Loading video...
+                    </span>
+
                 </div>
+
             </div>
 
+
             <p>
-                Administrators sometimes treat Title 22 as a giant
-                list of rules that must be memorized.
-                That often leads to poor decisions.
+                Administrators sometimes treat Title 22 as a giant list
+                of rules that must be memorized.
+                That approach can lead to poor decisions.
             </p>
 
             <p>
-                A better approach is to recognize when an issue exists
-                and follow a reliable process.
+                Your job is not to memorize every regulation.
+                Your job is to recognize when a situation raises a
+                regulatory issue and know how to find, interpret,
+                apply, and document the applicable requirement.
             </p>
+
+
+            <div class="callout">
+
+                A strong administrator asks:
+
+                <strong>
+                    What is the actual issue, what are the facts,
+                    what authority applies, and what action best
+                    protects the resident?
+                </strong>
+
+            </div>
+
 
             <h3>The Five-Step Regulatory Process</h3>
 
@@ -394,31 +475,18 @@
                 <li><strong>Identify the issue.</strong></li>
                 <li><strong>Gather the facts.</strong></li>
                 <li><strong>Verify the authority.</strong></li>
-                <li><strong>Apply the requirement.</strong></li>
+                <li><strong>Apply the requirement to the facts.</strong></li>
                 <li><strong>Document the decision and follow-up.</strong></li>
             </ol>
 
-            <div class="scenario">
-                <strong>Example:</strong>
-
-                <p>
-                    A resident's daughter tells staff that her mother
-                    may not leave the building with a longtime friend.
-                </p>
-
-                <p>
-                    The administrator should not automatically follow
-                    the request. The administrator must determine
-                    resident rights, decision-making authority,
-                    safety concerns, and whether a lawful restriction exists.
-                </p>
-            </div>
 
             <button class="next-button"
                     onclick="nextLesson(2)">
                 Continue
             </button>
+
         </div>
+
 
         <!-- LESSON 2 -->
 
@@ -427,81 +495,111 @@
 
             <div class="lesson-number">LESSON 2</div>
 
-            <h2>Facts Before Conclusions</h2>
+            <h2>Start With Facts — Not Conclusions</h2>
 
             <div class="media-card">
+
                 <div class="media-stage">
 
                     <video id="video2"
                            class="lesson-video hidden"
-                           playsinline preload="metadata">
+                           playsinline
+                           controls
+                           preload="metadata">
 
                         <source src="/static/module2/lesson2.mp4"
                                 type="video/mp4">
+
                     </video>
 
                     <div id="fallback2"
                          class="media-fallback">
 
-                        <div>
-                            <h3>What Do We Actually Know?</h3>
+                        <div class="media-fallback-inner">
+
+                            <div class="scene-label">
+                                INVESTIGATION SCENE
+                            </div>
+
+                            <h3>
+                                Three Staff Members.
+                                Three Different Stories.
+                            </h3>
 
                             <p>
-                                Separate documented facts
-                                from assumptions.
+                                Separate observations from conclusions.
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="media-controls">
+
                     <button onclick="playMedia(2)">▶ Play</button>
                     <button onclick="pauseMedia(2)">⏸ Pause</button>
                     <button onclick="restartMedia(2)">↻ Restart</button>
-                    <button id="soundButton2"
-                            onclick="toggleSound(2)">🔊 Sound On</button>
 
                     <span id="mediaStatus2"
-                          class="media-status">Checking video…</span>
+                          class="media-status">
+                        Loading video...
+                    </span>
+
                 </div>
+
             </div>
+
 
             <p>
-                Administrators should avoid reaching conclusions
-                before determining what actually occurred.
+                Licensing problems often grow because someone reaches
+                a conclusion before determining what actually happened.
             </p>
 
-            <div class="scenario">
 
-                <strong>Scenario:</strong>
+            <div class="warning">
 
-                <p>
-                    A family member says a resident waited
-                    30 minutes after pressing the call system.
-                </p>
+                <strong>Conclusion:</strong><br>
 
-                <p>
-                    The caregiver says the response was immediate.
-                </p>
+                “The caregiver neglected the resident.”
 
-                <p>
-                    Review objective evidence such as call-system records,
-                    care notes, staffing assignments,
-                    witness statements, and other documentation.
-                </p>
             </div>
+
 
             <div class="callout">
-                <strong>Evidence first.</strong>
-                Separate what someone believes happened
-                from what can actually be verified.
+
+                <strong>Facts:</strong><br>
+
+                “The resident activated the call system at approximately
+                2:10 PM. Staff entered the room at approximately 2:18 PM.
+                The resident reported needing assistance to the restroom.”
+
             </div>
+
+
+            <h3>Before deciding what regulation applies, ask:</h3>
+
+            <ul>
+                <li>What exactly happened?</li>
+                <li>When did it happen?</li>
+                <li>Who was present?</li>
+                <li>What did the resident need?</li>
+                <li>What did the care plan require?</li>
+                <li>What did staff actually do?</li>
+                <li>What documentation exists?</li>
+                <li>Was anyone notified?</li>
+                <li>Was the resident harmed or placed at risk?</li>
+            </ul>
+
 
             <button class="next-button"
                     onclick="nextLesson(3)">
                 Continue
             </button>
+
         </div>
+
 
         <!-- LESSON 3 -->
 
@@ -512,81 +610,132 @@
 
             <h2>Read the Regulation Carefully</h2>
 
+
             <div class="media-card">
+
                 <div class="media-stage">
 
                     <video id="video3"
                            class="lesson-video hidden"
-                           playsinline preload="metadata">
+                           playsinline
+                           controls
+                           preload="metadata">
 
                         <source src="/static/module2/lesson3.mp4"
                                 type="video/mp4">
+
                     </video>
 
                     <div id="fallback3"
                          class="media-fallback">
 
-                        <div>
-                            <h3>Words Matter</h3>
+                        <div class="media-fallback-inner">
+
+                            <div class="scene-label">
+                                VERIFICATION SCENE
+                            </div>
+
+                            <h3>
+                                “Licensing Told Me Years Ago…”
+                            </h3>
 
                             <p>
-                                Shall, must, may, unless,
-                                except, immediately, and within
-                                can change the meaning of a requirement.
+                                Verify the current requirement.
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="media-controls">
+
                     <button onclick="playMedia(3)">▶ Play</button>
                     <button onclick="pauseMedia(3)">⏸ Pause</button>
                     <button onclick="restartMedia(3)">↻ Restart</button>
 
-                    <button id="soundButton3"
-                            onclick="toggleSound(3)">🔊 Sound On</button>
-
                     <span id="mediaStatus3"
-                          class="media-status">Checking video…</span>
+                          class="media-status">
+                        Loading video...
+                    </span>
+
                 </div>
+
             </div>
 
-            <div class="warning">
-                Do not rely on:
-                <strong>
-                    “Licensing told us years ago this was okay.”
-                </strong>
-                Verify the current authority.
-            </div>
+
+            <p>
+                A common compliance mistake is relying on what someone
+                remembers Title 22 says rather than reading the
+                actual requirement.
+            </p>
+
+
+            <p>Pay attention to words such as:</p>
+
+            <ul>
+                <li><strong>shall</strong></li>
+                <li><strong>must</strong></li>
+                <li><strong>may</strong></li>
+                <li><strong>unless</strong></li>
+                <li><strong>except</strong></li>
+                <li><strong>immediately</strong></li>
+                <li><strong>within</strong> a specified period</li>
+            </ul>
+
 
             <div class="scenario">
 
-                <strong>What should the administrator do?</strong>
+                <strong>Administrator Exercise</strong>
+
+                <p>
+                    A supervisor says:
+                    “Licensing told me years ago that we can never do that.”
+                </p>
+
+                <p>What should you do?</p>
+
 
                 <button class="choice"
-                        onclick="scenarioAnswer(this,false,'lesson3Feedback')">
-                    Follow the old practice because Licensing approved it before.
+                        onclick="answerScenario(this,false,'lesson3Feedback')">
+
+                    Accept the statement because the supervisor
+                    has more experience.
+
                 </button>
 
-                <button class="choice"
-                        onclick="scenarioAnswer(this,true,'lesson3Feedback')">
-                    Verify the current regulation and applicable guidance.
-                </button>
 
                 <button class="choice"
-                        onclick="scenarioAnswer(this,false,'lesson3Feedback')">
-                    Ignore the issue unless someone complains.
+                        onclick="answerScenario(this,true,'lesson3Feedback')">
+
+                    Identify the issue and verify the current
+                    applicable authority.
+
                 </button>
+
+
+                <button class="choice"
+                        onclick="answerScenario(this,false,'lesson3Feedback')">
+
+                    Ignore the issue unless licensing visits.
+
+                </button>
+
 
                 <div id="lesson3Feedback"
                      class="feedback"></div>
+
             </div>
+
 
             <button class="next-button"
                     onclick="nextLesson(4)">
                 Continue
             </button>
+
         </div>
+
 
         <!-- LESSON 4 -->
 
@@ -595,86 +744,141 @@
 
             <div class="lesson-number">LESSON 4</div>
 
-            <h2>Resident Rights and Administrator Judgment</h2>
+            <h2>
+                Resident Rights Must Stay in the Analysis
+            </h2>
+
 
             <div class="media-card">
+
                 <div class="media-stage">
 
                     <video id="video4"
                            class="lesson-video hidden"
-                           playsinline preload="metadata">
+                           playsinline
+                           controls
+                           preload="metadata">
 
                         <source src="/static/module2/lesson4.mp4"
                                 type="video/mp4">
+
                     </video>
 
                     <div id="fallback4"
                          class="media-fallback">
 
-                        <div>
-                            <h3>Rights, Safety, and Authority</h3>
+                        <div class="media-fallback-inner">
+
+                            <div class="scene-label">
+                                FAMILY / RESIDENT SCENE
+                            </div>
+
+                            <h3>
+                                “My Mother Is Not Allowed Outside Anymore.”
+                            </h3>
 
                             <p>
-                                Protecting residents requires
-                                more than simply following family instructions.
+                                Balance rights, authority, and safety.
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="media-controls">
+
                     <button onclick="playMedia(4)">▶ Play</button>
                     <button onclick="pauseMedia(4)">⏸ Pause</button>
                     <button onclick="restartMedia(4)">↻ Restart</button>
 
-                    <button id="soundButton4"
-                            onclick="toggleSound(4)">🔊 Sound On</button>
-
                     <span id="mediaStatus4"
-                          class="media-status">Checking video…</span>
+                          class="media-status">
+                        Loading video...
+                    </span>
+
                 </div>
+
             </div>
+
+
+            <p>
+                Safety concerns do not automatically erase resident
+                rights. Administrators frequently have to balance
+                protection, autonomy, choice, dignity, privacy,
+                and regulatory responsibility.
+            </p>
+
 
             <div class="scenario">
 
-                <strong>Scenario:</strong>
+                <strong>Case Study: Family Instruction</strong>
 
                 <p>
-                    A family member tells staff
-                    a resident may not go outside with a friend.
+                    A resident's adult daughter tells the administrator:
+                    “My mother is not allowed to go outside anymore.
+                    Tell your staff she cannot leave.”
                 </p>
 
-                <button class="choice"
-                        onclick="scenarioAnswer(this,false,'lesson4Feedback')">
-                    Follow the family instruction without review.
-                </button>
+                <p>
+                    The resident objects and says she wants to continue
+                    sitting in the courtyard every afternoon.
+                </p>
+
+                <h3>
+                    What is the best first administrative response?
+                </h3>
+
 
                 <button class="choice"
-                        onclick="scenarioAnswer(this,true,'lesson4Feedback')">
-                    Gather facts, determine legal authority,
-                    evaluate safety, and determine what restrictions
-                    are actually permissible.
+                        onclick="answerScenario(this,false,'lesson4Feedback')">
+
+                    Immediately prohibit the resident
+                    from going outside.
+
                 </button>
 
+
                 <button class="choice"
-                        onclick="scenarioAnswer(this,false,'lesson4Feedback')">
-                    Tell the family they have no role in the resident's care.
+                        onclick="answerScenario(this,false,'lesson4Feedback')">
+
+                    Automatically follow the family's instruction.
+
                 </button>
+
+
+                <button class="choice"
+                        onclick="answerScenario(this,true,'lesson4Feedback')">
+
+                    Gather the facts, review the resident's status
+                    and legal authority, assess safety, and determine
+                    what restrictions are actually permissible.
+
+                </button>
+
+
+                <button class="choice"
+                        onclick="answerScenario(this,false,'lesson4Feedback')">
+
+                    Ask the caregivers to decide what seems safest.
+
+                </button>
+
 
                 <div id="lesson4Feedback"
                      class="feedback"></div>
+
             </div>
 
-            <div class="callout">
-                A family request does not automatically override
-                a resident's rights.
-            </div>
 
             <button class="next-button"
                     onclick="nextLesson(5)">
                 Continue
             </button>
+
         </div>
+
 
         <!-- LESSON 5 -->
 
@@ -683,69 +887,110 @@
 
             <div class="lesson-number">LESSON 5</div>
 
-            <h2>Defensible Documentation</h2>
+            <h2>
+                Documentation Makes Your Decision Defensible
+            </h2>
+
 
             <div class="media-card">
+
                 <div class="media-stage">
 
                     <video id="video5"
                            class="lesson-video hidden"
-                           playsinline preload="metadata">
+                           playsinline
+                           controls
+                           preload="metadata">
 
                         <source src="/static/module2/lesson5.mp4"
                                 type="video/mp4">
+
                     </video>
 
                     <div id="fallback5"
                          class="media-fallback">
 
-                        <div>
-                            <h3>Document What Happened</h3>
+                        <div class="media-fallback-inner">
+
+                            <div class="scene-label">
+                                DOCUMENTATION SCENE
+                            </div>
+
+                            <h3>
+                                Could You Defend This Decision
+                                Six Weeks Later?
+                            </h3>
 
                             <p>
-                                Strong documentation is factual,
-                                timely, objective, and connected to follow-up.
+                                Documentation should show what happened
+                                and why the decision was made.
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="media-controls">
+
                     <button onclick="playMedia(5)">▶ Play</button>
                     <button onclick="pauseMedia(5)">⏸ Pause</button>
                     <button onclick="restartMedia(5)">↻ Restart</button>
 
-                    <button id="soundButton5"
-                            onclick="toggleSound(5)">🔊 Sound On</button>
-
                     <span id="mediaStatus5"
-                          class="media-status">Checking video…</span>
+                          class="media-status">
+                        Loading video...
+                    </span>
+
                 </div>
+
             </div>
+
 
             <p>
-                Documentation should identify:
+                Even a reasonable decision becomes difficult to defend
+                if nobody can determine why it was made.
             </p>
 
+
+            <h3>
+                A defensible administrative note may include:
+            </h3>
+
             <ul>
-                <li>What happened.</li>
-                <li>When it happened.</li>
-                <li>Who was involved.</li>
-                <li>Who was notified.</li>
-                <li>What action was taken.</li>
-                <li>What follow-up remains.</li>
+                <li>The issue identified.</li>
+                <li>Relevant facts gathered.</li>
+                <li>People interviewed or consulted.</li>
+                <li>Records reviewed.</li>
+                <li>Applicable regulatory requirement.</li>
+                <li>Resident-specific considerations.</li>
+                <li>Action taken.</li>
+                <li>Notifications completed.</li>
+                <li>Follow-up or monitoring plan.</li>
             </ul>
 
+
             <div class="warning">
-                Never rewrite documentation merely
-                to make an incident “sound better.”
+
+                Avoid documentation designed to make an event
+                “sound better.”
+
+                Documentation should be factual,
+                objective, accurate, timely, and complete.
+
             </div>
+
 
             <button class="next-button"
                     onclick="nextLesson(6)">
-                Continue
+
+                Continue to Administrator Challenge
+
             </button>
+
         </div>
+
 
         <!-- LESSON 6 -->
 
@@ -754,252 +999,316 @@
 
             <div class="lesson-number">LESSON 6</div>
 
-            <h2>Complaints and Conflicting Statements</h2>
+            <h2>Administrator Challenge</h2>
+
 
             <div class="media-card">
+
                 <div class="media-stage">
 
                     <video id="video6"
                            class="lesson-video hidden"
-                           playsinline preload="metadata">
+                           playsinline
+                           controls
+                           preload="metadata">
 
                         <source src="/static/module2/lesson6.mp4"
                                 type="video/mp4">
+
                     </video>
 
                     <div id="fallback6"
                          class="media-fallback">
 
-                        <div>
-                            <h3>When Stories Conflict</h3>
+                        <div class="media-fallback-inner">
+
+                            <div class="scene-label">
+                                LICENSING CHALLENGE
+                            </div>
+
+                            <h3>
+                                Licensing Receives a Complaint
+                            </h3>
 
                             <p>
-                                Preserve the facts first.
-                                Apply the requirement second.
+                                Preserve the facts before reaching
+                                a conclusion.
                             </p>
+
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="media-controls">
+
                     <button onclick="playMedia(6)">▶ Play</button>
                     <button onclick="pauseMedia(6)">⏸ Pause</button>
                     <button onclick="restartMedia(6)">↻ Restart</button>
 
-                    <button id="soundButton6"
-                            onclick="toggleSound(6)">🔊 Sound On</button>
-
                     <span id="mediaStatus6"
-                          class="media-status">Checking video…</span>
+                          class="media-status">
+                        Loading video...
+                    </span>
+
                 </div>
+
             </div>
+
 
             <div class="scenario">
 
                 <p>
-                    A resident and caregiver give
-                    conflicting accounts of an incident.
+                    Licensing receives a complaint alleging that
+                    your facility failed to protect a resident.
                 </p>
 
                 <p>
-                    The family demands the caregiver be fired immediately.
+                    Several employees are giving different versions
+                    of what occurred.
                 </p>
 
-                <button class="choice"
-                        onclick="scenarioAnswer(this,false,'lesson6Feedback')">
-                    Terminate the employee immediately.
-                </button>
+
+                <h3>What should you do first?</h3>
+
 
                 <button class="choice"
-                        onclick="scenarioAnswer(this,true,'lesson6Feedback')">
-                    Preserve evidence, address safety,
-                    investigate objectively, apply requirements,
-                    and document the response.
+                        onclick="answerScenario(this,false,'challengeFeedback')">
+
+                    Decide which employee is most believable
+                    and document that version.
+
                 </button>
+
 
                 <button class="choice"
-                        onclick="scenarioAnswer(this,false,'lesson6Feedback')">
-                    Wait until Licensing contacts the facility.
+                        onclick="answerScenario(this,false,'challengeFeedback')">
+
+                    Call licensing and immediately tell them
+                    the allegation is false.
+
                 </button>
 
-                <div id="lesson6Feedback"
+
+                <button class="choice"
+                        onclick="answerScenario(this,true,'challengeFeedback')">
+
+                    Identify the issue, gather and preserve
+                    the available facts, then determine which
+                    regulatory requirements apply.
+
+                </button>
+
+
+                <button class="choice"
+                        onclick="answerScenario(this,false,'challengeFeedback')">
+
+                    Tell staff to make sure everyone gives
+                    the same statement.
+
+                </button>
+
+
+                <div id="challengeFeedback"
                      class="feedback"></div>
+
             </div>
+
+
+            <hr class="rule">
+
+
+            <h3>The Administrator Standard</h3>
+
 
             <div class="callout">
+
                 <strong>
-                    Facts first. Authority second.
-                    Application third. Documentation throughout.
+                    Issue → Facts → Authority →
+                    Application → Documentation
                 </strong>
+
             </div>
+
 
             <button class="next-button"
                     onclick="showQuiz()">
-                Continue to Final Quiz
+
+                Take Final Knowledge Check
+
             </button>
+
         </div>
+
 
         <!-- FINAL QUIZ -->
 
         <div id="quizCard"
              class="card hidden">
 
-            <div class="lesson-number">FINAL QUIZ</div>
+            <h2>Final Knowledge Check</h2>
 
-            <h2>Module 2 Knowledge Check</h2>
+            <p>
+                Answer all five questions.
+                A score of 80% is required.
+            </p>
 
-            <form id="quizForm">
 
-                <div class="quiz-question">
-                    <strong>
-                        1. What is the best first step
-                        when a regulatory issue is raised?
-                    </strong><br>
+            <h3>
+                1. When an administrator encounters a possible
+                compliance issue, what should happen first?
+            </h3>
 
-                    <label>
-                        <input type="radio"
-                               name="q1"
-                               value="a">
-                        Call Licensing before gathering facts.
-                    </label><br>
+            <label>
+                <input type="radio" name="q1" value="a">
+                Call licensing before gathering information.
+            </label><br><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q1"
-                               value="b">
-                        Identify the issue and gather relevant facts.
-                    </label><br>
+            <label>
+                <input type="radio" name="q1" value="b">
+                Identify the issue and gather relevant facts.
+            </label><br><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q1"
-                               value="c">
-                        Follow whatever the facility has always done.
-                    </label>
-                </div>
+            <label>
+                <input type="radio" name="q1" value="c">
+                Ask employees what they normally do.
+            </label><br><br>
 
-                <div class="quiz-question">
+            <label>
+                <input type="radio" name="q1" value="d">
+                Wait to see whether anyone complains.
+            </label>
 
-                    <strong>
-                        2. A family instruction automatically
-                        overrides a resident's rights.
-                    </strong><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q2"
-                               value="a">
-                        True
-                    </label><br>
+            <hr class="rule">
 
-                    <label>
-                        <input type="radio"
-                               name="q2"
-                               value="b">
-                        False
-                    </label>
-                </div>
 
-                <div class="quiz-question">
+            <h3>
+                2. Why is reading the actual regulation important?
+            </h3>
 
-                    <strong>
-                        3. If a supervisor says Licensing
-                        approved a practice years ago,
-                        the administrator should:
-                    </strong><br>
+            <label>
+                <input type="radio" name="q2" value="a">
+                Requirements may be remembered incorrectly
+                or taken out of context.
+            </label><br><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q3"
-                               value="a">
-                        Verify the current authority.
-                    </label><br>
+            <label>
+                <input type="radio" name="q2" value="b">
+                Administrators must memorize every regulation.
+            </label><br><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q3"
-                               value="b">
-                        Assume the old guidance is still correct.
-                    </label><br>
+            <label>
+                <input type="radio" name="q2" value="c">
+                Facility policy always overrides regulations.
+            </label><br><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q3"
-                               value="c">
-                        Ignore the issue.
-                    </label>
-                </div>
+            <label>
+                <input type="radio" name="q2" value="d">
+                Only licensing staff may interpret regulations.
+            </label>
 
-                <div class="quiz-question">
 
-                    <strong>
-                        4. Which documentation approach is strongest?
-                    </strong><br>
+            <hr class="rule">
 
-                    <label>
-                        <input type="radio"
-                               name="q4"
-                               value="a">
-                        Rewrite the event to make it sound less serious.
-                    </label><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q4"
-                               value="b">
-                        Document objective facts, actions,
-                        notifications, and follow-up.
-                    </label><br>
+            <h3>
+                3. Which is the best example of objective documentation?
+            </h3>
 
-                    <label>
-                        <input type="radio"
-                               name="q4"
-                               value="c">
-                        Document only if Licensing asks.
-                    </label>
-                </div>
+            <label>
+                <input type="radio" name="q3" value="a">
+                The caregiver was obviously neglectful.
+            </label><br><br>
 
-                <div class="quiz-question">
+            <label>
+                <input type="radio" name="q3" value="b">
+                Everyone knows the resident complains constantly.
+            </label><br><br>
 
-                    <strong>
-                        5. When two accounts conflict,
-                        the administrator should:
-                    </strong><br>
+            <label>
+                <input type="radio" name="q3" value="c">
+                The call system was activated at approximately
+                2:10 PM and staff entered at approximately 2:18 PM.
+            </label><br><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q5"
-                               value="a">
-                        Choose whichever version sounds more believable.
-                    </label><br>
+            <label>
+                <input type="radio" name="q3" value="d">
+                Staff did the best they could.
+            </label>
 
-                    <label>
-                        <input type="radio"
-                               name="q5"
-                               value="b">
-                        Preserve evidence, investigate,
-                        address safety, apply requirements,
-                        and document.
-                    </label><br>
 
-                    <label>
-                        <input type="radio"
-                               name="q5"
-                               value="c">
-                        Do nothing until a complaint is filed.
-                    </label>
-                </div>
+            <hr class="rule">
 
-                <button type="button"
-                        onclick="submitQuiz()">
-                    Submit Quiz
-                </button>
 
-            </form>
+            <h3>
+                4. A family member asks the facility to restrict
+                a resident's activity. What should the administrator do?
+            </h3>
 
-            <div id="quizFeedback"
+            <label>
+                <input type="radio" name="q4" value="a">
+                Automatically follow the family's instruction.
+            </label><br><br>
+
+            <label>
+                <input type="radio" name="q4" value="b">
+                Automatically refuse every family request.
+            </label><br><br>
+
+            <label>
+                <input type="radio" name="q4" value="c">
+                Determine resident rights, safety needs,
+                legal authority, and applicable requirements first.
+            </label><br><br>
+
+            <label>
+                <input type="radio" name="q4" value="d">
+                Let the shift caregiver decide.
+            </label>
+
+
+            <hr class="rule">
+
+
+            <h3>
+                5. Which sequence best describes strong
+                regulatory decision-making?
+            </h3>
+
+            <label>
+                <input type="radio" name="q5" value="a">
+                Guess → Act → Explain later
+            </label><br><br>
+
+            <label>
+                <input type="radio" name="q5" value="b">
+                Family request → Staff vote → Administrator signature
+            </label><br><br>
+
+            <label>
+                <input type="radio" name="q5" value="c">
+                Policy → Habit → Documentation
+            </label><br><br>
+
+            <label>
+                <input type="radio" name="q5" value="d">
+                Issue → Facts → Authority →
+                Application → Documentation
+            </label>
+
+
+            <button onclick="gradeQuiz()">
+                Submit Final Quiz
+            </button>
+
+
+            <div id="quizMessage"
                  class="feedback"></div>
+
         </div>
+
 
         <!-- COMPLETION -->
 
@@ -1008,49 +1317,48 @@
 
             <h2>Module 2 Complete</h2>
 
-            <div id="scoreText"
-                 class="score">
-                100%
-            </div>
+            <div id="finalScore"
+                 class="score"></div>
 
-            <p>
-                You completed:
-                <strong>
-                    Title 22: Read It. Interpret It. Apply It.
-                </strong>
-            </p>
+            <p>You have completed:</p>
+
+            <h3>
+                Title 22: Read It. Interpret It. Apply It.
+            </h3>
+
 
             <div class="callout">
 
-                <strong>Remember:</strong><br>
+                <strong>Remember:</strong><br><br>
 
-                Identify the issue →
-                Gather the facts →
-                Verify the authority →
-                Apply the requirement →
-                Document the decision and follow-up.
+                Identify the issue.<br>
+                Gather the facts.<br>
+                Verify the authority.<br>
+                Apply the requirement.<br>
+                Document the decision.
 
             </div>
 
-            <button onclick="finishModule()">
-                Return to Training Modules
-            </button>
+
+            <a href="/student">
+                <button>
+                    Return to Training Modules
+                </button>
+            </a>
+
         </div>
 
     </div>
+
 </div>
+
 
 <script>
 
 let currentLesson = 1;
 
-const quizAnswers = {
-    q1: "b",
-    q2: "b",
-    q3: "a",
-    q4: "b",
-    q5: "b"
-};
+
+/* START MODULE */
 
 function startTraining() {
 
@@ -1058,9 +1366,9 @@ function startTraining() {
         .getElementById("trainingArea")
         .classList.remove("hidden");
 
-    initializeVideos();
-
     updateProgress(1);
+
+    prepareMedia(1);
 
     document
         .getElementById("lesson1")
@@ -1069,9 +1377,12 @@ function startTraining() {
         });
 }
 
+
+/* NEXT LESSON */
+
 function nextLesson(number) {
 
-    pauseAllVideos();
+    pauseAllMedia();
 
     document
         .getElementById("lesson" + currentLesson)
@@ -1079,22 +1390,28 @@ function nextLesson(number) {
 
     currentLesson = number;
 
-    const next =
-        document.getElementById("lesson" + number);
+    document
+        .getElementById("lesson" + currentLesson)
+        .classList.remove("hidden");
 
-    next.classList.remove("hidden");
+    updateProgress(currentLesson);
 
-    updateProgress(number);
+    prepareMedia(currentLesson);
 
-    next.scrollIntoView({
-        behavior: "smooth"
-    });
+    document
+        .getElementById("lesson" + currentLesson)
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 }
+
+
+/* PROGRESS */
 
 function updateProgress(number) {
 
     const percent =
-        Math.round(((number - 1) / 6) * 85);
+        Math.round((number / 6) * 100);
 
     document
         .getElementById("progressBar")
@@ -1103,97 +1420,96 @@ function updateProgress(number) {
 
     document
         .getElementById("progressText")
-        .textContent =
+        .innerText =
         "Lesson " + number + " of 6";
 }
 
-function showQuiz() {
 
-    pauseAllVideos();
+/* SCENARIO ANSWERS */
 
-    document
-        .getElementById("lesson6")
-        .classList.add("hidden");
+function answerScenario(button, correct, feedbackId) {
 
-    const quiz =
-        document.getElementById("quizCard");
+    const feedback =
+        document.getElementById(feedbackId);
 
-    quiz.classList.remove("hidden");
+    const buttons =
+        button.parentElement
+              .querySelectorAll(".choice");
 
-    document
-        .getElementById("progressBar")
-        .style.width =
-        "90%";
-
-    document
-        .getElementById("progressText")
-        .textContent =
-        "Final Quiz";
-
-    quiz.scrollIntoView({
-        behavior: "smooth"
-    });
-}
-
-function scenarioAnswer(button, correct, feedbackId) {
-
-    const parent =
-        button.parentElement;
-
-    const choices =
-        parent.querySelectorAll(".choice");
-
-    choices.forEach(choice => {
-        choice.disabled = true;
+    buttons.forEach(function(btn) {
+        btn.disabled = true;
     });
 
     if (correct) {
 
         button.classList.add("correct");
 
+        feedback.innerHTML =
+            "Correct. Strong administrators identify the issue, " +
+            "gather the facts, verify the applicable authority, " +
+            "apply it to the situation, and document the decision.";
+
     } else {
 
         button.classList.add("incorrect");
-    }
 
-    const feedback =
-        document.getElementById(feedbackId);
+        feedback.innerHTML =
+            "Not quite. Avoid making regulatory decisions based " +
+            "only on assumptions, habit, staff opinion, or fear. " +
+            "Verify the facts and applicable authority.";
+
+    }
 
     feedback.classList.add("show");
-
-    if (correct) {
-
-        feedback.style.background =
-            "#dff3e4";
-
-        feedback.style.color =
-            "#245b34";
-
-        feedback.textContent =
-            "Correct. Strong administrators verify the facts and current authority before acting.";
-
-    } else {
-
-        feedback.style.background =
-            "#fbe3e3";
-
-        feedback.style.color =
-            "#7a2828";
-
-        feedback.textContent =
-            "Not quite. The administrator should base the decision on verified facts, current authority, resident rights, safety, and objective documentation.";
-    }
 }
 
-function submitQuiz() {
+
+/* SHOW QUIZ */
+
+function showQuiz() {
+
+    pauseAllMedia();
+
+    document
+        .getElementById("lesson6")
+        .classList.add("hidden");
+
+    document
+        .getElementById("quizCard")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("progressBar")
+        .style.width = "100%";
+
+    document
+        .getElementById("progressText")
+        .innerText =
+        "Final Knowledge Check";
+
+    document
+        .getElementById("quizCard")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+}
+
+
+/* GRADE QUIZ */
+
+function gradeQuiz() {
+
+    const answers = {
+        q1: "b",
+        q2: "a",
+        q3: "c",
+        q4: "c",
+        q5: "d"
+    };
 
     let score = 0;
-    let answered = 0;
 
-    const total =
-        Object.keys(quizAnswers).length;
-
-    for (const question in quizAnswers) {
+    for (const question in answers) {
 
         const selected =
             document.querySelector(
@@ -1202,176 +1518,172 @@ function submitQuiz() {
                 '"]:checked'
             );
 
-        if (selected) {
+        if (!selected) {
 
-            answered++;
+            const message =
+                document.getElementById(
+                    "quizMessage"
+                );
 
-            if (
-                selected.value ===
-                quizAnswers[question]
-            ) {
-                score++;
-            }
+            message.innerHTML =
+                "Please answer all five questions before submitting.";
+
+            message.classList.add("show");
+
+            return;
+        }
+
+        if (
+            selected.value ===
+            answers[question]
+        ) {
+            score++;
         }
     }
 
-    const feedback =
-        document.getElementById(
-            "quizFeedback"
-        );
-
-    if (answered < total) {
-
-        feedback.classList.add("show");
-
-        feedback.style.background =
-            "#fff6e6";
-
-        feedback.style.color =
-            "#7a4b00";
-
-        feedback.textContent =
-            "Please answer all five questions.";
-
-        return;
-    }
-
-    const percent =
+    const percentage =
         Math.round(
-            (score / total) * 100
+            (score / 5) * 100
         );
 
-    feedback.classList.add("show");
+    const message =
+        document.getElementById(
+            "quizMessage"
+        );
 
-    if (percent >= 80) {
 
-        feedback.style.background =
-            "#dff3e4";
+    if (percentage >= 80) {
 
-        feedback.style.color =
-            "#245b34";
-
-        feedback.textContent =
-            "Passed. Your score is " +
-            percent +
+        message.innerHTML =
+            "Passed! You scored " +
+            percentage +
             "%.";
 
-        setTimeout(() => {
+        message.classList.add("show");
+
+        localStorage.setItem(
+            "rcfe_module_2_completion",
+            JSON.stringify({
+                completed: true,
+                score: percentage,
+                date: new Date().toISOString()
+            })
+        );
+
+
+        setTimeout(function() {
 
             document
                 .getElementById("quizCard")
                 .classList.add("hidden");
 
             document
-                .getElementById(
-                    "completionCard"
-                )
+                .getElementById("completionCard")
                 .classList.remove("hidden");
 
             document
-                .getElementById(
-                    "scoreText"
-                )
-                .textContent =
-                percent + "%";
+                .getElementById("finalScore")
+                .innerText =
+                percentage + "%";
 
             document
-                .getElementById(
-                    "progressBar"
-                )
-                .style.width =
-                "100%";
-
-            document
-                .getElementById(
-                    "progressText"
-                )
-                .textContent =
-                "Module Complete";
-
-            saveCompletion(percent);
-
-            document
-                .getElementById(
-                    "completionCard"
-                )
+                .getElementById("completionCard")
                 .scrollIntoView({
                     behavior: "smooth"
                 });
 
         }, 700);
 
+
     } else {
 
-        feedback.style.background =
-            "#fbe3e3";
+        message.innerHTML =
+            "You scored " +
+            percentage +
+            "%. A score of 80% is required. " +
+            "Review the questions and try again.";
 
-        feedback.style.color =
-            "#7a2828";
-
-        feedback.textContent =
-            "Your score is " +
-            percent +
-            "%. An 80% score is required. Review the module and try again.";
+        message.classList.add("show");
     }
 }
 
-function initializeVideos() {
 
-    for (let i = 1; i <= 6; i++) {
+/* VIDEO FUNCTIONS */
 
-        const video =
-            document.getElementById(
-                "video" + i
-            );
+function prepareMedia(number) {
 
-        const fallback =
-            document.getElementById(
-                "fallback" + i
-            );
-
-        const status =
-            document.getElementById(
-                "mediaStatus" + i
-            );
-
-        if (!video) continue;
-
-        video.addEventListener(
-            "loadedmetadata",
-            function () {
-
-                video.classList.remove(
-                    "hidden"
-                );
-
-                fallback.classList.add(
-                    "hidden"
-                );
-
-                status.textContent =
-                    "Video ready";
-            }
+    const video =
+        document.getElementById(
+            "video" + number
         );
 
-        video.addEventListener(
-            "error",
-            function () {
-
-                video.classList.add(
-                    "hidden"
-                );
-
-                fallback.classList.remove(
-                    "hidden"
-                );
-
-                status.textContent =
-                    "Video not uploaded yet";
-            }
+    const fallback =
+        document.getElementById(
+            "fallback" + number
         );
-    }
+
+    const status =
+        document.getElementById(
+            "mediaStatus" + number
+        );
+
+    if (!video) return;
+
+
+    video.addEventListener(
+        "loadeddata",
+        function() {
+
+            video
+                .classList
+                .remove("hidden");
+
+            fallback
+                .classList
+                .add("hidden");
+
+            status.innerText =
+                "Video ready";
+
+        },
+        { once: true }
+    );
+
+
+    video.addEventListener(
+        "error",
+        function() {
+
+            video
+                .classList
+                .add("hidden");
+
+            fallback
+                .classList
+                .remove("hidden");
+
+            status.innerText =
+                "Video will appear after upload";
+
+        },
+        { once: true }
+    );
+
+
+    video.addEventListener(
+        "ended",
+        function() {
+
+            status.innerText =
+                "Video complete";
+
+        }
+    );
+
+
+    video.load();
 }
+
 
 function playMedia(number) {
 
@@ -1385,28 +1697,23 @@ function playMedia(number) {
             "mediaStatus" + number
         );
 
-    if (
-        !video ||
-        video.classList.contains(
-            "hidden"
-        )
-    ) {
+    if (!video ||
+        video.classList.contains("hidden")) {
 
-        status.textContent =
-            "Upload lesson" +
-            number +
-            ".mp4";
+        status.innerText =
+            "Video file not uploaded yet";
 
         return;
     }
 
-    pauseAllVideos(number);
+    pauseAllMedia(number);
 
     video.play();
 
-    status.textContent =
+    status.innerText =
         "Playing";
 }
+
 
 function pauseMedia(number) {
 
@@ -1415,17 +1722,19 @@ function pauseMedia(number) {
             "video" + number
         );
 
-    if (video) {
-        video.pause();
-    }
-
-    document
-        .getElementById(
+    const status =
+        document.getElementById(
             "mediaStatus" + number
-        )
-        .textContent =
+        );
+
+    if (!video) return;
+
+    video.pause();
+
+    status.innerText =
         "Paused";
 }
+
 
 function restartMedia(number) {
 
@@ -1441,34 +1750,18 @@ function restartMedia(number) {
     video.play();
 }
 
-function toggleSound(number) {
 
-    const video =
-        document.getElementById(
-            "video" + number
-        );
+function pauseAllMedia(exceptNumber = null) {
 
-    const button =
-        document.getElementById(
-            "soundButton" + number
-        );
+    for (
+        let i = 1;
+        i <= 6;
+        i++
+    ) {
 
-    video.muted =
-        !video.muted;
-
-    button.textContent =
-        video.muted
-        ? "🔇 Sound Off"
-        : "🔊 Sound On";
-}
-
-function pauseAllVideos(exceptNumber = null) {
-
-    for (let i = 1; i <= 6; i++) {
-
-        if (i === exceptNumber) {
-            continue;
-        }
+        if (
+            i === exceptNumber
+        ) continue;
 
         const video =
             document.getElementById(
@@ -1481,26 +1774,23 @@ function pauseAllVideos(exceptNumber = null) {
     }
 }
 
-function saveCompletion(score) {
 
-    const completion = {
-        module: 2,
-        completed: true,
-        score: score,
-        completed_at:
-            new Date().toISOString()
-    };
+/* CHECK ALL SIX VIDEOS */
 
-    localStorage.setItem(
-        "rcfe_module_2_completion",
-        JSON.stringify(completion)
-    );
-}
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
-function finishModule() {
-    window.location.href =
-        "/student";
-}
+        for (
+            let i = 1;
+            i <= 6;
+            i++
+        ) {
+            prepareMedia(i);
+        }
+
+    }
+);
 
 </script>
 

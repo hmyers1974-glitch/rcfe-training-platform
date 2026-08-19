@@ -22,7 +22,7 @@
 
         .container {
             width: 94%;
-            max-width: 920px;
+            max-width: 940px;
             margin: 20px auto 60px;
         }
 
@@ -41,7 +41,7 @@
         }
 
         .hero p {
-            margin: 6px 0;
+            margin: 7px 0;
         }
 
         .badge {
@@ -99,15 +99,15 @@
         .learning-box {
             background: #f4f8fa;
             border-left: 5px solid #587c91;
-            padding: 15px 18px;
+            padding: 16px 18px;
             border-radius: 10px;
-            margin: 16px 0;
+            margin: 18px 0;
         }
 
         .scenario {
             background: #fff7e8;
             border-left: 5px solid #d99a38;
-            padding: 16px 18px;
+            padding: 17px 18px;
             border-radius: 10px;
             margin: 18px 0;
         }
@@ -115,7 +115,7 @@
         .decision {
             background: #eef7f1;
             border-left: 5px solid #4b8b66;
-            padding: 16px 18px;
+            padding: 17px 18px;
             border-radius: 10px;
             margin: 18px 0;
         }
@@ -123,6 +123,141 @@
         ul, ol {
             padding-left: 24px;
         }
+
+        /* -----------------------------------
+           REGULATION HUNTS
+        ----------------------------------- */
+
+        .reg-hunt {
+            background: #f8f4ff;
+            border: 2px solid #8065a8;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .reg-hunt h3 {
+            margin-top: 0;
+            color: #543c7c;
+        }
+
+        .hunt-label {
+            display: inline-block;
+            background: #543c7c;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .hunt-question {
+            font-size: 17px;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+
+        .hunt-instructions {
+            background: white;
+            border-radius: 10px;
+            padding: 13px;
+            margin: 12px 0;
+        }
+
+        .hunt-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 14px 0;
+        }
+
+        .hint-btn,
+        .reveal-btn,
+        .check-hunt-btn {
+            border: 0;
+            color: white;
+            padding: 10px 13px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .hint-btn {
+            background: #6a5a8c;
+        }
+
+        .reveal-btn {
+            background: #7d6641;
+        }
+
+        .check-hunt-btn {
+            background: #324a5f;
+        }
+
+        .hint-box {
+            display: none;
+            background: white;
+            border-left: 4px solid #8065a8;
+            padding: 12px 14px;
+            margin: 9px 0;
+            border-radius: 8px;
+        }
+
+        .target-box {
+            display: none;
+            background: #fff9e9;
+            border-left: 4px solid #c48b25;
+            padding: 12px 14px;
+            margin: 9px 0;
+            border-radius: 8px;
+        }
+
+        .hunt-answer {
+            width: 100%;
+            min-height: 85px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 16px;
+            border: 1px solid #bbb;
+            border-radius: 10px;
+            margin: 8px 0 12px;
+            resize: vertical;
+        }
+
+        .hunt-feedback {
+            display: none;
+            margin-top: 12px;
+            padding: 13px;
+            border-radius: 9px;
+            background: #eef7f1;
+            border-left: 4px solid #4b8b66;
+        }
+
+        .reg-path {
+            background: #edf3f7;
+            border: 2px dashed #66869a;
+            border-radius: 14px;
+            padding: 18px;
+            margin: 18px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .reg-path span {
+            display: inline-block;
+            margin: 5px 3px;
+        }
+
+        .arrow {
+            color: #678;
+        }
+
+        /* -----------------------------------
+           QUIZ
+        ----------------------------------- */
 
         .quiz-question {
             margin: 24px 0;
@@ -143,15 +278,11 @@
             cursor: pointer;
         }
 
-        .quiz-question label:hover {
-            background: #e9eef1;
-        }
-
         input[type="radio"] {
             margin-right: 8px;
         }
 
-        button {
+        button.main-btn {
             border: 0;
             background: #324a5f;
             color: white;
@@ -159,10 +290,6 @@
             padding: 14px 20px;
             border-radius: 10px;
             cursor: pointer;
-        }
-
-        button:hover {
-            opacity: .92;
         }
 
         #quizResult {
@@ -211,36 +338,120 @@
             }
 
             .card {
-                padding: 19px;
+                padding: 18px;
+            }
+
+            .reg-hunt {
+                padding: 16px;
+            }
+
+            .hunt-buttons {
+                display: block;
+            }
+
+            .hint-btn,
+            .reveal-btn,
+            .check-hunt-btn {
+                width: 100%;
+                margin: 4px 0;
             }
         }
     </style>
 </head>
 
+
 <body>
 
 <div class="container">
 
-    <!-- HEADER -->
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
     <div class="hero">
+
         <h1>Module 2: Read It. Interpret It. Apply It.</h1>
 
-        <p><strong>Using Title 22 as an RCFE Administrator</strong></p>
+        <p>
+            <strong>Using Title 22 as an RCFE Administrator</strong>
+        </p>
 
         <p>
-            Regulations are not simply rules to memorize. Effective administrators
-            must know how to identify an issue, gather facts, locate the correct
-            authority, apply the requirement, and document their response.
+            Great administrators do not simply memorize regulations.
+            They know how to find the right rule, read it carefully,
+            connect it to the facts, and document a defensible decision.
         </p>
 
         <span class="badge">
-            6 Lessons • Self-Paced RCFE Administrator Training
+            6 Lessons • Regulation Hunts • Knowledge Check
         </span>
+
     </div>
 
 
-    <!-- LESSON 1 -->
+    <!-- =====================================================
+         HOW TO NAVIGATE TITLE 22
+    ====================================================== -->
+
+    <section class="card">
+
+        <div class="lesson-number">
+            Before You Begin
+        </div>
+
+        <h2>Learn the Road Map</h2>
+
+        <p>
+            When someone says, “It’s in Title 22,” that is not the end
+            of the search. It is the beginning.
+        </p>
+
+        <p>
+            For RCFE regulations, train yourself to follow the regulatory
+            hierarchy:
+        </p>
+
+        <div class="reg-path">
+
+            <span>Title 22</span>
+            <span class="arrow">→</span>
+
+            <span>Division 6</span>
+            <span class="arrow">→</span>
+
+            <span>Chapter 8</span>
+            <span class="arrow">→</span>
+
+            <span>Article</span>
+            <span class="arrow">→</span>
+
+            <span>Section</span>
+            <span class="arrow">→</span>
+
+            <span>Subsection</span>
+
+        </div>
+
+        <div class="learning-box">
+
+            <strong>Administrator Skill:</strong>
+
+            <p>
+                Do not stop when you find a section title that sounds right.
+                Read the actual subsection. Look for words such as
+                <strong>shall, must, may, immediately, within, except,
+                unless, and if.</strong>
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LESSON 1
+    ====================================================== -->
 
     <section class="card" id="lesson1">
 
@@ -252,21 +463,21 @@
 
         <div class="video-wrap">
             <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=C84BC1CE-257D-055B-6F2E-3A8CEC1C773C"
+                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=3F220200-7409-F97F-2A8B-F85FE012046E"
                 allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                 allowfullscreen>
             </iframe>
         </div>
 
         <p>
-            Administrators do not need to memorize every regulation word-for-word.
-            They do need to know how to locate and correctly apply regulations when
-            making operational, safety, resident-care, and compliance decisions.
+            Administrators are responsible for more than knowing that
+            regulations exist. They must know how to use those regulations
+            when supervising the facility.
         </p>
 
         <div class="learning-box">
 
-            <strong>Use this five-step process:</strong>
+            <strong>The Five-Step Administrator Method</strong>
 
             <ol>
                 <li>Identify the issue.</li>
@@ -278,23 +489,108 @@
 
         </div>
 
-        <p>
-            A strong administrator does not begin with,
-            <em>"What do I think happened?"</em>
-        </p>
 
-        <p>
-            The administrator begins with:
-            <strong>
-                "What do I know, what still needs to be verified, and what
-                requirement applies?"
-            </strong>
-        </p>
+        <!-- REGULATION HUNT 1 -->
+
+        <div class="reg-hunt">
+
+            <span class="hunt-label">
+                Regulation Hunt 1
+            </span>
+
+            <h3>What Does Title 22 Expect From the Administrator?</h3>
+
+            <div class="hunt-question">
+                Find the regulation that establishes the administrator's
+                responsibility to operate the facility in accordance with
+                regulations.
+            </div>
+
+            <div class="hunt-instructions">
+                Start with the RCFE regulations. Try to locate the answer
+                before opening the hints.
+            </div>
+
+            <div class="hunt-buttons">
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt1hint1">
+                    Hint 1
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt1hint2">
+                    Hint 2
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt1hint3">
+                    Hint 3
+                </button>
+
+                <button type="button"
+                        class="reveal-btn"
+                        data-target="hunt1target">
+                    Reveal Target
+                </button>
+
+            </div>
+
+            <div id="hunt1hint1" class="hint-box">
+                Start in <strong>Article 7 — Personnel.</strong>
+            </div>
+
+            <div id="hunt1hint2" class="hint-box">
+                Look for the section titled
+                <strong>Administrator — Qualifications and Duties.</strong>
+            </div>
+
+            <div id="hunt1hint3" class="hint-box">
+                Look closely at the administrator's listed responsibilities,
+                not only the qualification requirements.
+            </div>
+
+            <div id="hunt1target" class="target-box">
+                Target: <strong>§87405 — Administrator —
+                Qualifications and Duties.</strong>
+            </div>
+
+            <label>
+                <strong>
+                    In your own words, what does this regulation tell an
+                    administrator to do?
+                </strong>
+            </label>
+
+            <textarea class="hunt-answer"
+                      id="hunt1answer"
+                      placeholder="Type your answer here..."></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt1feedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt1feedback" class="hunt-feedback">
+                Good. The key learning point is that the administrator
+                has an affirmative responsibility to administer the facility
+                according to applicable regulations and established facility
+                policy. The administrator cannot simply delegate compliance
+                and stop paying attention.
+            </div>
+
+        </div>
 
     </section>
 
 
-    <!-- LESSON 2 -->
+    <!-- =====================================================
+         LESSON 2
+    ====================================================== -->
 
     <section class="card" id="lesson2">
 
@@ -302,19 +598,19 @@
             Lesson 2 of 6
         </div>
 
-        <h2>Facts Before Conclusions</h2>
+        <h2>Facts — Not Conclusions</h2>
 
         <div class="video-wrap">
             <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=AA9D3706-8816-A5F3-0444-CC6040A4D721"
+                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=5AA39902-4B27-EA49-8CE2-14654B4B799B"
                 allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                 allowfullscreen>
             </iframe>
         </div>
 
         <p>
-            One of the most important administrator skills is separating facts from
-            assumptions, opinions, allegations, and conclusions.
+            A complaint is important information, but a complaint is not
+            automatically a verified fact.
         </p>
 
         <div class="scenario">
@@ -322,39 +618,122 @@
             <strong>Scenario:</strong>
 
             <p>
-                A family member reports that their mother's call button was ignored
-                "for almost an hour."
-            </p>
-
-            <p>
-                The statement is important and must be taken seriously, but it is
-                not yet a verified timeline.
+                A family member tells you that their mother's call button
+                was ignored “for almost an hour.”
             </p>
 
         </div>
 
-        <h3>What should the administrator review?</h3>
+        <p>
+            A defensible investigation separates:
+        </p>
 
         <ul>
-            <li>Call-system records</li>
-            <li>Staff assignment sheets</li>
-            <li>Caregiver statements</li>
-            <li>Resident interview, when appropriate</li>
-            <li>Progress notes</li>
-            <li>Care-plan information</li>
-            <li>Other objective documentation</li>
+            <li>What was reported</li>
+            <li>What was observed</li>
+            <li>What records show</li>
+            <li>What witnesses remember</li>
+            <li>What remains unknown</li>
         </ul>
 
-        <div class="learning-box">
-            <strong>Key Principle:</strong><br>
-            Preserve the allegation exactly as reported, then investigate before
-            reaching a conclusion.
+
+        <!-- REGULATION HUNT 2 -->
+
+        <div class="reg-hunt">
+
+            <span class="hunt-label">
+                Regulation Hunt 2
+            </span>
+
+            <h3>Where Would You Look for the Resident's Records?</h3>
+
+            <div class="hunt-question">
+                Find the part of the RCFE regulations dealing with
+                resident records.
+            </div>
+
+            <p>
+                Your goal is not to memorize every item in the record.
+                Your goal is to learn where to go when you need evidence.
+            </p>
+
+            <div class="hunt-buttons">
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt2hint1">
+                    Hint 1
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt2hint2">
+                    Hint 2
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt2hint3">
+                    Hint 3
+                </button>
+
+                <button type="button"
+                        class="reveal-btn"
+                        data-target="hunt2target">
+                    Reveal Target
+                </button>
+
+            </div>
+
+            <div id="hunt2hint1" class="hint-box">
+                Move beyond Article 8 and look at the next Article.
+            </div>
+
+            <div id="hunt2hint2" class="hint-box">
+                Look in <strong>Article 9 — Resident Records.</strong>
+            </div>
+
+            <div id="hunt2hint3" class="hint-box">
+                Search for the section titled
+                <strong>Resident Records.</strong>
+            </div>
+
+            <div id="hunt2target" class="target-box">
+                Target: <strong>§87506 — Resident Records.</strong>
+            </div>
+
+            <label>
+                <strong>
+                    Name two records or sources you would review before
+                    deciding whether the family's allegation is substantiated.
+                </strong>
+            </label>
+
+            <textarea class="hunt-answer"
+                      id="hunt2answer"
+                      placeholder="Example: call-system log, progress notes..."></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt2feedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt2feedback" class="hunt-feedback">
+                Exactly. An administrator should preserve the allegation
+                as reported and then compare it with available evidence.
+                The point is to build the conclusion from facts rather than
+                writing the conclusion first.
+            </div>
+
         </div>
 
     </section>
 
 
-    <!-- LESSON 3 -->
+    <!-- =====================================================
+         LESSON 3
+    ====================================================== -->
 
     <section class="card" id="lesson3">
 
@@ -366,66 +745,160 @@
 
         <div class="video-wrap">
             <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=1BC364AE-F8A2-0DC4-EA17-781D0DD9A52F"
+                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=AA9D3706-8816-A5F3-0444-CC6040A4D721"
                 allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                 allowfullscreen>
             </iframe>
         </div>
 
         <p>
-            Regulatory language matters. A single word can change the meaning of
-            an entire requirement.
+            Small words matter in regulatory language.
         </p>
 
-        <h3>Watch carefully for words such as:</h3>
-
         <ul>
-            <li><strong>Shall</strong></li>
-            <li><strong>Must</strong></li>
-            <li><strong>May</strong></li>
-            <li><strong>Unless</strong></li>
-            <li><strong>Except</strong></li>
-            <li><strong>Immediately</strong></li>
-            <li><strong>Within</strong></li>
+            <li><strong>Shall / Must</strong> — signals a requirement.</li>
+            <li><strong>May</strong> — can signal permission or discretion.</li>
+            <li><strong>Immediately</strong> — timing matters.</li>
+            <li><strong>Within</strong> — look for a deadline.</li>
+            <li><strong>Except / Unless</strong> — look for conditions.</li>
         </ul>
 
-        <div class="scenario">
 
-            <strong>Scenario:</strong>
+        <!-- REGULATION HUNT 3A -->
 
-            <p>
-                A staff member tells the administrator:
-            </p>
+        <div class="reg-hunt">
 
-            <p>
-                <em>
-                    "Licensing told me years ago that we were allowed to do it
-                    this way."
-                </em>
-            </p>
+            <span class="hunt-label">
+                Regulation Hunt 3A
+            </span>
 
-            <p>
-                What should the administrator do?
-            </p>
+            <h3>Find a Reporting Deadline</h3>
+
+            <div class="hunt-question">
+                Locate the RCFE reporting-requirements section.
+                Find at least one event that requires a written report
+                within a stated period of time.
+            </div>
+
+            <div class="hunt-buttons">
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt3ahint1">
+                    Hint 1
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt3ahint2">
+                    Hint 2
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt3ahint3">
+                    Hint 3
+                </button>
+
+                <button type="button"
+                        class="reveal-btn"
+                        data-target="hunt3atarget">
+                    Reveal Target
+                </button>
+
+            </div>
+
+            <div id="hunt3ahint1" class="hint-box">
+                Start in <strong>Article 4 — Operating Requirements.</strong>
+            </div>
+
+            <div id="hunt3ahint2" class="hint-box">
+                Look for a section with the word
+                <strong>Reporting</strong> in its title.
+            </div>
+
+            <div id="hunt3ahint3" class="hint-box">
+                Pay special attention to timing words such as
+                <strong>within, immediately,</strong> and
+                <strong>next working day.</strong>
+            </div>
+
+            <div id="hunt3atarget" class="target-box">
+                Target: <strong>§87211 — Reporting Requirements.</strong>
+            </div>
+
+            <label>
+                <strong>
+                    What timing language did you find?
+                </strong>
+            </label>
+
+            <textarea class="hunt-answer"
+                      id="hunt3aanswer"
+                      placeholder="Write the timing language you located..."></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt3afeedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt3afeedback" class="hunt-feedback">
+                This is why administrators must read beyond the heading.
+                Different reportable events can have different notification
+                and written-report timing requirements.
+            </div>
 
         </div>
 
-        <div class="decision">
 
-            <strong>Best Response:</strong>
+        <!-- REGULATION HUNT 3B -->
 
-            <p>
-                Verify the current regulation, statute, licensing guidance, or
-                other applicable authority rather than relying on memory or an old
-                verbal interpretation.
-            </p>
+        <div class="reg-hunt">
+
+            <span class="hunt-label">
+                Regulation Hunt 3B
+            </span>
+
+            <h3>Do Not Rely on “Licensing Told Me Years Ago”</h3>
+
+            <div class="scenario">
+                An employee says:
+                <em>
+                    “Licensing told us years ago that this was okay.”
+                </em>
+            </div>
+
+            <div class="hunt-question">
+                What should the administrator verify before continuing
+                the practice?
+            </div>
+
+            <textarea class="hunt-answer"
+                      id="hunt3banswer"
+                      placeholder="What authority would you check?"></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt3bfeedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt3bfeedback" class="hunt-feedback">
+                Correct approach: verify the current regulation and any
+                applicable current law, official guidance, waiver, exception,
+                or facility-specific approval. An old verbal recollection
+                should not replace current authority.
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- LESSON 4 -->
+    <!-- =====================================================
+         LESSON 4
+    ====================================================== -->
 
     <section class="card" id="lesson4">
 
@@ -433,69 +906,204 @@
             Lesson 4 of 6
         </div>
 
-        <h2>Resident Rights and Safety</h2>
+        <h2>Resident Rights</h2>
 
         <div class="video-wrap">
             <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=6C465263-6C71-3122-5272-02BEE8B79414"
+                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=C5A71D3A-22A6-AE7B-6994-51542E34D382"
                 allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                 allowfullscreen>
             </iframe>
         </div>
-
-        <p>
-            Administrators frequently have to balance resident rights, family
-            requests, safety concerns, and regulatory requirements.
-        </p>
 
         <div class="scenario">
 
             <strong>Scenario:</strong>
 
             <p>
-                A family tells staff:
+                A family tells the facility:
             </p>
 
             <p>
                 <em>
-                    "Do not let our mother leave with anyone unless we personally
-                    approve it."
+                    “Do not let our mother leave with anyone unless
+                    we personally approve it.”
                 </em>
             </p>
 
         </div>
 
         <p>
-            The administrator should not automatically implement the family's
-            request simply because the family believes it is safest.
+            A well-intentioned family request does not automatically become
+            facility policy.
         </p>
 
-        <h3>The administrator should determine:</h3>
 
-        <ul>
-            <li>What the resident wants</li>
-            <li>The resident's legal decision-making status</li>
-            <li>Whether an authorized representative is involved</li>
-            <li>Whether there is an immediate safety concern</li>
-            <li>What restrictions are legally permissible</li>
-            <li>What applicable resident-rights requirements say</li>
-        </ul>
+        <!-- REGULATION HUNT 4A -->
 
-        <div class="learning-box">
+        <div class="reg-hunt">
 
-            <strong>Remember:</strong>
+            <span class="hunt-label">
+                Regulation Hunt 4A
+            </span>
 
-            <p>
-                Safety concerns matter, but safety does not automatically erase
-                resident rights.
-            </p>
+            <h3>Find Personal Rights</h3>
+
+            <div class="hunt-question">
+                Where in the RCFE regulations would you begin before
+                restricting a resident's freedom or choices?
+            </div>
+
+            <div class="hunt-buttons">
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt4ahint1">
+                    Hint 1
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt4ahint2">
+                    Hint 2
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt4ahint3">
+                    Hint 3
+                </button>
+
+                <button type="button"
+                        class="reveal-btn"
+                        data-target="hunt4atarget">
+                    Reveal Target
+                </button>
+
+            </div>
+
+            <div id="hunt4ahint1" class="hint-box">
+                Start in <strong>Article 8.</strong>
+            </div>
+
+            <div id="hunt4ahint2" class="hint-box">
+                Article 8 addresses resident assessments,
+                fundamental services, and rights.
+            </div>
+
+            <div id="hunt4ahint3" class="hint-box">
+                Search within Article 8 for
+                <strong>Personal Rights.</strong>
+            </div>
+
+            <div id="hunt4atarget" class="target-box">
+                Target: the RCFE <strong>Personal Rights</strong>
+                requirements, including §87468 and related personal-rights
+                provisions.
+            </div>
+
+            <label>
+                <strong>
+                    Before restricting this resident, what questions should
+                    the administrator answer?
+                </strong>
+            </label>
+
+            <textarea class="hunt-answer"
+                      id="hunt4aanswer"
+                      placeholder="Resident wishes? Legal authority? Immediate safety concern?..."></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt4afeedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt4afeedback" class="hunt-feedback">
+                Good. Determine the resident's wishes, decision-making
+                status, authority of any representative, safety facts,
+                applicable personal rights, and whether any restriction
+                actually has lawful authority.
+            </div>
+
+        </div>
+
+
+        <!-- REGULATION HUNT 4B -->
+
+        <div class="reg-hunt">
+
+            <span class="hunt-label">
+                Regulation Hunt 4B
+            </span>
+
+            <h3>Dementia Does Not Mean “No Rights”</h3>
+
+            <div class="hunt-question">
+                A resident with dementia repeatedly attempts to leave.
+                Where else might you need to look in Title 22?
+            </div>
+
+            <div class="hunt-buttons">
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt4bhint1">
+                    Hint 1
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt4bhint2">
+                    Hint 2
+                </button>
+
+                <button type="button"
+                        class="reveal-btn"
+                        data-target="hunt4btarget">
+                    Reveal Target
+                </button>
+
+            </div>
+
+            <div id="hunt4bhint1" class="hint-box">
+                Go beyond the general personal-rights rule.
+            </div>
+
+            <div id="hunt4bhint2" class="hint-box">
+                Look for the section on
+                <strong>Care of Persons with Dementia.</strong>
+            </div>
+
+            <div id="hunt4btarget" class="target-box">
+                Target: <strong>§87705 — Care of Persons with Dementia.</strong>
+                Read it together with the personal-rights requirements.
+            </div>
+
+            <textarea class="hunt-answer"
+                      id="hunt4banswer"
+                      placeholder="Why would you need to read both sections together?"></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt4bfeedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt4bfeedback" class="hunt-feedback">
+                Exactly. One regulation may describe dementia-specific
+                safety measures while another protects resident rights.
+                Administrators often have to read multiple sections together.
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- LESSON 5 -->
+    <!-- =====================================================
+         LESSON 5
+    ====================================================== -->
 
     <section class="card" id="lesson5">
 
@@ -507,18 +1115,18 @@
 
         <div class="video-wrap">
             <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=038C28D0-BEE3-C9B5-59B8-6FD0CAB300A8"
+                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=C84BC1CE-257D-055B-6F2E-3A8CEC1C773C"
                 allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                 allowfullscreen>
             </iframe>
         </div>
 
         <p>
-            Documentation should allow another qualified person to understand what
-            happened without needing the writer to explain the event later.
+            Good documentation tells the story without requiring the writer
+            to explain it later.
         </p>
 
-        <h3>Strong documentation identifies:</h3>
+        <h3>Strong documentation usually identifies:</h3>
 
         <ul>
             <li>Date and time</li>
@@ -526,27 +1134,136 @@
             <li>What was directly observed</li>
             <li>What was reported and by whom</li>
             <li>Actions taken</li>
-            <li>Who was notified</li>
+            <li>Notifications made</li>
             <li>Resident response or outcome</li>
             <li>Required follow-up</li>
         </ul>
 
-        <div class="learning-box">
 
-            <strong>Avoid:</strong>
+        <!-- REGULATION HUNT 5A -->
+
+        <div class="reg-hunt">
+
+            <span class="hunt-label">
+                Regulation Hunt 5A
+            </span>
+
+            <h3>Find the Resident-Record Rule</h3>
+
+            <div class="hunt-question">
+                Locate the resident-record section and identify why
+                complete records matter during a Licensing review.
+            </div>
+
+            <div class="hunt-buttons">
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt5ahint1">
+                    Hint 1
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt5ahint2">
+                    Hint 2
+                </button>
+
+                <button type="button"
+                        class="reveal-btn"
+                        data-target="hunt5atarget">
+                    Reveal Target
+                </button>
+
+            </div>
+
+            <div id="hunt5ahint1" class="hint-box">
+                Start in <strong>Article 9 — Resident Records.</strong>
+            </div>
+
+            <div id="hunt5ahint2" class="hint-box">
+                Search for <strong>Resident Records.</strong>
+            </div>
+
+            <div id="hunt5atarget" class="target-box">
+                Target: <strong>§87506 — Resident Records.</strong>
+            </div>
+
+            <label>
+                <strong>
+                    If Licensing reviewed the record tomorrow, what would
+                    they need to understand from your documentation?
+                </strong>
+            </label>
+
+            <textarea class="hunt-answer"
+                      id="hunt5aanswer"
+                      placeholder="Write your answer..."></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt5afeedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt5afeedback" class="hunt-feedback">
+                The record should allow a reviewer to reconstruct what
+                occurred, what the facility knew, what it did, and what
+                follow-up occurred.
+            </div>
+
+        </div>
+
+
+        <!-- REGULATION HUNT 5B -->
+
+        <div class="reg-hunt">
+
+            <span class="hunt-label">
+                Regulation Hunt 5B
+            </span>
+
+            <h3>Fact or Conclusion?</h3>
+
+            <div class="hunt-question">
+                Which statement is stronger documentation?
+            </div>
 
             <p>
-                Changing wording simply to make an event "sound better."
-                Documentation should be accurate, objective, complete, and
-                defensible.
+                <strong>A:</strong>
+                “Resident was aggressive and out of control.”
             </p>
+
+            <p>
+                <strong>B:</strong>
+                “At 2:15 PM resident threw a plastic cup toward the doorway,
+                raised her voice, and stated, ‘Leave me alone.’”
+            </p>
+
+            <textarea class="hunt-answer"
+                      id="hunt5banswer"
+                      placeholder="Choose A or B and explain why..."></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt5bfeedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt5bfeedback" class="hunt-feedback">
+                <strong>B</strong> is stronger because it records observable
+                behavior and the resident's statement rather than replacing
+                the facts with a conclusion.
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- LESSON 6 -->
+    <!-- =====================================================
+         LESSON 6
+    ====================================================== -->
 
     <section class="card" id="lesson6">
 
@@ -554,60 +1271,187 @@
             Lesson 6 of 6
         </div>
 
-        <h2>Complaints and Conflicting Statements</h2>
+        <h2>Administrator Compliance Challenge</h2>
 
         <div class="video-wrap">
             <iframe
-                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=3F220200-7409-F97F-2A8B-F85FE012046E"
+                src="https://player.cloudinary.com/embed/?cloud_name=dxahgk73&public_id=6C465263-6C71-3122-5272-02BEE8B79414"
                 allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                 allowfullscreen>
             </iframe>
         </div>
-
-        <p>
-            Complaints often involve multiple people who remember the same event
-            differently. The administrator's job is not to immediately decide who
-            is telling the truth.
-        </p>
 
         <div class="scenario">
 
             <strong>Scenario:</strong>
 
             <p>
-                A resident reports that a caregiver refused to help her.
+                A resident states that a caregiver refused to help her.
             </p>
 
             <p>
-                The caregiver states that assistance was offered, but the resident
+                The caregiver says assistance was offered but the resident
                 declined.
             </p>
 
             <p>
-                Another staff member reports hearing an argument but did not see
-                how the interaction began.
+                Another employee heard an argument but did not see how
+                the interaction began.
             </p>
 
         </div>
 
-        <h3>What should the administrator do?</h3>
 
-        <ul>
-            <li>Document each person's statement accurately.</li>
-            <li>Identify what can be independently verified.</li>
-            <li>Review relevant records and care-plan information.</li>
-            <li>Determine whether immediate protective action is necessary.</li>
-            <li>Apply applicable requirements to the verified facts.</li>
-            <li>Document findings, actions, notifications, and follow-up.</li>
-        </ul>
+        <!-- REGULATION HUNT 6A -->
+
+        <div class="reg-hunt">
+
+            <span class="hunt-label">
+                Regulation Hunt 6A
+            </span>
+
+            <h3>Build the Regulatory Map</h3>
+
+            <div class="hunt-question">
+                This scenario may require more than one regulation.
+                Which areas of Title 22 would you consider?
+            </div>
+
+            <div class="hunt-buttons">
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt6ahint1">
+                    Hint 1
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt6ahint2">
+                    Hint 2
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt6ahint3">
+                    Hint 3
+                </button>
+
+            </div>
+
+            <div id="hunt6ahint1" class="hint-box">
+                Consider <strong>resident rights.</strong>
+            </div>
+
+            <div id="hunt6ahint2" class="hint-box">
+                Consider <strong>resident records and documentation.</strong>
+            </div>
+
+            <div id="hunt6ahint3" class="hint-box">
+                If the facts show an incident that threatens resident
+                welfare, also examine <strong>reporting requirements.</strong>
+            </div>
+
+            <textarea class="hunt-answer"
+                      id="hunt6aanswer"
+                      placeholder="List the Articles or sections you would check..."></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt6afeedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt6afeedback" class="hunt-feedback">
+                Excellent regulatory thinking. A real event can involve
+                multiple requirements at the same time. The administrator
+                should avoid searching for one isolated rule and assuming
+                the analysis is finished.
+            </div>
+
+        </div>
+
+
+        <!-- REGULATION HUNT 6B -->
+
+        <div class="reg-hunt">
+
+            <span class="hunt-label">
+                Final Regulation Hunt
+            </span>
+
+            <h3>Does This Need to Be Reported?</h3>
+
+            <div class="hunt-question">
+                Do not guess. Go back to the reporting requirements and
+                determine whether the verified facts fit a reportable category.
+            </div>
+
+            <div class="hunt-buttons">
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt6bhint1">
+                    Hint 1
+                </button>
+
+                <button type="button"
+                        class="hint-btn"
+                        data-target="hunt6bhint2">
+                    Hint 2
+                </button>
+
+                <button type="button"
+                        class="reveal-btn"
+                        data-target="hunt6btarget">
+                    Reveal Target
+                </button>
+
+            </div>
+
+            <div id="hunt6bhint1" class="hint-box">
+                Go back to <strong>Article 4.</strong>
+            </div>
+
+            <div id="hunt6bhint2" class="hint-box">
+                Find <strong>Reporting Requirements.</strong>
+            </div>
+
+            <div id="hunt6btarget" class="target-box">
+                Target: <strong>§87211 — Reporting Requirements.</strong>
+                Compare the verified event with the categories and timing
+                requirements in the regulation.
+            </div>
+
+            <textarea class="hunt-answer"
+                      id="hunt6banswer"
+                      placeholder="What facts would you need before deciding whether this event is reportable?"></textarea>
+
+            <button type="button"
+                    class="check-hunt-btn"
+                    data-feedback="hunt6bfeedback">
+                Check My Hunt
+            </button>
+
+            <div id="hunt6bfeedback" class="hunt-feedback">
+                Correct. First establish what actually happened. Then compare
+                the verified facts with the regulatory reporting criteria and
+                timing requirements. Do not decide based only on the label
+                someone placed on the incident.
+            </div>
+
+        </div>
+
 
         <div class="decision">
 
-            <strong>Best Response:</strong>
+            <strong>The Administrator's Compliance Formula:</strong>
 
             <p>
-                Preserve the facts first. Do not rewrite conflicting statements
-                into one convenient version of the event.
+                <strong>
+                    FACTS → AUTHORITY → APPLICATION → ACTION →
+                    DOCUMENTATION → FOLLOW-UP
+                </strong>
             </p>
 
         </div>
@@ -615,7 +1459,9 @@
     </section>
 
 
-    <!-- KNOWLEDGE CHECK -->
+    <!-- =====================================================
+         KNOWLEDGE CHECK
+    ====================================================== -->
 
     <section class="card" id="quiz">
 
@@ -626,21 +1472,22 @@
         <h2>Check Your Understanding</h2>
 
         <p>
-            Select the best answer for each question.
+            Choose the best answer for each question.
         </p>
 
         <form id="module2Quiz">
 
+
             <div class="quiz-question">
 
                 <p>
-                    1. What should an administrator do first when investigating a
-                    possible compliance issue?
+                    1. What is the strongest first step when an administrator
+                    receives a possible compliance concern?
                 </p>
 
                 <label>
                     <input type="radio" name="q1" value="a">
-                    Decide who is responsible.
+                    Decide which employee caused the problem.
                 </label>
 
                 <label>
@@ -650,12 +1497,12 @@
 
                 <label>
                     <input type="radio" name="q1" value="c">
-                    Correct the documentation before reviewing it.
+                    Rewrite the documentation.
                 </label>
 
                 <label>
                     <input type="radio" name="q1" value="d">
-                    Wait to see whether anyone complains again.
+                    Wait until Licensing asks.
                 </label>
 
             </div>
@@ -664,18 +1511,18 @@
             <div class="quiz-question">
 
                 <p>
-                    2. A family reports that a call light went unanswered for one
-                    hour. What is the best next step?
+                    2. A family reports that a call light was unanswered
+                    for one hour. What is the best response?
                 </p>
 
                 <label>
                     <input type="radio" name="q2" value="a">
-                    Accept the one-hour timeline as established fact.
+                    Treat the one-hour timeline as an established fact.
                 </label>
 
                 <label>
                     <input type="radio" name="q2" value="b">
-                    Tell the family the caregiver probably forgot.
+                    Discipline the caregiver immediately.
                 </label>
 
                 <label>
@@ -685,7 +1532,7 @@
 
                 <label>
                     <input type="radio" name="q2" value="d">
-                    Remove the caregiver from the schedule immediately.
+                    Ignore the complaint unless it happens again.
                 </label>
 
             </div>
@@ -694,28 +1541,28 @@
             <div class="quiz-question">
 
                 <p>
-                    3. A staff member says, "Licensing told me years ago that this
-                    was allowed." What should the administrator do?
+                    3. Why are words such as “shall,” “within,” and
+                    “immediately” important?
                 </p>
 
                 <label>
                     <input type="radio" name="q3" value="a">
-                    Continue the practice because Licensing previously approved it.
+                    They are optional suggestions.
                 </label>
 
                 <label>
                     <input type="radio" name="q3" value="b">
-                    Verify the current applicable authority.
+                    They can define duties, conditions, or deadlines.
                 </label>
 
                 <label>
                     <input type="radio" name="q3" value="c">
-                    Ask another caregiver what they remember.
+                    They only matter during a Licensing visit.
                 </label>
 
                 <label>
                     <input type="radio" name="q3" value="d">
-                    Ignore the issue unless Licensing visits.
+                    They can be ignored if the facility has a policy.
                 </label>
 
             </div>
@@ -724,13 +1571,13 @@
             <div class="quiz-question">
 
                 <p>
-                    4. A family requests a restriction on a resident's ability to
-                    leave the facility. What should the administrator do?
+                    4. A family asks the facility to restrict a resident's
+                    ability to leave. What should the administrator do?
                 </p>
 
                 <label>
                     <input type="radio" name="q4" value="a">
-                    Implement any restriction requested by the family.
+                    Automatically follow the family's request.
                 </label>
 
                 <label>
@@ -740,13 +1587,13 @@
 
                 <label>
                     <input type="radio" name="q4" value="c">
-                    Determine the facts, legal authority, safety concerns, and
-                    applicable resident-rights requirements.
+                    Review the facts, resident rights, legal authority,
+                    safety issues, and applicable regulations.
                 </label>
 
                 <label>
                     <input type="radio" name="q4" value="d">
-                    Let individual caregivers decide.
+                    Let each caregiver decide.
                 </label>
 
             </div>
@@ -755,28 +1602,28 @@
             <div class="quiz-question">
 
                 <p>
-                    5. Which documentation practice is most defensible?
+                    5. Which documentation is most defensible?
                 </p>
 
                 <label>
                     <input type="radio" name="q5" value="a">
-                    Record objective facts, reports, actions, notifications, and
-                    follow-up.
+                    Objective observations, statements, actions,
+                    notifications, and follow-up.
                 </label>
 
                 <label>
                     <input type="radio" name="q5" value="b">
-                    Remove details that make the facility look bad.
+                    A short conclusion with negative details removed.
                 </label>
 
                 <label>
                     <input type="radio" name="q5" value="c">
-                    Document only the administrator's conclusion.
+                    Only the administrator's opinion.
                 </label>
 
                 <label>
                     <input type="radio" name="q5" value="d">
-                    Wait several days so emotions have settled.
+                    Documentation completed several days later from memory.
                 </label>
 
             </div>
@@ -785,34 +1632,96 @@
             <div class="quiz-question">
 
                 <p>
-                    6. Two people give different accounts of the same complaint.
-                    What is the best administrator response?
+                    6. Two witnesses provide conflicting accounts.
+                    What should the administrator do?
                 </p>
 
                 <label>
                     <input type="radio" name="q6" value="a">
-                    Choose the account from the employee with the most experience.
+                    Believe the employee with the most seniority.
                 </label>
 
                 <label>
                     <input type="radio" name="q6" value="b">
-                    Combine both stories into one version.
+                    Combine both statements into one version.
                 </label>
 
                 <label>
                     <input type="radio" name="q6" value="c">
-                    Preserve each statement and determine what can be verified.
+                    Preserve both accounts and determine what can
+                    independently be verified.
                 </label>
 
                 <label>
                     <input type="radio" name="q6" value="d">
-                    Close the complaint because the accounts conflict.
+                    Close the investigation because the stories conflict.
                 </label>
 
             </div>
 
 
-            <button type="button" onclick="gradeQuiz()">
+            <div class="quiz-question">
+
+                <p>
+                    7. Where should an RCFE administrator begin when
+                    researching a reportable incident?
+                </p>
+
+                <label>
+                    <input type="radio" name="q7" value="a">
+                    §87211 — Reporting Requirements
+                </label>
+
+                <label>
+                    <input type="radio" name="q7" value="b">
+                    The employee handbook
+                </label>
+
+                <label>
+                    <input type="radio" name="q7" value="c">
+                    A social-media post
+                </label>
+
+                <label>
+                    <input type="radio" name="q7" value="d">
+                    A former administrator's memory
+                </label>
+
+            </div>
+
+
+            <div class="quiz-question">
+
+                <p>
+                    8. What is the purpose of a Regulation Hunt?
+                </p>
+
+                <label>
+                    <input type="radio" name="q8" value="a">
+                    Memorize every Title 22 section number.
+                </label>
+
+                <label>
+                    <input type="radio" name="q8" value="b">
+                    Practice finding and applying regulatory authority.
+                </label>
+
+                <label>
+                    <input type="radio" name="q8" value="c">
+                    Avoid reading the actual regulation.
+                </label>
+
+                <label>
+                    <input type="radio" name="q8" value="d">
+                    Replace facility investigation.
+                </label>
+
+            </div>
+
+
+            <button type="button"
+                    class="main-btn"
+                    id="submitQuiz">
                 Submit Knowledge Check
             </button>
 
@@ -823,21 +1732,28 @@
     </section>
 
 
-    <!-- COMPLETION -->
+    <!-- =====================================================
+         COMPLETION
+    ====================================================== -->
 
     <section class="card completion">
 
         <h2>Module 2 Complete</h2>
 
         <p>
-            You have reviewed how RCFE administrators can use regulations as a
-            practical decision-making tool.
+            You have practiced more than identifying regulations.
+            You have practiced <strong>finding, reading, interpreting,
+            and applying</strong> them.
         </p>
 
         <p>
-            The goal is not simply to know a rule. The goal is to make a
-            defensible decision based on facts, current authority, resident rights,
-            appropriate action, and accurate documentation.
+            Remember:
+        </p>
+
+        <p>
+            <strong>
+                Do not guess. Do not rely on memory. Hunt for the authority.
+            </strong>
         </p>
 
         <a href="/student">
@@ -856,77 +1772,159 @@
 
 <script>
 
-function gradeQuiz() {
+    /* =====================================================
+       REGULATION HINT BUTTONS
+    ====================================================== */
 
-    const answers = {
-        q1: "b",
-        q2: "c",
-        q3: "b",
-        q4: "c",
-        q5: "a",
-        q6: "c"
-    };
+    document.querySelectorAll(".hint-btn, .reveal-btn")
+        .forEach(function(button) {
 
-    let score = 0;
-    let answered = 0;
+            button.addEventListener("click", function() {
 
-    for (const question in answers) {
+                const targetId = button.getAttribute("data-target");
 
-        const selected = document.querySelector(
-            'input[name="' + question + '"]:checked'
-        );
+                const target = document.getElementById(targetId);
 
-        if (selected) {
-            answered++;
+                if (!target) {
+                    return;
+                }
 
-            if (selected.value === answers[question]) {
-                score++;
+                if (target.style.display === "block") {
+                    target.style.display = "none";
+                } else {
+                    target.style.display = "block";
+                }
+
+            });
+
+        });
+
+
+    /* =====================================================
+       REGULATION HUNT FEEDBACK
+    ====================================================== */
+
+    document.querySelectorAll(".check-hunt-btn")
+        .forEach(function(button) {
+
+            button.addEventListener("click", function() {
+
+                const feedbackId =
+                    button.getAttribute("data-feedback");
+
+                const feedback =
+                    document.getElementById(feedbackId);
+
+                if (!feedback) {
+                    return;
+                }
+
+                feedback.style.display = "block";
+
+                feedback.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest"
+                });
+
+            });
+
+        });
+
+
+    /* =====================================================
+       KNOWLEDGE CHECK
+    ====================================================== */
+
+    document.getElementById("submitQuiz")
+        .addEventListener("click", gradeQuiz);
+
+
+    function gradeQuiz() {
+
+        const answers = {
+            q1: "b",
+            q2: "c",
+            q3: "b",
+            q4: "c",
+            q5: "a",
+            q6: "c",
+            q7: "a",
+            q8: "b"
+        };
+
+        let score = 0;
+        let answered = 0;
+
+        for (const question in answers) {
+
+            const selected =
+                document.querySelector(
+                    'input[name="' +
+                    question +
+                    '"]:checked'
+                );
+
+            if (selected) {
+
+                answered++;
+
+                if (selected.value === answers[question]) {
+                    score++;
+                }
+
             }
         }
+
+        const result =
+            document.getElementById("quizResult");
+
+        result.style.display = "block";
+
+        if (answered < 8) {
+
+            result.className = "fail";
+
+            result.innerHTML =
+                "Please answer all 8 questions before submitting.";
+
+            return;
+
+        }
+
+        const percent =
+            Math.round((score / 8) * 100);
+
+
+        if (percent >= 80) {
+
+            result.className = "pass";
+
+            result.innerHTML =
+                "Passed! You scored " +
+                score +
+                " out of 8 (" +
+                percent +
+                "%). Excellent work using Title 22 as a decision-making tool.";
+
+        } else {
+
+            result.className = "fail";
+
+            result.innerHTML =
+                "You scored " +
+                score +
+                " out of 8 (" +
+                percent +
+                "%). Review the lessons and Regulation Hunts, then try again.";
+
+        }
+
     }
-
-    const result = document.getElementById("quizResult");
-
-    result.style.display = "block";
-
-    if (answered < 6) {
-
-        result.className = "fail";
-
-        result.innerHTML =
-            "Please answer all 6 questions before submitting.";
-
-        return;
-    }
-
-    const percent = Math.round((score / 6) * 100);
-
-    if (percent >= 80) {
-
-        result.className = "pass";
-
-        result.innerHTML =
-            "Passed! You scored " +
-            score +
-            " out of 6 (" +
-            percent +
-            "%).";
-
-    } else {
-
-        result.className = "fail";
-
-        result.innerHTML =
-            "You scored " +
-            score +
-            " out of 6 (" +
-            percent +
-            "%). Review the lessons and try again.";
-
-    }
-}
 
 </script>
 
+
 </body>
 </html>
+
+        

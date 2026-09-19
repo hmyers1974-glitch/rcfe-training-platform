@@ -1,15 +1,5 @@
 [
   {
-    "id": 1,
-    "title": "Resident Down",
-    "core": "Emergency response, resident assessment, and appropriate action after a fall.",
-    "minutes": 60,
-    "quiz": {
-      "answer": 0,
-      "why": "Assess the resident for injuries before attempting to move them."
-    }
-  },
-  {
     "id": 2,
     "title": "Title 22: Read It. Interpret It. Apply It.",
     "core": "Regulatory interpretation, administrator judgment, resident rights, documentation, and defensible compliance decisions.",
@@ -17,6 +7,16 @@
     "quiz": {
       "answer": 3,
       "why": "Strong administrators identify the issue, gather the facts, verify the authority, apply it to the facts, and document the decision."
+    }
+  },
+  {
+    "id": 1,
+    "title": "Resident Down",
+    "core": "Emergency response, resident assessment, and appropriate action after a fall.",
+    "minutes": 60,
+    "quiz": {
+      "answer": 0,
+      "why": "Assess the resident for injuries before attempting to move them."
     }
   },
   {
